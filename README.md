@@ -1,8 +1,7 @@
-Deeds
-
+# Project Instruction
 ## environment setup — 2021-01-14
 
-    ```bash
+```bash
     #install php
     brew install php
 
@@ -101,13 +100,13 @@ Deeds
     #check that the sdk is downloaded
     ls $HOME/.composer/vendor/bin
     ctp-tlscheck.php        laravel #it is downloaded
-    ```
+```
 
-## create laravel project and first commit to git — 2021-01-14
+## create laravel project and first commit to git — 2021-01-14 -- van only
 
     [Build an e-commerce application using Laravel and Vue - Part 1: Application Setup](https://blog.pusher.com/ecommerce-laravel-vue-part-1/)
 
-    ```bash
+```bash
     #create laravel project
     laravel new GroupBuy_CSIT321
 
@@ -149,4 +148,4 @@ Deeds
     git push
 
     #now all local changes exists in feature_base remote branch
-    ```
+```
