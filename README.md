@@ -1,66 +1,168 @@
-<<<<<<< HEAD
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Project Instruction
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## environment setup — 2021-01-14
+```bash
+    #install php
+    brew install php
 
-## About Laravel
+    #start php service
+    brew services start php
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+    #check requirements: -> done
+    php -m
+    [PHP Modules]
+    bcmath #required
+    bz2
+    calendar
+    Core
+    ctype #required
+    curl
+    date
+    dba
+    dom
+    exif
+    fileinfo #required
+    filter
+    ftp
+    gd
+    hash
+    iconv
+    json #required
+    ldap
+    libxml
+    mbstring #required
+    mysqli
+    mysqlnd
+    openssl #required
+    pcre
+    PDO #required
+    pdo_mysql
+    pdo_sqlite
+    Phar
+    posix
+    readline
+    Reflection
+    session
+    shmop
+    SimpleXML
+    snmp
+    soap
+    sockets
+    SPL
+    sqlite3
+    standard
+    sysvmsg
+    sysvsem
+    sysvshm
+    tidy
+    tokenizer #required
+    wddx
+    xml #required
+    xmlreader
+    xmlrpc
+    xmlwriter
+    xsl
+    zlib
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+    [Zend Modules]
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+    #cd to Downloads folder to download composer
+    cd Downloads
 
-## Learning Laravel
+    #download and installing composer
+    php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+    php -r "if (hash_file('sha384', 'composer-setup.php') === '756890a4488ce9024fc62c56153228907f1545c228516cbf63f885e036d37e9a59d27d63f46af1d4d07ee0f76181c7d3') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+    php composer-setup.php
+    php -r "unlink('composer-setup.php');"
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+    #move composer to PATH directory
+    mv composer.phar /usr/local/bin/composer
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+    #add composer bin to PATH
+    cd ~
+    vim .zshrc
+    		#add line
+    		export PATH=~/.composer/vendor/bin:$PATH
 
-## Laravel Sponsors
+    #apply updated .zshrc
+    source .zshrc
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+    #download laravel using composer
+    composer global require laravel/installer
 
-### Premium Partners
+    #check that laravel is downloaded
+    ls $HOME/.composer/vendor/bin
+    laravel #it is downloaded
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/)**
-- **[OP.GG](https://op.gg)**
+    #download commercetools php sdk using composer
+    composer global require commercetools/php-sdk
 
-## Contributing
+    #check that the sdk is downloaded
+    ls $HOME/.composer/vendor/bin
+    ctp-tlscheck.php        laravel #it is downloaded
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## create laravel project and first commit to git — 2021-01-14 -- van only
+Build an e-commerce application using Laravel and Vue - Part 1: Application Setup [https://blog.pusher.com/ecommerce-laravel-vue-part-1/]
 
-## Code of Conduct
+```bash
+    #create laravel project
+    laravel new GroupBuy_CSIT321
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+    #navigate to created project (it is located at ~/GroupBuy_CSIT321
+    cd GroupBuy_CSIT321
 
-## Security Vulnerabilities
+    #setup git in local
+    git init
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+    #add all files in folder to git
+    git add . 
 
-## License
+    #create git commit
+    git commit -m 'laravel project created'
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-=======
-# GroupBuy-CSIT321
->>>>>>> f976ca9f3cef1d3e4c3edc2d26722302cf143b69
+    #connect to github
+    git remote add origin https://github.com/vptcoder/GroupBuy-CSIT321.git
+
+    #create local feature branch
+    git checkout -b feature_base
+
+    #check existing local branches
+    git branch
+
+    #switch local branch
+    git checkout feature_base
+
+    #track local branch to remote branch -- IMPORTANT(1): link them together
+    git branch --set-upstream-to=origin/feature_base feature_base
+
+    #commit again to make local latest version
+    git add .
+    git commit -m 'make latest'
+
+    #pull to sync local and remote
+    git pull --allow-unrelated-histories
+
+    #push to remote -- IMPORTANT(2): do (1) so that when you push here there's no need to state local branch and remote branch
+    git push
+
+    #now all local changes exists in feature_base remote branch
+```
+
+## git setup and pull on Windows
+```
+
+```
+
+## git setup and pull on Mac
+
+## standard procedure  of every development session
+```bash
+    #1. get latest
+    
+    #2. do your developement work
+    
+    #3. get latest
+    git pull
+    #4. push your work to github
+```
