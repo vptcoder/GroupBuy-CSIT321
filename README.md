@@ -1,6 +1,6 @@
 # Project Instruction
-## environment setup — 2021-01-14
 
+## environment setup — 2021-01-14
 ```bash
     #install php
     brew install php
@@ -103,8 +103,7 @@
 ```
 
 ## create laravel project and first commit to git — 2021-01-14 -- van only
-
-    [Build an e-commerce application using Laravel and Vue - Part 1: Application Setup](https://blog.pusher.com/ecommerce-laravel-vue-part-1/)
+Build an e-commerce application using Laravel and Vue - Part 1: Application Setup [https://blog.pusher.com/ecommerce-laravel-vue-part-1/]
 
 ```bash
     #create laravel project
@@ -134,7 +133,7 @@
     #switch local branch
     git checkout feature_base
 
-    #track local branch to remote branch
+    #track local branch to remote branch -- IMPORTANT(1): link them together
     git branch --set-upstream-to=origin/feature_base feature_base
 
     #commit again to make local latest version
@@ -144,8 +143,26 @@
     #pull to sync local and remote
     git pull --allow-unrelated-histories
 
-    #push to remote
+    #push to remote -- IMPORTANT(2): do (1) so that when you push here there's no need to state local branch and remote branch
     git push
 
     #now all local changes exists in feature_base remote branch
+```
+
+## git setup and pull on Windows
+```
+
+```
+
+## git setup and pull on Mac
+
+## standard procedure  of every development session
+```bash
+    #1. get latest
+    
+    #2. do your developement work
+    
+    #3. get latest
+    git pull
+    #4. push your work to github
 ```
