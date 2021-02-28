@@ -151,7 +151,7 @@ Build an e-commerce application using Laravel and Vue - Part 1: Application Setu
 
 ## git setup and pull on Windows
 ```
-
+    yolo only
 ```
 
 ## git setup and pull on Mac
