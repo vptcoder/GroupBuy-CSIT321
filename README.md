@@ -1,6 +1,7 @@
 # Project Instruction
 
 ## environment setup — 2021-01-14
+### part 1 - laravel requirements
 ```bash
     #install php
     brew install php
@@ -100,6 +101,24 @@
     #check that the sdk is downloaded
     ls $HOME/.composer/vendor/bin
     ctp-tlscheck.php        laravel #it is downloaded
+```
+### part 2 - npm requirements
+```bash
+    #installing npm (THIS IS BIG)
+    brew install npm
+
+    sudo vim ~/.zshrc 
+        #add the following line
+        export PATH=/opt/homebrew/Cellar/node/15.10.0_1/bin/node:$PATH
+
+    #apply updated .zshrc
+    source ~/.zshrc
+
+    #install vue-router using npm
+    npm install vue-router
+
+    #install vue
+    npm install vue
 ```
 
 ## create laravel project and first commit to git — 2021-01-14 -- van only
