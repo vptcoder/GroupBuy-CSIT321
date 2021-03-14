@@ -170,7 +170,17 @@ Build an e-commerce application using Laravel and Vue - Part 1: Application Setu
 
 ## git setup and pull on Windows
 ```
-    yolo only
+    Clone the project using assigned  branch
+    
+    #make sure all requirements are installed
+    npm install laravel-mix@latest --save-dev
+    composer update --no-scripts
+
+    #compile the app
+    npm run prod
+    
+    #publish the app
+    php artisan server
 ```
 
 ## git setup and pull on Mac
