@@ -1,7 +1,7 @@
 # Project Instruction
 
 ## environment setup — 2021-01-14
-### part 1 - laravel requirements
+### part 1 (macs) - laravel requirements
 ```bash
     #install php
     brew install php
@@ -9,6 +9,105 @@
     #start php service
     brew services start php
 
+    #check requirements: -> done
+    php -m
+    [PHP Modules]
+    bcmath #required
+    bz2
+    calendar
+    Core
+    ctype #required
+    curl
+    date
+    dba
+    dom
+    exif
+    fileinfo #required
+    filter
+    ftp
+    gd
+    hash
+    iconv
+    json #required
+    ldap
+    libxml
+    mbstring #required
+    mysqli
+    mysqlnd
+    openssl #required
+    pcre
+    PDO #required
+    pdo_mysql
+    pdo_sqlite
+    Phar
+    posix
+    readline
+    Reflection
+    session
+    shmop
+    SimpleXML
+    snmp
+    soap
+    sockets
+    SPL
+    sqlite3
+    standard
+    sysvmsg
+    sysvsem
+    sysvshm
+    tidy
+    tokenizer #required
+    wddx
+    xml #required
+    xmlreader
+    xmlrpc
+    xmlwriter
+    xsl
+    zlib
+
+    [Zend Modules]
+
+    #cd to Downloads folder to download composer
+    cd Downloads
+
+    #download and installing composer
+    php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+    php -r "if (hash_file('sha384', 'composer-setup.php') === '756890a4488ce9024fc62c56153228907f1545c228516cbf63f885e036d37e9a59d27d63f46af1d4d07ee0f76181c7d3') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+    php composer-setup.php
+    php -r "unlink('composer-setup.php');"
+
+    #move composer to PATH directory
+    mv composer.phar /usr/local/bin/composer
+
+    #add composer bin to PATH
+    cd ~
+    vim .zshrc
+    		#add line
+    		export PATH=~/.composer/vendor/bin:$PATH
+
+    #apply updated .zshrc
+    source .zshrc
+
+    #download laravel using composer
+    composer global require laravel/installer
+
+    #check that laravel is downloaded
+    ls $HOME/.composer/vendor/bin
+    laravel #it is downloaded
+
+    #download commercetools php sdk using composer
+    composer global require commercetools/php-sdk
+
+    #check that the sdk is downloaded
+    ls $HOME/.composer/vendor/bin
+    ctp-tlscheck.php        laravel #it is downloaded
+```
+
+### part 1 (windows) - laravel requirements
+```bash
+    #install wamp
+    sourceforge.net/projects/wampserver/postdownload
+    
     #check requirements: -> done
     php -m
     [PHP Modules]
