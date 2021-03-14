@@ -175,6 +175,15 @@ Build an e-commerce application using Laravel and Vue - Part 1: Application Setu
     #make sure all requirements are installed
     npm install laravel-mix@latest --save-dev
     composer update --no-scripts
+    
+    #edit .env file to your own environment
+    #if you use windows, rename the following file and edit  DB_DATABASE to your own path
+    .env.windows -> .env
+    #if you use windows, rename the following file and edit  DB_DATABASE to your own path
+    .env.macs -> .env
+    
+    #in terminal/cmd, do
+    php artisan key:generate
 
     #compile the app
     npm run prod
