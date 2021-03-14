@@ -107,6 +107,7 @@
 ```bash
     #install wamp
     sourceforge.net/projects/wampserver/postdownload
+    Install and choose default options
     
     #check requirements: -> done
     php -m
@@ -165,27 +166,10 @@
     zlib
 
     [Zend Modules]
-
-    #cd to Downloads folder to download composer
-    cd Downloads
-
-    #download and installing composer
-    php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-    php -r "if (hash_file('sha384', 'composer-setup.php') === '756890a4488ce9024fc62c56153228907f1545c228516cbf63f885e036d37e9a59d27d63f46af1d4d07ee0f76181c7d3') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
-    php composer-setup.php
-    php -r "unlink('composer-setup.php');"
-
-    #move composer to PATH directory
-    mv composer.phar /usr/local/bin/composer
-
-    #add composer bin to PATH
-    cd ~
-    vim .zshrc
-    		#add line
-    		export PATH=~/.composer/vendor/bin:$PATH
-
-    #apply updated .zshrc
-    source .zshrc
+    
+    #install composer
+    https://getcomposer.org/doc/00-intro.md
+    Download and run Composer-Setup.exe
 
     #download laravel using composer
     composer global require laravel/installer
@@ -194,14 +178,9 @@
     ls $HOME/.composer/vendor/bin
     laravel #it is downloaded
 
-    #download commercetools php sdk using composer
-    composer global require commercetools/php-sdk
-
-    #check that the sdk is downloaded
-    ls $HOME/.composer/vendor/bin
-    ctp-tlscheck.php        laravel #it is downloaded
 ```
-### part 2 - npm requirements
+
+### part 2 (macs) - npm requirements
 ```bash
     #installing npm (THIS IS BIG)
     brew install npm
@@ -212,6 +191,19 @@
 
     #apply updated .zshrc
     source ~/.zshrc
+
+    #install vue-router using npm
+    npm install vue-router
+
+    #install vue
+    npm install vue
+```
+
+### part 2 (windows) - npm requirements
+```bash
+    #installing npm (THIS IS BIG)
+    https://www.npmjs.com/get-npm
+    Download and install .msi
 
     #install vue-router using npm
     npm install vue-router
