@@ -259,7 +259,7 @@ Build an e-commerce application using Laravel and Vue - Part 1: Application Setu
     #now all local changes exists in feature_base remote branch
 ```
 
-## git setup and pull on Windows
+## git setup and pull
 ```
     Clone the project using assigned  branch
     
@@ -284,15 +284,50 @@ Build an e-commerce application using Laravel and Vue - Part 1: Application Setu
     php artisan server
 ```
 
-## git setup and pull on Mac
-
-## standard procedure  of every development session
+# GIT STANDARD OPERATING PROCEDURES
+## standard procedure of every development session
 ```bash
-    #1. get latest
-    
-    #2. do your developement work
-    
-    #3. get latest
+    #1. get latest before starting to code
     git pull
-    #4. push your work to github
+    
+    #2. do code code code
+    code code code
+    
+    #3. get latest before submitting your changes
+    git pull
+    
+    #4. push your work to github (git stage is same as git add)
+    git stage <file with changes that you want to submit> #if you want to submit individual file that's changed
+    git stage all #if you want to submit everything that's changed
+    
+    git commit -m "your submissing message" #this will prepare a submission in your local laptop
+    git push #this will push all your prepared submissions (commits) to github server.
+    
+    
+```
+
+## example diagram of git process
+```base
+Time  Local     Server-feature    Server-master     Explainations
+ |      1 <---pull--- 1 - - - - - - - - 1           dev-1 make sure local files are up-to-date with server files, everything is on version 1
+ |      |
+ |     code                                         dev-1 update 10 files
+ |      |
+ |     stage                                        dev-1 choose 3 files to submit
+ |      |
+ |     commit                                       dev-1 make those 3 files become official -> version 2
+ |      |
+ |      2-----push--> 2                             dev-1 submit version 2 to server for approval 
+ |                    |
+ |                  verify                          dev-2 make sure the version 2 is good
+ |                    |
+ |            create pull request                   dev-2 ask user-3 to apply version 2 to the master branch 
+ |                    |
+ |                    2-----merge-----> 2           dev-3 applies version 2 to the master branch
+ |                                      |
+ |                                    deploy        dev-3 deploys the updated master branch
+ |                                      |
+ |                                 --the end--      users can now see use the app v2.0
+ |                          
+ V   
 ```
