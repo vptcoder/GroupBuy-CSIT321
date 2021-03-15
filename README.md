@@ -264,6 +264,7 @@ Build an e-commerce application using Laravel and Vue - Part 1: Application Setu
     Clone the project using assigned  branch
     
     #make sure all requirements are installed
+    cd <your project folder>
     npm install laravel-mix@latest --save-dev
     composer update --no-scripts
     
