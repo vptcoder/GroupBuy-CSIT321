@@ -1,7 +1,8 @@
 <template>
+<!-- NOTES: This file is for home page -->
     <div>
         <div class="container-fluid hero-section d-flex align-content-center justify-content-center flex-wrap ml-auto">
-            <h2 class="title">Welcome to the bigStore</h2>
+            <h2 class="title">Welcome to G-BUY</h2>
         </div>
         <div class="container">
             <div class="row">
