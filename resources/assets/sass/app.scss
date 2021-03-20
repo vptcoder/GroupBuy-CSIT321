@@ -1,9 +1,9 @@
 
 // Fonts
-@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+@import url("https://fonts.googleapis.com/css?family=Montserrat");
 
 // Variables
-@import "variables";
+// @import "variables";
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
@@ -11,4 +11,52 @@
 .navbar-laravel {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+.title, .navbar-brand, *  {
+  font-family: "Montserrat";
+}
+
+.unun {
+  background-color: darkgray;
+  color: red !important;
+  display: none;
+}
+
+.navbar {
+position: fixed;
+width: 100%;
+justify-content:center;
+z-index: 999;
+height: 6rem;
+}
+
+.newcontainer{
+  display: grid;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  grid-template-rows: 1fr 1fr;
+  grid-auto-columns: 1fr 200px;
+  
+}
+.navbar-brand{
+  text-align: center;
+}
+
+input.navbar-search {
+  height: 35px;
+  font-size: 14px;
+  background-image: url(https://cdn2.hubspot.net/hubfs/4004166/bioticresearch_website_assets/images/search_icon.png);
+  background-repeat: no-repeat;
+  background-position: left center;
+  background-size: 31px;
+  padding-left: 40px;
+  background-color: #fff;
+  border: 1px solid #000;
+  box-shadow: none;
+  -webkit-appearance: none;
+}
+
+.pt-4, .py-4 {
+  padding-top: 6rem!important;
 }
