@@ -1,43 +1,50 @@
+===========
+# DB Architecture
+## Product table
+- _id_
+- 'name'
+- 'price'
+- 'units'
+- 'description'
+- 'image'
+- 'minimum orders'
+- 'maximum orders'
+> link by id to GroupBuy table
+> link by id to Watching table
+> link by id to Token table
 
-### Product table
---id
-, 'name'
-, 'price'
-, 'units'
-, 'description'
-, 'image'
-, 'minimum orders'
-, 'maximum orders'
+## Watchlist table
 
-- link by id to GroupBuy table
-- link by id to Watching table
-- link by id to Token table
+## Token table
 
-### GroupBuy table
+## GroupBuy table
 _Created when someone starts a groupbuy of a product_
+- _id_
+- 'date start'
+- 'date end'
+- 'required orders'
+- 'current orders'
+- 'started by'
+- 'success date'
 
---id
-, 'date start'
-, 'date end'
-, 'required orders'
-, 'current orders'
-, 'started by'
-, 'success date'
+## Order table
+- _id_
+- 'order by user id'
+- 'order product id'
+- 'order groupbuy id'
+- 'order status' : 'in groupbuy', 'groupbuy failed', 'processing', 'shipping', 'fulfilled'
+- 'order date'
+- 'order fulfilled date'
 
-*Page* Home screen
-|
-|
-|
-|
+## User Payment table
+- _id_
+- 'payment order id'
+- 'payment date'
+- 'payment status'
+- 'payment amount'
+- 
 
-*Page* Product Management 
-- Create
-- Retrieve
-- Update
-- Delete
--> Show up in Home Page and Catelog
-
-====
+===========
 # Modules
 ## User
 _Product Management_
