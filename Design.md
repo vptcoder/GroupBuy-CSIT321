@@ -42,7 +42,7 @@ _Created when someone starts a groupbuy of a product_
 - 'payment date'
 - 'payment status'
 - 'payment amount'
-- 
+- 'payment status'
 
 ===========
 # Modules
