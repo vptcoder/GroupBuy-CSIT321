@@ -1,6 +1,7 @@
-===========
-# DB Architecture
+=========== 
+# DB Architecture :rocket
 ## Product table
+[]
 - _id_
 - 'name'
 - 'price'
@@ -14,11 +15,12 @@
 > link by id to Token table
 
 ## Watchlist table
-
+[]
 ## Token table
-
+[]
 ## GroupBuy table
-_Created when someone starts a groupbuy of a product_
+[]
+> Created when someone starts a groupbuy of a product
 - _id_
 - 'date start'
 - 'date end'
@@ -28,6 +30,7 @@ _Created when someone starts a groupbuy of a product_
 - 'success date'
 
 ## Order table
+[]
 - _id_
 - 'order by user id'
 - 'order product id'
@@ -37,12 +40,22 @@ _Created when someone starts a groupbuy of a product_
 - 'order fulfilled date'
 
 ## User Payment table
+[]
 - _id_
 - 'payment order id'
 - 'payment date'
 - 'payment status'
 - 'payment amount'
-- 'payment status'
+- 'payment commission' : (5% of 'payment amount')
+- 'payment merchant payout' : ('payment amount' - 'payment commission')
+- 'payment gateway' : 'stripe'
+- []
+
+## Merchant Payment table
+[]
+> created when groupbuy is successful, all user payments' _'payment merchant payout'_ is __summed__ into 1 record in this table. 
+- _id_
+- 
 
 ===========
 # Modules
