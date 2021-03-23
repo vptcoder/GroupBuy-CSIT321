@@ -2,9 +2,27 @@
 <!-- NOTES: This file is for navigation bar code. -->
 	<div>
 		<nav class="navbar navbar-expand-md navbar-light navbar-laravel">
-			<div class="newcontainer">
+			<div class="topnavcontainer">
 				<router-link :to="{name: 'home'}" class="navbar-brand">G-BUY</router-link>
 				<input type="text" class="form-control navbar-search" name="Search" placeholder="Search">
+
+			</div>
+		</nav>
+		<nav class="navbarbot navbar-expand-md navbar-light navbar-laravel">
+			<div class="botnavcontainer">
+				<div class="botnav-button">
+					<input type="submit" class="button-home"/>
+
+				</div>
+				<div class="botnav-button button-watch">
+
+				</div>
+				<div class="botnav-button button-notification">
+
+				</div>
+				<div class="botnav-button button-account">
+
+				</div>
 
 			</div>
 		</nav>
