@@ -1,23 +1,22 @@
 <template>
-<!-- NOTES: This file is for home page -->
     <div>
+
         <div class="container">
-            <div class="row"> 
-                 <br>
-                 <div class="col-sm-3" ><img src="/assets/img/icons/shoes.png">Food</div>
-                 <div class="col-sm-3" ><img src="/assets/img/icons/shoes.png">Shoes</div>
-                 <div class="col-sm-3" ><img src="/assets/img/icons/shoes.png">Garden</div>
-                 <div class="col-sm-3" ><img src="/assets/img/icons/shoes.png">Boy</div>
+            <div class="row">
+                 <div class="col-sm-3" ><img src="/assets/img/icons/shoes.png"><b>Food</b></div>
+                 <div class="col-sm-3" ><img src="/assets/img/icons/shoes.png"><b>Shoes</b></div>
+                 <div class="col-sm-3" ><img src="/assets/img/icons/shoes.png"><b>Garden</b></div>
+                 <div class="col-sm-3" ><img src="/assets/img/icons/shoes.png"><b>Boy</b></div>
             </div>
             <div class="row">
-                 <div class="col-sm-3" ><img src="/assets/img/icons/shoes.png">pig</div>
-                 <div class="col-sm-3" ><img src="/assets/img/icons/shoes.png">Pets</div>
-                 <div class="col-sm-3" ><img src="/assets/img/icons/shoes.png">Fashion</div>
-                 <div class="col-sm-3" ><img src="/assets/img/icons/shoes.png">GG</div>
+                 <div class="col-sm-3" ><img src="/assets/img/icons/shoes.png"><b>pig</b></div>
+                 <div class="col-sm-3" ><img src="/assets/img/icons/shoes.png"><b>Pets</b></div>
+                 <div class="col-sm-3" ><img src="/assets/img/icons/shoes.png"><b>Fashion</b></div>
+                 <div class="col-sm-3" ><img src="/assets/img/icons/shoes.png"><b>GG</b></div>
             </div>
         </div>
         <div style="text-align:center">
-            <button type="button" style="background-color:red;width:20px;height:10px"></button>
+            <button type="button" style="background-color:#FADBD8;width:20px;height:10px"></button>
             <button type="button" style="width:20px;height:10px"></button>
         </div>
         <br>
@@ -42,9 +41,12 @@
                     <div align="center"><span class="price">$ {{product.price}}</span></div>
                     <button class="col-md-4 btn btn-sm btn-primary float-right">Buy Now</button>
                   </router-link>
+               
         </div>
     </div>
 </template>
+
+<div></div>
 
 <script>
     export default {
@@ -60,27 +62,26 @@
 </script>
 
 <style scoped>
-.title{
-    text-align: center;
-}
+
 .col-sm-3{
   float: center;
   display: block;
   background-color: #f4f4f4;
   width: 22%;
   height: 15%;
-  margin: 1%;
+  margin-left: 9px;
+  margin-top: 5px;
   text-align:center;
 }
 .col-sm-3 img {
-  min-height: 80%;
-  max-height: 80%;
-  min-width: 80%;
-  max-width: 80%;
+  min-height: 60%;
+  max-height: 60%;
+  min-width: 60%;
+  max-width: 60%;
   text-align : center;
 }
 .col-sm-4 {
-  margin: 2% 3%;
+  margin-left:5%;
   width: 26%;
   height: 15%;
   background-color: #f4f4f4;
@@ -97,9 +98,10 @@
   float: left;
   display: block;
   background-color: #FBEEE6;
-  width: 47%;
+  width: 45%;
   height: 15%;
-  margin: 2% 1%;
+  margin-left:13px;
+  margin-top:10px;
 }
 
 .item.prod img{
@@ -109,7 +111,7 @@
   max-width: 100%;
 } 
 .item.prod .name {
-  font-size: 14px;
+  font-size: 12px;
   color:red;
 }
 
