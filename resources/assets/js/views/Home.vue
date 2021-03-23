@@ -2,7 +2,7 @@
 <!-- NOTES: This file is for home page -->
     <div>
         <div class="container">
-            <div class="row">
+            <div class="row"> 
                  <br>
                  <div class="col-sm-3" ><img src="/assets/img/icons/shoes.png">Food</div>
                  <div class="col-sm-3" ><img src="/assets/img/icons/shoes.png">Shoes</div>
