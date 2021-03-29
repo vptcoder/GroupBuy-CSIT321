@@ -11,22 +11,20 @@
 		<nav class="navbarbot navbar-expand-md navbar-light navbar-laravel">
 			<div class="botnavcontainer">
 				<div class="botnav-button">
-					<input type="submit" class="button-home" value=""/>
-
+					<router-link :to="{name: 'home'}" class="navbar-brand"><input type="submit" class="button-home" value=""/></router-link>
 				</div>
+
 				<div class="botnav-button">
-					<input type="submit" class="button-watch" value=""/>
-
+					<router-link :to="{name: 'watchlist'}" class="navbar-brand"><input type="submit" class="button-watch" value=""/></router-link>
 				</div>
+
 				<div class="botnav-button">
-					<input type="submit" class="button-notification" value=""/>
-
+					<router-link :to="{name: 'notifications'}" class="navbar-brand"><input type="submit" class="button-notification" value=""/></router-link>
 				</div>
+
 				<div class="botnav-button">
-					<input type="submit" class="button-account" value=""/>
-
+					<router-link :to="{name: 'viewownaccount'}" class="navbar-brand"><input type="submit" class="button-account" value=""/></router-link>
 				</div>
-
 			</div>
 		</nav>
 		<main class="py-4">
