@@ -12,6 +12,9 @@ import Checkout from './views/Checkout.vue'
 import Confirmation from './views/Confirmation.vue'
 import UserBoard from './views/UserBoard.vue'
 import Admin from './views/Admin.vue'
+import Watchlist from './views/Watchlist.vue'
+import Notifications from './views/Notifications.vue'
+import ViewOwnAccount from './views/ViewOwnAccount.vue'
 
 const router = new VueRouter({
 	mode: 'history',
@@ -20,6 +23,21 @@ const router = new VueRouter({
 			path: '/',
 			name: 'home',
 			component: Home
+		},
+		{
+			path: '/watchlist',
+			name: 'watchlist',
+			component: Watchlist
+		},
+		{
+			path: '/notifications',
+			name: 'notifications',
+			component: Notifications
+		},
+		{
+			path: '/viewownaccount',
+			name: 'viewownaccount',
+			component: ViewOwnAccount
 		},
 		{
 			path: '/login',
@@ -51,7 +69,8 @@ const router = new VueRouter({
 			path: '/dashboard',
 			name: 'userboard',
 			component: UserBoard,
-			meta: {
+			meta: 
+			{
 				requiresAuth: true,
 				is_user: true
 			}
@@ -60,7 +79,8 @@ const router = new VueRouter({
 			path: '/admin/:page',
 			name: 'admin-pages',
 			component: Admin,
-			meta: {
+			meta: 
+			{
 				requiresAuth: true,
 				is_admin: true
 			}
@@ -69,7 +89,8 @@ const router = new VueRouter({
 			path: '/admin',
 			name: 'admin',
 			component: Admin,
-			meta: {
+			meta: 
+			{
 				requiresAuth: true,
 				is_admin: true
 			}
