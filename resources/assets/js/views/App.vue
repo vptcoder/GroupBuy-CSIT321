@@ -11,16 +11,19 @@
 		<nav class="navbarbot navbar-expand-md navbar-light navbar-laravel">
 			<div class="botnavcontainer">
 				<div class="botnav-button">
-					<input type="submit" class="button-home"/>
+					<input type="submit" class="button-home" value=""/>
 
 				</div>
-				<div class="botnav-button button-watch">
+				<div class="botnav-button">
+					<input type="submit" class="button-watch" value=""/>
 
 				</div>
-				<div class="botnav-button button-notification">
+				<div class="botnav-button">
+					<input type="submit" class="button-notification" value=""/>
 
 				</div>
-				<div class="botnav-button button-account">
+				<div class="botnav-button">
+					<input type="submit" class="button-account" value=""/>
 
 				</div>
 

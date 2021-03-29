@@ -5,7 +5,7 @@
 - _id_
 - 'name'
 - 'price'
-- 'units'
+- ~~'units'~~
 - 'description'
 - 'image'
 - 'minimum orders'
