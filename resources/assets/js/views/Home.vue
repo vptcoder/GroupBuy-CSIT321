@@ -3,16 +3,16 @@
 
         <div class="container">
             <div class="row">
-                 <div class="col-sm-3" ><img src="/assets/img/icons/shoes.png"><b>Food</b></div>
-                 <div class="col-sm-3" ><img src="/assets/img/icons/shoes.png"><b>Shoes</b></div>
-                 <div class="col-sm-3" ><img src="/assets/img/icons/shoes.png"><b>Garden</b></div>
-                 <div class="col-sm-3" ><img src="/assets/img/icons/shoes.png"><b>Boy</b></div>
+                 <div class="col-sm-3 category" ><img src="/assets/img/icons/food.png"><b>Food</b></div>
+                 <div class="col-sm-3 category" ><img src="/assets/img/icons/shoes.png"><b>Shoes</b></div>
+                 <div class="col-sm-3 category" ><img src="/assets/img/icons/3457faa612fcf6ce7e890f49d7668dde.png"><b>Garden</b></div>
+                 <div class="col-sm-3 category" ><img src="/assets/img/icons/070d4f4883d6b15dfa907538ce1f8f4c.png"><b>Accessories</b></div>
             </div>
             <div class="row">
-                 <div class="col-sm-3" ><img src="/assets/img/icons/shoes.png"><b>pig</b></div>
-                 <div class="col-sm-3" ><img src="/assets/img/icons/shoes.png"><b>Pets</b></div>
-                 <div class="col-sm-3" ><img src="/assets/img/icons/shoes.png"><b>Fashion</b></div>
-                 <div class="col-sm-3" ><img src="/assets/img/icons/shoes.png"><b>GG</b></div>
+                 <div class="col-sm-3 category" ><img src="/assets/img/icons/electronics.png"><b>Technology</b></div>
+                 <div class="col-sm-3 category" ><img src="/assets/img/icons/9d2d346f4f5ec17dcfdd3140a50b7b52.png"><b>Pets</b></div>
+                 <div class="col-sm-3 category" ><img src="/assets/img/icons/aa5208104f48d59db4619e59a3163a02.png"><b>Fashion</b></div>
+                 <div class="col-sm-3 category" ><img src="/assets/img/icons/furniture.png"><b>Furniture</b></div>
             </div>
         </div>
         <div style="text-align:center">
@@ -29,8 +29,8 @@
             </row>
             <div class="row" >
                  <div class="col-sm-4"><img src="/assets/img/products/nike.png"> </div>
-                 <div class="col-sm-4"><img src="/assets/img/products/nike.png"></div>
-                 <div class="col-sm-4"><img src="/assets/img/products/nike.png"></div>
+                 <div class="col-sm-4"><img src="/assets/img/products/watch.png"></div>
+                 <div class="col-sm-4"><img src="/assets/img/products/e8ba93ee039ff306039bf5c85a8627df.png"></div>
             </div>
         </div>
         <br><br>
@@ -121,5 +121,8 @@
   color:black;
 }
 
+.category b{
+  font-size: 10px;
+}
 
 </style>
