@@ -22,6 +22,9 @@
 						<button class="modal-default-button" @click="uploadFile">
 							Finish
 						</button>
+						<button class="modal-default-button" @click="cancelFile">
+							Cancel
+						</button>
 					</slot>
 				</div>
 			</div>
@@ -116,6 +119,9 @@ export default {
 			} else {
 				this.$emit('close', this.product)
 			}
+		},
+		cancelFile(event){
+				this.$emit('close', this.product)
 		}
 	}
 }

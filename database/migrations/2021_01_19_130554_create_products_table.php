@@ -17,7 +17,8 @@ class CreateProductsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('description');
-            $table->unsignedInteger('units')->default(0);
+            $table->unsignedInteger('min')->default(0);
+            $table->unsignedInteger('max')->default(0);
             $table->double('price');
             $table->string('image');
             $table->timestamps();

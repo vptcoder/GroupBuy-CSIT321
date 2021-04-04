@@ -1,14 +1,13 @@
 <template>
 <!-- NOTES: This file is for navigation bar code. -->
 	<div>
-		<nav class="navbar navbar-expand-md navbar-light navbar-laravel">
-			<div class="topnavcontainer">
+		<nav v-show="show" class="navbar navbar-expand-md navbar-light navbar-laravel">
+			<div class="topnavcontainer" >
 				<router-link :to="{name: 'home'}" class="navbar-brand">G-BUY</router-link>
 				<input type="text" class="form-control navbar-search" name="Search" placeholder="Search">
-
 			</div>
 		</nav>
-		<nav class="navbarbot navbar-expand-md navbar-light navbar-laravel">
+		<nav v-show="show" class="navbarbot navbar-expand-md navbar-light navbar-laravel">
 			<div class="botnavcontainer">
 				<div class="botnav-button">
 					<router-link :to="{name: 'home'}" class="navbar-brand"><input type="submit" class="button-home" value=""/></router-link>
@@ -27,7 +26,7 @@
 				</div>
 			</div>
 		</nav>
-		<main class="py-4">
+		<main class="py-4" v-bind:class= "!show ? 'admin-page-margin' : ''">
 			<router-view @loggedIn="change"></router-view>
 		</main>
 	</div>
@@ -63,6 +62,17 @@ export default {
 			this.change()
 			this.$router.push('/')
 		}
+	},
+	computed: {
+		show: function() {
+            return this.$store.state.navigation.show
+        }
 	}
 }
 </script>
+
+<style scoped>
+.admin-page-margin {
+	padding-top: 0px !important;
+}
+</style>
