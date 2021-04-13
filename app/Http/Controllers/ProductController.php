@@ -27,9 +27,10 @@ class ProductController extends Controller
     {
         $product = Product::create([
             'name' => $request->name
-            , 'description' => $request->description
-            , 'units' => $request->units
+            , 'min' => $request->min
+            , 'max' => $request->max
             , 'price' => $request->price
+            , 'description' => $request->description
             , 'image' => $request->image
         ]);
 
@@ -71,7 +72,7 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         $status = $product->update(
-            $request->only(['name', 'description', 'units', 'price', 'image'])
+            $request->only(['name', 'description', 'price', 'image', 'min', 'max'])
         );
 
         return response()->json([
@@ -80,14 +81,15 @@ class ProductController extends Controller
         ]);
     }
 
-    public function updateUnits(Request $request, Product $product)
+    public function updateMinMax(Request $request, Product $product)
     {
-        $product->units = $product->units + $request->get('units');
+        $product->min = $request->get('min');
+        $product->max = $request->get('max');
         $status = $product->save();
 
         return response()->json([
             'status' => $status
-            , 'message' => $status ? 'Units Added!' : 'Error Adding Product Units'
+            , 'message' => $status ? 'Min and Max Changed!' : 'Error Changing Product\'s Min and Max'
         ]);
     }
 

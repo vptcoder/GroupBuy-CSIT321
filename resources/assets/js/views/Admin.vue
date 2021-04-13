@@ -1,19 +1,17 @@
 <template>
-	<div>
-		<div class="container-fluid hero-section d-flex align-content-center justify-content-center flex-wrap ml-auto">
-			<h2 class="title">Admin Dashboard</h2>
+	<div class="page-content-wrapper">
+		
+		<div class="subheader-area">
+			<button class="btn" @click="setComponent('main')">Dashboard</button>
+			<div></div>
+			<button class="btn" @click="setComponent('products')">Products</button>
+			<button class="btn" @click="setComponent('orders')">Orders</button>
+			<button class="btn" @click="setComponent('payments')">Payments</button>
+			<button class="btn" @click="setComponent('users')">Users</button>
 		</div>
 		<div class="container">
 			<div class="row">
-				<div class="col-md-3">
-					<ul style="list-style-type:none">
-						<li class="active"><button class="btn" @click="setComponent('main')">Dashboard</button></li>
-						<li><button class="btn" @click="setComponent('orders')">Orders</button></li>
-						<li><button class="btn" @click="setComponent('products')">Products</button></li>
-						<li><button class="btn" @click="setComponent('users')">Users</button></li>
-					</ul>
-				</div>
-				<div class="col-md-9">
+				<div class="col-md-12">
 					<component :is="activeComponent"></component>
 				</div>
 			</div>
@@ -24,6 +22,7 @@
 <script>
 import Main from '../components/admin/Main'
 import Users from '../components/admin/Users'
+import Payments from '../components/admin/Payments'
 import Products from '../components/admin/Products'
 import Orders from '../components/admin/Orders'
 
@@ -35,7 +34,7 @@ export default {
 		}
 	},
 	components: {
-		Main, Users, Products, Orders
+		Main, Users, Products, Orders, Payments
 	},
 	beforeMount() {
 		this.setComponent(this.$route.params.page)
@@ -49,6 +48,10 @@ export default {
 				case "users":
 					this.activeComponent = Users
 					this.$router.push({name: 'admin-pages', params: {page: 'users'}})
+					break;
+				case "paymentss":
+					this.activeComponent = Payments
+					this.$router.push({name: 'admin-pages', params: {page: 'payments'}})
 					break;
 				case "orders":
 					this.activeComponent = Orders
@@ -64,11 +67,38 @@ export default {
 					break;
 			}
 		}
-	}
+	},
+
 }
 </script>
 
 <style scoped>
+.topnavcontainer-admin{
+	display: grid;
+	width: 100%;
+	align-items: center;
+	justify-content: right;
+	grid-template-columns: 1fr 3fr 1fr 1fr 1fr 1fr;
+}
+.subheader-area {
+    transition-duration: 500ms;
+    background-color:rgb(255, 229, 157);
+    width: 100%;
+    height: 50px;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    box-shadow: 0 0 8px rgba(15, 15, 15, 0.15);
+	display: grid;
+	grid-template-columns: 1fr 3fr 1fr 1fr 1fr 1fr;
+}
+.subheader-area .btn:hover,.subheader-area .btn:active, .subheader-area .btn:focus {
+	color: #100DD1;
+}
+.admin-ul{
+	float:left;
+}
 .hero-section { height: 20vh; background: #ababab; align-items: center; margin-bottom: 20px; margin-top: -20px; }
 .title { font-size: 60px; color: #ffffff; }
 </style>

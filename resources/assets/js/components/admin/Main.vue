@@ -1,14 +1,17 @@
 <template>
-	<div class="row">
-		<div class="col-md-4 product-box d-flex align-content-center justify-content-center flex-wrap big-text">
-			<a href='/admin/orders'>Orders ({{orders.length}})</a>
-		</div>
-		<hr>
-		<div class="col-md-4 product-box d-flex align-content-center justify-content-center flex-wrap big-text">
-			<a href='/admin/products'>Products ({{products.length}})</a>
-		</div>
-		<div class="col-md-4 product-box d-flex align-content-center justify-content-center flex-wrap big-text">
-			<a href='/admin/users'>Users ({{users.length}})</a>
+	<div class="page-content-wrapper">
+		<div class="row">
+			<div class="col-md-4 product-box d-flex align-content-center justify-content-center flex-wrap big-text">
+				<a href='/admin/orders'>Orders ({{orders.length}})</a>
+			</div>
+			<hr>
+			<div class="col-md-4 product-box d-flex align-content-center justify-content-center flex-wrap big-text">
+				<a href='/admin/products'>Products ({{products.length}})</a>
+			</div>
+			<hr>
+			<div class="col-md-4 product-box d-flex align-content-center justify-content-center flex-wrap big-text">
+				<a href='/admin/users'>Users ({{users.length}})</a>
+			</div>
 		</div>
 	</div>
 </template>

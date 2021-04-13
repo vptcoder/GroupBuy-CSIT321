@@ -331,3 +331,17 @@ Time  Local     Server-feature    Server-master     Explainations
  |                          
  V   
 ```
+
+# DURING DEVELOPMENT
+## to clean and recreate database with new schema
+```bash
+    #1. make migration
+    php artisan make:migration file_name #see database/migrations/
+    
+    #2. change migration file
+
+    #3. change seeder file
+    
+    #4. delete all existing tables and create fresh
+    php artisan migrate:fresh --seed
+```
