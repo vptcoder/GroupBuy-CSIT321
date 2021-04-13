@@ -27,11 +27,11 @@ class ProductController extends Controller
     {
         $product = Product::create([
             'name' => $request->name
-            , 'description' => $request->description
-            , 'price' => $request->price
-            , 'image' => $request->image
             , 'min' => $request->min
             , 'max' => $request->max
+            , 'price' => $request->price
+            , 'description' => $request->description
+            , 'image' => $request->image
         ]);
 
         return response()->json([

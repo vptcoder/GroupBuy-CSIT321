@@ -8,8 +8,9 @@
 				<div class="modal-body">
 					<slot name="body">
 						Name: <input type="text" v-model="data.name">
-						Units: <input type="text" v-model="data.units">
 						Price: <input type="text" v-model="data.price">
+						Min: <input type="text" v-model="data.min">
+						Max: <input type="text" v-model="data.max">
 						<textarea v-model="data.description" placeholder="description"></textarea>
 						<span >
 							<img :src="data.image" v-show="data.image != null">
@@ -96,7 +97,8 @@ export default {
 			}
 			return {
 				name: "",
-				units: "",
+				min: "",
+				max: "",
 				price: "",
 				description: "",
 				image: false

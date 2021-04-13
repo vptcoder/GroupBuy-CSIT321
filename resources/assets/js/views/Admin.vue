@@ -1,6 +1,7 @@
 <template>
-	<div>
-		<div class="topnavcontainer-admin">
+	<div class="page-content-wrapper">
+		
+		<div class="subheader-area">
 			<button class="btn" @click="setComponent('main')">Dashboard</button>
 			<div></div>
 			<button class="btn" @click="setComponent('products')">Products</button>
@@ -10,7 +11,7 @@
 		</div>
 		<div class="container">
 			<div class="row">
-				<div class="col-md-9">
+				<div class="col-md-12">
 					<component :is="activeComponent"></component>
 				</div>
 			</div>
@@ -79,7 +80,22 @@ export default {
 	justify-content: right;
 	grid-template-columns: 1fr 3fr 1fr 1fr 1fr 1fr;
 }
-
+.subheader-area {
+    transition-duration: 500ms;
+    background-color:rgb(255, 229, 157);
+    width: 100%;
+    height: 50px;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    box-shadow: 0 0 8px rgba(15, 15, 15, 0.15);
+	display: grid;
+	grid-template-columns: 1fr 3fr 1fr 1fr 1fr 1fr;
+}
+.subheader-area .btn:hover,.subheader-area .btn:active, .subheader-area .btn:focus {
+	color: #100DD1;
+}
 .admin-ul{
 	float:left;
 }

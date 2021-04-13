@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="page-content-wrapper">
 		<table class="table table-responsive table-striped">
 			<thead>
 				<tr>
@@ -89,6 +89,8 @@ export default {
 			let price = product.price
 			let description = product.description
 			let image = product.image 
+
+			console.log("calling axios.post")
 
 			axios.post("/api/products/", {name, min, max, price, description, image})
 					.then(response => this.products.push(product))
