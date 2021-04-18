@@ -347,4 +347,7 @@ Time  Local     Server-feature    Server-master     Explainations
     
     #4. delete all existing tables and create fresh
     php artisan migrate:fresh --seed
+
+    #5. re-install passport to create Personal access client for user account management
+    php artisan passport:install
 ```
