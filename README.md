@@ -336,7 +336,10 @@ Time  Local     Server-feature    Server-master     Explainations
 ## to clean and recreate database with new schema
 ```bash
     #1. make migration
-    php artisan make:migration file_name #see database/migrations/
+    #see database/migrations/
+    #example 1 : php artisan make:migration create_users_table --create=users
+    #example 2 : php artisan make:migration add_votes_to_users_table --table=users 
+    php artisan make:migration file_name 
     
     #2. change migration file
 
