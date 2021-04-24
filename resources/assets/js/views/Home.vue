@@ -213,8 +213,9 @@
 					<div class="col-6 col-md-4 col-lg-3" v-for="(product,index) in products" :key="index">
 						<div class="card top-product-card">
 							<router-link class="card-body" :to="{ path: '/products/'+product.id}">
-								<span class="badge badge-success">Pending</span>
-								<a class="wishlist-btn" href="#">
+								<span v-if="product.orders.length > 0" class="badge badge-success">On going</span>
+								<span v-else class="badge badge-pending" >Pending</span>
+								<a class="wishlist-btn " v-bind:class="!product.watchlists.includes(user.id) ? 'notwatching-btn' : 'watching-btn'" v-on:click.prevent @click="watch(product, user.id)">
 									<i class="lni lni-heart"></i>
 								</a>
 								<a class="product-thumbnail d-block" >
@@ -226,6 +227,12 @@
 								<p class="sale-price">
 									{{product.price}}
 								</p>
+								<span v-if="product.orders.length > 0" class="badge bottom-badge badge-success">{{product.orders.length}} buyers</span>
+								<span v-else class="badge bottom-badge badge-watch-pending" >{{product.watchlists.length}} watchers</span>
+
+								<span v-if="product.orders.length === 0" class="badge badge-pending bottom-badge">minimum required: {{product.min}}</span>
+								<span v-else-if="product.orders.length < product.min" class="badge badge-success bottom-badge">+{{product.min - product.orders.length}} buyers needed</span>
+								<span v-else-if="product.orders.length < product.max" class="badge badge-success bottom-badge">+{{product.max - product.orders.length}} to finish</span>
 							</router-link>
 						</div>
 					</div>
@@ -240,14 +247,33 @@
 export default {
 	data() {
 		return {
+			user: null,
 			products: []
 		};
+	},
+	beforeMount() {
+		this.user = JSON.parse(localStorage.getItem('bigStore.user'))
 	},
 	mounted() {
 		axios
 			.get("api/products/")
 			.then(response => (this.products = response.data));
-	}
+	},
+	methods: {
+		watch(product, userid) {
+			console.log("userid: ", userid);
+			console.log("productid: ", product.id);
+			if(!product.watchlists.includes(userid)){
+				product.watchlists.push(userid);
+				console.log("userid added.");
+
+			}else{
+				let indexToRemove = product.watchlists.indexOf(userid); 
+				product.watchlists.splice(indexToRemove, 1);
+				console.log("userid removed.");
+			}
+		}
+	},	
 };
 </script>
 
@@ -312,5 +338,23 @@ export default {
 
 .category b {
 	font-size: 10px;
+}
+
+.top-product-card .bottom-badge {
+	position: initial;
+}
+.top-product-card .badge-watch-pending {
+	background-color: grey;
+}
+.top-product-card .badge-pending {
+	background-color: mediumslateblue;
+}
+
+.watching-btn {
+	color: #ea4c62;
+}
+
+.notwatching-btn {
+	color: grey;
 }
 </style>
