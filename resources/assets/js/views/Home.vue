@@ -205,8 +205,8 @@
 		<div class="top-products-area clearfix py-3">
 			<div class="container">
 				<div class="section-heading d-flex align-items-center justify-content-between">
-					<h6>Top Products</h6>
-					<a class="btn btn-danger btn-sm" href="shop-grid.html">View All</a>
+					<h6>All Products</h6>
+					<!-- <a class="btn btn-danger btn-sm" href="shop-grid.html">View All</a> -->
 				</div>
 				<div class="row g-3">
 					<!-- Single Top Product Card-->
@@ -215,7 +215,10 @@
 							<router-link class="card-body" :to="{ path: '/products/'+product.id}">
 								<span v-if="product.orders.length > 0" class="badge badge-success">On going</span>
 								<span v-else class="badge badge-pending" >Pending</span>
-								<a class="wishlist-btn " v-bind:class="!product.watchlists.includes(user.id) ? 'notwatching-btn' : 'watching-btn'" v-on:click.prevent @click="watch(product, user.id)">
+								<a class="wishlist-btn notwatching-btn" v-if="!user" v-on:click.prevent @click="promptlogin()">
+									<i class="lni lni-heart"></i>
+								</a>
+								<a class="wishlist-btn " v-else v-bind:class="!product.watchlists.some(w => w.user_id == user.id) ? 'notwatching-btn' : 'watching-btn'" v-on:click.prevent @click="watch(product, user.id)">
 									<i class="lni lni-heart"></i>
 								</a>
 								<a class="product-thumbnail d-block" >
@@ -261,18 +264,54 @@ export default {
 	},
 	methods: {
 		watch(product, userid) {
-			console.log("userid: ", userid);
-			console.log("productid: ", product.id);
-			if(!product.watchlists.includes(userid)){
-				product.watchlists.push(userid);
-				console.log("userid added.");
-
-			}else{
-				let indexToRemove = product.watchlists.indexOf(userid); 
-				product.watchlists.splice(indexToRemove, 1);
-				console.log("userid removed.");
+			var found = false;
+			var indexFound;
+			var idFound;
+			for (var i = 0; i < product.watchlists.length; i++){
+				if (product.watchlists[i].user_id == userid){
+					found = true;
+					indexFound = i;
+					idFound = product.watchlists[i].id;
+					break;
+				}
 			}
+			console.log("User exists in watchlist? - ", found);
+			console.log("User at index - ", indexFound);
+
+			if(!found){
+				var productid = product.id;
+				var res;
+				console.log("userid: ", userid);
+				console.log("productid: ", productid);
+				
+				axios.post("/api/watchlists", {productid, userid})
+				.then(function (response) {
+					product.watchlists.push({
+						'id': response.data.data.id.toString()
+						, 'product_id': response.data.data.product_id.toString()
+						, 'user_id': response.data.data.user_id.toString()
+					});
+					console.log("userid added.");
+				})
+				.catch(function (error){
+					console.log("userid not added.", error);
+				})
+				
+			} else {
+				product.watchlists.splice(indexFound, 1);
+				axios.delete(`/api/watchlists/${idFound}`)
+				.then(function (response){
+					console.log("userid removed.");
+				})
+				.catch(function (error){
+					console.log("userid not removed.", error);
+				})
+			}
+		},
+		promptlogin(){
+			alert("Please login!")
 		}
+
 	},	
 };
 </script>

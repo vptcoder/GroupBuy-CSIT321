@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use App\Models\Watchlist;
 use Illuminate\Http\Request;
 
@@ -35,7 +36,33 @@ class WatchlistController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $oldExist = Watchlist::onlyTrashed()->where('product_id', $request->productid)
+            ->where('user_id', $request->userid)->first();
+
+        error_log(print_r($oldExist->count(), TRUE));
+
+        if($oldExist->count() > 0){
+            $oldExist->restore();
+
+            return response()->json([
+                'status' => (bool) $oldExist
+                , 'data' => $oldExist
+                , 'message' => $oldExist ? 'User added to Watchlist!' : 'Error adding user to Watchlist'
+            ]);
+        }
+        else {
+            $watchlist = Watchlist::create([
+                'product_id' => $request->productid
+                , 'user_id' => $request->userid
+            ]);    
+
+            return response()->json([
+                'status' => (bool) $watchlist
+                , 'data' => $watchlist
+                , 'message' => $watchlist ? 'User added to Watchlist!' : 'Error adding user to Watchlist'
+            ]);
+        }
+
     }
 
     /**
@@ -80,6 +107,11 @@ class WatchlistController extends Controller
      */
     public function destroy(Watchlist $watchlist)
     {
-        //
+        $status = $watchlist->delete();
+
+        return response()->json([
+            'status' => $status
+            , 'message' => $status ? 'User removed from Watchlist!' : 'Error removing User from Watchlist'
+        ]);
     }
 }
