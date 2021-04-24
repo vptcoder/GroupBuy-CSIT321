@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Watchlist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,6 +24,7 @@ Route::post('register', 'App\Http\Controllers\UserController@register');
 Route::get('/products', 'App\Http\Controllers\ProductController@index');
 Route::post('/upload-file', 'App\Http\Controllers\ProductController@uploadFile');
 Route::get('/products/{product}', 'App\Http\Controllers\ProductController@show');
+Route::resource('/watchlists', 'App\Http\Controllers\WatchlistController');
 
 Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/users', 'App\Http\Controllers\UserController@index');

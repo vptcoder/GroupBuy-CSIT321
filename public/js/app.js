@@ -1295,6 +1295,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -1314,17 +1317,51 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     watch: function watch(product, userid) {
-      console.log("userid: ", userid);
-      console.log("productid: ", product.id);
+      var found = false;
+      var indexFound;
+      var idFound;
 
-      if (!product.watchlists.includes(userid)) {
-        product.watchlists.push(userid);
-        console.log("userid added.");
-      } else {
-        var indexToRemove = product.watchlists.indexOf(userid);
-        product.watchlists.splice(indexToRemove, 1);
-        console.log("userid removed.");
+      for (var i = 0; i < product.watchlists.length; i++) {
+        if (product.watchlists[i].user_id == userid) {
+          found = true;
+          indexFound = i;
+          idFound = product.watchlists[i].id;
+          break;
+        }
       }
+
+      console.log("User exists in watchlist? - ", found);
+      console.log("User at index - ", indexFound);
+
+      if (!found) {
+        var productid = product.id;
+        var res;
+        console.log("userid: ", userid);
+        console.log("productid: ", productid);
+        axios.post("/api/watchlists", {
+          productid: productid,
+          userid: userid
+        }).then(function (response) {
+          product.watchlists.push({
+            'id': response.data.data.id.toString(),
+            'product_id': response.data.data.product_id.toString(),
+            'user_id': response.data.data.user_id.toString()
+          });
+          console.log("userid added.");
+        })["catch"](function (error) {
+          console.log("userid not added.", error);
+        });
+      } else {
+        product.watchlists.splice(indexFound, 1);
+        axios["delete"]("/api/watchlists/".concat(idFound)).then(function (response) {
+          console.log("userid removed.");
+        })["catch"](function (error) {
+          console.log("userid not removed.", error);
+        });
+      }
+    },
+    promptlogin: function promptlogin() {
+      alert("Please login!");
     }
   }
 });
@@ -23494,26 +23531,46 @@ var render = function() {
                               _vm._v("Pending")
                             ]),
                         _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            staticClass: "wishlist-btn ",
-                            class: !product.watchlists.includes(_vm.user.id)
-                              ? "notwatching-btn"
-                              : "watching-btn",
-                            on: {
-                              click: [
-                                function($event) {
-                                  $event.preventDefault()
-                                },
-                                function($event) {
-                                  return _vm.watch(product, _vm.user.id)
+                        !_vm.user
+                          ? _c(
+                              "a",
+                              {
+                                staticClass: "wishlist-btn notwatching-btn",
+                                on: {
+                                  click: [
+                                    function($event) {
+                                      $event.preventDefault()
+                                    },
+                                    function($event) {
+                                      return _vm.promptlogin()
+                                    }
+                                  ]
                                 }
-                              ]
-                            }
-                          },
-                          [_c("i", { staticClass: "lni lni-heart" })]
-                        ),
+                              },
+                              [_c("i", { staticClass: "lni lni-heart" })]
+                            )
+                          : _c(
+                              "a",
+                              {
+                                staticClass: "wishlist-btn ",
+                                class: !product.watchlists.some(function(w) {
+                                  return w.user_id == _vm.user.id
+                                })
+                                  ? "notwatching-btn"
+                                  : "watching-btn",
+                                on: {
+                                  click: [
+                                    function($event) {
+                                      $event.preventDefault()
+                                    },
+                                    function($event) {
+                                      return _vm.watch(product, _vm.user.id)
+                                    }
+                                  ]
+                                }
+                              },
+                              [_c("i", { staticClass: "lni lni-heart" })]
+                            ),
                         _vm._v(" "),
                         _c("a", { staticClass: "product-thumbnail d-block" }, [
                           _c("img", {
@@ -23639,18 +23696,7 @@ var staticRenderFns = [
         staticClass:
           "section-heading d-flex align-items-center justify-content-between"
       },
-      [
-        _c("h6", [_vm._v("Top Products")]),
-        _vm._v(" "),
-        _c(
-          "a",
-          {
-            staticClass: "btn btn-danger btn-sm",
-            attrs: { href: "shop-grid.html" }
-          },
-          [_vm._v("View All")]
-        )
-      ]
+      [_c("h6", [_vm._v("All Products")])]
     )
   }
 ]

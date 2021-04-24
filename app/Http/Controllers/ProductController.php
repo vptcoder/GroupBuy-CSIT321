@@ -15,7 +15,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::with('orders', 'watchlists')->get();
+        $products = Product::with('orders', 'watchlists:id,user_id,product_id')->get();
         return response()->json($products, 200);
     }
 
