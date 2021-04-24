@@ -83,22 +83,16 @@
 					<img src="/assets/img/bg-img/9.jpg" alt />
 				</div>
 				<div class="user-info">
-					<h6 class="user-name mb-0">Suha Sarah</h6>
-					<p class="available-balance">
-						Credit
-						<span>
-							$
-							<span class="counter">461</span>
-						</span>
-					</p>
+					<h6 class="user-name mb-0" v-if="isLoggedIn">{{name}}</h6>
+					<h6 class="user-name mb-0" v-else>Guest</h6>
 				</div>
 			</div>
 			<!-- Sidenav Nav-->
 			<ul class="sidenav-nav ps-0">
 				<li>
-					<a href="profile.html">
+					<router-link :to="{ name: 'userboard' }" class="navbar-brand">
 						<i class="lni lni-user"></i>My Profile
-					</a>
+					</router-link>
 				</li>
 				<li>
 					<a href="notifications.html">
@@ -172,7 +166,7 @@
 			</div>
 		</div>
 
-		<main class="py-4" v-bind:class="!show ? 'admin-page-margin' : ''">
+		<main v-bind:class="!show ? 'admin-page-margin' : ''">
 			<router-view @loggedIn="change"></router-view>
 		</main>
 
@@ -183,14 +177,14 @@
 			<div class="container h-100 px-0">
 				<div class="suha-footer-nav h-100">
 					<ul class="h-100 d-flex align-items-center justify-content-between ps-0">
-						<li class="active" v-show="show">
+						<li v-show="show">
 							<router-link :to="{ name: 'home' }" class="navbar-brand">
 								<i class="lni lni-home"></i>Home
 							</router-link>
 						</li>
 						<li v-show="show">
 							<router-link :to="{ name: 'watchlist' }" class="navbar-brand">
-								<i class="lni lni-heart"></i>Watchlist
+								<i class="lni lni-heart"></i>Yours
 							</router-link>
 						</li>
 						<li v-show="show">
@@ -199,7 +193,7 @@
 							</router-link>
 						</li>
 						<li v-show="show">
-							<router-link :to="{ name: 'viewownaccount' }" class="navbar-brand">
+							<router-link :to="{ name: 'userboard' }" class="navbar-brand">
 								<i class="lni lni-user"></i>User
 							</router-link>
 						</li>

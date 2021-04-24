@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use SebastianBergmann\Environment\Console;
 
 class ProductController extends Controller
 {
@@ -14,7 +15,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return response()->json(Product::all(), 200);
+        $products = Product::with('orders', 'watchlists')->get();
+        return response()->json($products, 200);
     }
 
     /**

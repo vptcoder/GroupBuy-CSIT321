@@ -6,20 +6,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Product extends Model
+class Watchlist extends Model
 {
     // use HasFactory;
     use SoftDeletes;
 
     protected $fillable = [
-        'name', 'price', 'description', 'image', 'min', 'max'
+        'product_id', 'user_id'
     ];
 
-    public function orders(){
-        return $this->hasMany(Order::class);
+    public function user(){
+        return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function watchlists(){
-        return $this->hasMany(Watchlist::class);
+    public function product(){
+        return $this->belongsTo(Product::class, 'product_id');
     }
 }
