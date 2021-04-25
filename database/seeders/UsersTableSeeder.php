@@ -15,8 +15,12 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         $user = new User;
-        $user->name = 'Admin';
-        $user->email = "admin@devtest.com";
+        $user->username = 'adminsupermint';
+        $user->name = 'Adminbot Rollout';
+        $user->email = 'admin@devtest.com';
+        $user->shipphing_streetaddress = '69 Nuts Street, #21-34';
+        $user->shipphing_city = 'Singapore';
+        $user->shipphing_postalcode = '666666';
         $user->password = bcrypt('secret');
         $user->is_admin = true;
         $user->save();

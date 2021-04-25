@@ -12,10 +12,14 @@ class Product extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'name', 'price', 'units', 'description', 'image'
+        'name', 'price', 'description', 'image', 'min', 'max'
     ];
 
     public function orders(){
         return $this->hasMany(Order::class);
+    }
+
+    public function watchlists(){
+        return $this->hasMany(Watchlist::class);
     }
 }
