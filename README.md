@@ -192,11 +192,12 @@
     #apply updated .zshrc
     source ~/.zshrc
 
-    #install vue-router using npm
+    #install vue related modules using npm
     npm install vue-router
-
-    #install vue
     npm install vue
+    npm install vuex
+    npm install vue-waypoint
+    npm install vue-owl-carousel
 ```
 
 ### part 2 (windows) - npm requirements
@@ -205,11 +206,12 @@
     https://www.npmjs.com/get-npm
     Download and install .msi
 
-    #install vue-router using npm
+    #install vue related modules using npm
     npm install vue-router
-
-    #install vue
     npm install vue
+    npm install vuex
+    npm install vue-waypoint
+    npm install vue-owl-carousel
 ```
 
 ## create laravel project and first commit to git — 2021-01-14 -- van only
@@ -276,9 +278,10 @@ Build an e-commerce application using Laravel and Vue - Part 1: Application Setu
     
     #in terminal/cmd, do
     php artisan key:generate
+    php artisan passport:install
 
     #compile the app
-    npm run prod
+    npm run dev
     
     #publish the app
     php artisan server
