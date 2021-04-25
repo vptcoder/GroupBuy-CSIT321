@@ -51,6 +51,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
+        $product = Product::where('id', '=', $product->id)->with('watchlists')->get()->first();
         return response()->json($product, 200);
     }
 

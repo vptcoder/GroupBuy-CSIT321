@@ -1,48 +1,5 @@
 <template>
 	<div class="page-content-wrapper">
-		<!-- <div class="container" >
-            <div class="row">
-                 <div class="col-sm-3 category" ><img src="/assets/img/icons/food.png"><b>Food</b></div>
-                 <div class="col-sm-3 category" ><img src="/assets/img/icons/shoes.png"><b>Shoes</b></div>
-                 <div class="col-sm-3 category" ><img src="/assets/img/icons/3457faa612fcf6ce7e890f49d7668dde.png"><b>Garden</b></div>
-                 <div class="col-sm-3 category" ><img src="/assets/img/icons/070d4f4883d6b15dfa907538ce1f8f4c.png"><b>Accessories</b></div>
-            </div>
-            <div class="row" >
-                 <div class="col-sm-3 category" ><img src="/assets/img/icons/electronics.png"><b>Technology</b></div>
-                 <div class="col-sm-3 category" ><img src="/assets/img/icons/9d2d346f4f5ec17dcfdd3140a50b7b52.png"><b>Pets</b></div>
-                 <div class="col-sm-3 category" ><img src="/assets/img/icons/aa5208104f48d59db4619e59a3163a02.png"><b>Fashion</b></div>
-                 <div class="col-sm-3 category" ><img src="/assets/img/icons/furniture.png"><b>Furniture</b></div>
-            </div>
-		</div>-->
-		<!-- <div style="text-align:center display:none;">
-            <button type="button" style="background-color:#FADBD8;width:20px;height:10px"></button>
-            <button type="button" style="width:20px;height:10px"></button>
-		</div>-->
-		<!-- <br> -->
-		<!-- <div class="container" >
-            <div class="row" >
-                <b>Popular Groupbuy</b>
-                <input type="button" value="" style="margin-left:120px;width: 10px; height: 10px; background-color:#CCD1D1;border-radius:50%;border: none">
-                <input type="button" value="" style="margin-left:10px;width: 10px; height: 10px; border-radius:50%;border: none">
-                <input type="button" value="" style="margin-left:10px;width: 10px; height: 10px; border-radius:50%;border: none">
-            </div>
-            <div class="row" >
-                 <div class="col-sm-4"><img src="/assets/img/products/nike.png"> </div>
-                 <div class="col-sm-4"><img src="/assets/img/products/watch.png"></div>
-                 <div class="col-sm-4"><img src="/assets/img/products/e8ba93ee039ff306039bf5c85a8627df.png"></div>
-            </div>
-		</div>-->
-		<!-- <br><br> -->
-		<!-- <div class ="item prod" v-for="(product,index) in products" :key="index">
-                  <router-link :to="{ path: '/products/'+product.id}">
-                    <img :src="product.image" :alt="product.name">
-                    <span class ="name" v-html="product.name"></span><br>
-                    <div align="center"><span class="price">$ {{product.price}}</span></div>
-                    <button class="col-md-4 btn btn-sm btn-primary float-right">Buy Now</button>
-                  </router-link>
-               
-		</div>-->
-
 		<!-- Product Catagories-->
 		<div class="product-catagories-wrapper py-3">
 			<div class="container">
@@ -228,7 +185,7 @@
 									
 								</a>
 								<p class="sale-price">
-									{{product.price}}
+									${{product.price}}
 								</p>
 								<span v-if="product.orders.length > 0" class="badge bottom-badge badge-success">{{product.orders.length}} buyers</span>
 								<span v-else class="badge bottom-badge badge-watch-pending" >{{product.watchlists.length}} watchers</span>
