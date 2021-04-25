@@ -15,3 +15,4 @@ npm-debug.log
 yarn-error.log
 public/assets/.DS_Store
 public/assets/img/.DS_Store
+public/js/app.js

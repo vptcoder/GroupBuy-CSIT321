@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 use App\Models\Watchlist;
 use Illuminate\Http\Request;
 
@@ -11,11 +12,20 @@ class WatchlistController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return response()->json(Watchlist::with(['user'])->get(),200);
+        // return response()->json(Watchlist::with(['user'])->get(),200);
+        // return response()->json(Watchlist::whereHas('user', function($query) use($request){
+        //     $query->where('id', '=', $request->userid);
+        // })->get(),200);
+        // error_log(print_r($request, TRUE));
+
+        $watchlist = Watchlist::where('user_id', $request->userid)
+            ->join('products', 'products.id', '=', 'watchlists.product_id')->get();
+        return response()->json($watchlist,200);
     }
 
     /**
@@ -39,9 +49,9 @@ class WatchlistController extends Controller
         $oldExist = Watchlist::onlyTrashed()->where('product_id', $request->productid)
             ->where('user_id', $request->userid)->first();
 
-        error_log(print_r($oldExist->count(), TRUE));
+        error_log(print_r($oldExist, TRUE));
 
-        if($oldExist->count() > 0){
+        if(!is_null($oldExist) && !is_null($oldExist->id)){
             $oldExist->restore();
 
             return response()->json([

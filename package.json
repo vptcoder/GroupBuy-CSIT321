@@ -26,6 +26,7 @@
         "jquery": "^3.6.0",
         "jquery-waypoints": "^2.0.5",
         "vue": "^2.6.12",
+        "vue-owl-carousel": "^2.0.3",
         "vue-router": "^3.5.1",
         "vue-waypoint": "^3.5.2",
         "vuex": "^3.6.2"
