@@ -16,4 +16,3 @@ yarn-error.log
 public/assets/.DS_Store
 public/assets/img/.DS_Store
 public/js/app.js
-resources/assets/js/views/Home.vue
