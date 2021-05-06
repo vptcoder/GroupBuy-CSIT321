@@ -1,22 +1,31 @@
 <template>
-	<div>
+	<div class="page-content-wrapper">
 		<table class="table table-responsive table-striped">
 			<thead>
 				<tr>
 					<td></td>
 					<td>Product</td>
-					<td>Units</td>
 					<td>Price</td>
 					<td>Description</td>
+					<td>Minimum orders</td>
+					<td>Maximum orders</td>
+					<td>Popularity</td>
+					<td>Active Groupbuy</td>
+					<td>Closed Groupbuy</td>
 				</tr>
 			</thead>
 			<tbody>
 				<tr v-for="(product,index) in products" :key="index" @dblclick="editingItem = product">
 					<td>{{index+1}}</td>
 					<td v-html="product.name"></td>
-					<td v-model="product.units">{{product.units}}</td>
-					<td v-model="product.price">{{product.price}}</td>
-					<td v-model="product.price">{{product.description}}</td>
+					<td>{{product.price}}</td>
+					<td>{{product.description}}</td>
+					<td>{{product.min}}</td>
+					<td>{{product.max}}</td>
+					<td>{{product.watchlists_count}}</td>
+					<td v-if="!product.groupbuy_id">{{product.groupbuys_active_count}}</td>
+					<td v-else> <router-link :to="{path: '/admin/groupbuys/'+product.groupbuy_id}">{{product.groupbuys_active_count}} <u>view</u></router-link></td>
+					<td>{{product.groupbuys_closed_count}}</td>
 				</tr>
 			</tbody>
 		</table>
@@ -40,13 +49,14 @@ export default {
 	},
 	components: {Modal},
 	beforeMount() {
-		axios.get('/api/products/').then(response => this.products = response.data)
+		axios.get('/api/adminproducts/').then(response => this.products = response.data)
 	},
 	methods: {
 		newProduct() {
 			this.addingProduct = {
 				name: null,
-				units: null,
+				min: null,
+				max: null,
 				price: null,
 				image: null,
 				description: null,
@@ -57,23 +67,39 @@ export default {
 
 			let index = this.products.indexOf(product)
 			let name = product.name
-			let units = product.units
+			let min = product.min
+			let max = product.max
 			let price = product.price
 			let description = product.description
 
-			axios.put(`/api/products/${product.id}`, {name, units, price, description})
+			axios.put(`/api/products/${product.id}`, {name, min, max, price, description})
 					.then(response => this.products[index] = product)
 		},
 		addProduct(product) {
 			this.addingProduct = null
+			console.log("adding product");
+			console.log(product);
+			if (!(product.name != null 
+				&& product.min != null 
+				&& product.max != null 
+				&& product.price != null
+				&& product.description != null
+				&& product.image != null)
+			){
+				console.log("product missing info");
+				return;
+			}
 
 			let name = product.name
-			let units = product.units
+			let min = product.min
+			let max = product.max
 			let price = product.price
 			let description = product.description
 			let image = product.image 
 
-			axios.post("/api/products/", {name, units, price, description, image})
+			console.log("calling axios.post")
+
+			axios.post("/api/products/", {name, min, max, price, description, image})
 					.then(response => this.products.push(product))
 		}
 	}

@@ -32,14 +32,29 @@ class UserController extends Controller
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|max:50', 'email' => 'required|email', 'password' => 'required|min:6', 'c_password' => 'required|same:password'
+            'username' =>'required|max:50'
+            , 'name' => 'required|max:100'
+            , 'email' => 'required|email'
+            , 'shipping_streetaddress' => 'required|max:200'
+            , 'shipping_city' => 'required|max:50'
+            , 'shipping_postalcode' => 'required|min:6|max:15'
+            , 'password' => 'required|min:6'
+            , 'c_password' => 'required|same:password'
         ]);
 
         if ($validator->fails()) {
             return response()->json(['error' => $validator->errors()], 401);
         }
 
-        $data = $request->only(['name', 'email', 'password']);
+        $data = $request->only([
+            'username'
+            , 'name'
+            , 'email'
+            , 'shipping_streetaddress'
+            , 'shipping_city'
+            , 'shipping_postalcode'
+            , 'password'
+        ]);
         $data['password'] = bcrypt($data['password']);
 
         $user = User::create($data);
@@ -58,5 +73,10 @@ class UserController extends Controller
     public function showOrders(User $user)
     {
         return response()->json($user->orders()->with(['product'])->get());
+    }
+
+    public function showWatchlists(User $user)
+    {
+        return response()->json($user->watchlists()->with(['product'])->ge());
     }
 }

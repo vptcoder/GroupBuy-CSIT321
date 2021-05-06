@@ -1,43 +1,65 @@
-
+=========== 
+# DB Architecture :rocket
 ### Product table
---id
-, 'name'
-, 'price'
-, 'units'
-, 'description'
-, 'image'
-, 'minimum orders'
-, 'maximum orders'
+- [ ] done
+- _id_
+- 'name'
+- 'price'
+- ~~'units'~~
+- 'description'
+- 'image'
+- 'minimum orders'
+- 'maximum orders'
 
-- link by id to GroupBuy table
-- link by id to Watching table
-- link by id to Token table
-
+### Watchlist table
+- [ ] done
+> link by id to Product table
+### Token table
+- [ ] done
+> link by id to Product table
 ### GroupBuy table
-_Created when someone starts a groupbuy of a product_
+- [ ] done
+> Created when someone starts a groupbuy of a product
+> link by id to Product table
+- _id_
+- 'product_id'
+- 'status'
+- 'date_start'
+- 'date_end'
+- 'min_required'
+- 'max_available'
+- 'current_orders'
+- 'started_by'
+- 'success_date'
 
---id
-, 'date start'
-, 'date end'
-, 'required orders'
-, 'current orders'
-, 'started by'
-, 'success date'
+### Order table
+- [ ] done
+- _id_
+- 'order by user id'
+- 'order product id'
+- 'order groupbuy id'
+- 'order status' : 'in groupbuy', 'groupbuy failed', 'processing', 'shipping', 'fulfilled'
+- 'order date'
+- 'order fulfilled date'
 
-*Page* Home screen
-|
-|
-|
-|
+### User Payment table
+- [ ] done
+- _id_
+- 'payment order id'
+- 'payment date'
+- 'payment status'
+- 'payment amount'
+- 'payment commission' : (5% of 'payment amount')
+- 'payment merchant payout' : ('payment amount' - 'payment commission')
+- 'payment gateway' : 'stripe'
 
-*Page* Product Management 
-- Create
-- Retrieve
-- Update
-- Delete
--> Show up in Home Page and Catelog
+### Merchant Payment table
+- [ ] done
+> created when groupbuy is successful, all user payments' _'payment merchant payout'_ is __summed__ into 1 record in this table. 
+- _id_
+- 
 
-====
+===========
 # Modules
 ## User
 _Product Management_

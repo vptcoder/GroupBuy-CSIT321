@@ -1,5 +1,23 @@
 {
     "/js/app.js": "/js/app.js",
     "/js/bootstrap.js": "/js/bootstrap.js",
-    "/css/app.css": "/css/app.css"
+    "/js/bootstrap.bundle.min.js": "/js/bootstrap.bundle.min.js",
+    "/js/jquery.min.js": "/js/jquery.min.js",
+    "/js/waypoints.min.js": "/js/waypoints.min.js",
+    "/js/jquery.easing.min.js": "/js/jquery.easing.min.js",
+    "/js/owl.carousel.min.js": "/js/owl.carousel.min.js",
+    "/js/jquery.counterup.min.js": "/js/jquery.counterup.min.js",
+    "/js/jquery.countdown.min.js": "/js/jquery.countdown.min.js",
+    "/js/default/jquery.passwordstrength.js": "/js/default/jquery.passwordstrength.js",
+    "/js/default/dark-mode-switch.js": "/js/default/dark-mode-switch.js",
+    "/js/default/no-internet.js": "/js/default/no-internet.js",
+    "/js/default/active.js": "/js/default/active.js",
+    "/js/pwa.js": "/js/pwa.js",
+    "/css/animate.css": "/css/animate.css",
+    "/css/bootstrap.min.css": "/css/bootstrap.min.css",
+    "/css/style.css": "/css/style.css",
+    "/css/app.css": "/css/app.css",
+    "/css/default/lineicons.min.css": "/css/default/lineicons.min.css",
+    "/css/font-awesome.min.css": "/css/font-awesome.min.css",
+    "/css/owl.carousel.min.css": "/css/owl.carousel.min.css"
 }

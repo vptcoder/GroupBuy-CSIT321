@@ -192,11 +192,12 @@
     #apply updated .zshrc
     source ~/.zshrc
 
-    #install vue-router using npm
+    #install vue related modules using npm
     npm install vue-router
-
-    #install vue
     npm install vue
+    npm install vuex
+    npm install vue-waypoint
+    npm install vue-owl-carousel
 ```
 
 ### part 2 (windows) - npm requirements
@@ -205,11 +206,12 @@
     https://www.npmjs.com/get-npm
     Download and install .msi
 
-    #install vue-router using npm
+    #install vue related modules using npm
     npm install vue-router
-
-    #install vue
     npm install vue
+    npm install vuex
+    npm install vue-waypoint
+    npm install vue-owl-carousel
 ```
 
 ## create laravel project and first commit to git — 2021-01-14 -- van only
@@ -276,9 +278,10 @@ Build an e-commerce application using Laravel and Vue - Part 1: Application Setu
     
     #in terminal/cmd, do
     php artisan key:generate
+    php artisan passport:install
 
     #compile the app
-    npm run prod
+    npm run dev
     
     #publish the app
     php artisan server
@@ -330,4 +333,24 @@ Time  Local     Server-feature    Server-master     Explainations
  |                                 --the end--      users can now see use the app v2.0
  |                          
  V   
+```
+
+# DURING DEVELOPMENT
+## to clean and recreate database with new schema
+```bash
+    #1. make migration
+    #see database/migrations/
+    #example 1 : php artisan make:migration create_users_table --create=users
+    #example 2 : php artisan make:migration add_votes_to_users_table --table=users 
+    php artisan make:migration file_name 
+    
+    #2. change migration file
+
+    #3. change seeder file
+    
+    #4. delete all existing tables and create fresh
+    php artisan migrate:fresh --seed
+
+    #5. re-install passport to create Personal access client for user account management
+    php artisan passport:install
 ```
