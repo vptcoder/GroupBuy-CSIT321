@@ -18,9 +18,9 @@ class CreateUsersTable extends Migration
             $table->string('username')->unique();
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('shipphing_streetaddress');
-            $table->string('shipphing_city');
-            $table->string('shipphing_postalcode');
+            $table->string('shipping_streetaddress');
+            $table->string('shipping_city');
+            $table->string('shipping_postalcode');
             // $table->timestamp('email_verified_at')->nullable();
             $table->boolean('is_admin')->default(false);
             $table->string('password');

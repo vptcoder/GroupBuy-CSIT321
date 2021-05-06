@@ -35,9 +35,9 @@ class UserController extends Controller
             'username' =>'required|max:50'
             , 'name' => 'required|max:100'
             , 'email' => 'required|email'
-            , 'shipphing_streetaddress' => 'required|max:200'
-            , 'shipphing_city' => 'required|max:50'
-            , 'shipphing_postalcode' => 'required|min:6|max:15'
+            , 'shipping_streetaddress' => 'required|max:200'
+            , 'shipping_city' => 'required|max:50'
+            , 'shipping_postalcode' => 'required|min:6|max:15'
             , 'password' => 'required|min:6'
             , 'c_password' => 'required|same:password'
         ]);
@@ -50,9 +50,9 @@ class UserController extends Controller
             'username'
             , 'name'
             , 'email'
-            , 'shipphing_streetaddress'
-            , 'shipphing_city'
-            , 'shipphing_postalcode'
+            , 'shipping_streetaddress'
+            , 'shipping_city'
+            , 'shipping_postalcode'
             , 'password'
         ]);
         $data['password'] = bcrypt($data['password']);

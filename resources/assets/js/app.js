@@ -24,6 +24,8 @@ import Admin from "./views/Admin.vue";
 import Watchlist from "./views/Watchlist.vue";
 import Notifications from "./views/Notifications.vue";
 import ViewOwnAccount from "./views/ViewOwnAccount.vue";
+import JoinGroupBuy from "./views/JoinGroupBuy.vue";
+
 import { isArguments } from "lodash";
 
 const router = new VueRouter({
@@ -63,6 +65,12 @@ const router = new VueRouter({
             path: "/products/:id",
             name: "single-products",
             component: SingleProduct
+        },
+        {
+            path: "/join",
+            name: "join",
+            component: JoinGroupBuy,
+            props: route => ({ pid: route.query.pid })
         },
         {
             path: "/confirmation",
