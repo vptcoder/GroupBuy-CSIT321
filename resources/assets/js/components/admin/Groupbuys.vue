@@ -63,7 +63,6 @@
 		</table>
 		<p>
 			<i class="lni lni-timer"></i>
-			<i class="lni lni-hourglass"></i>
 			{{timestamp}}
 		</p>
 	</div>

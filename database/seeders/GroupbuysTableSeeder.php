@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use DateTime;
+use DateTimeZone;
 use DB;
 
 class GroupbuysTableSeeder extends Seeder
@@ -16,6 +17,7 @@ class GroupbuysTableSeeder extends Seeder
     public function run()
     {
 		$currentTime = new DateTime;
+		$currentTime->setTimezone(new DateTimeZone(system('date +%z')));
 		$dateEnd = clone($currentTime);
 		$dateEnd->modify('+7 day');
 		$groupbuy = [
