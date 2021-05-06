@@ -1,0 +1,55 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- development
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- script: echo Hello, world!
+  displayName: 'Run a one-line script'
+
+- script: |
+    echo Add other tasks to build, test, and deploy your project.
+    echo See https://aka.ms/yaml
+  displayName: 'Run a multi-line script'
+
+- script: |
+    sudo update-alternatives --set php /usr/bin/php$(phpVersion)
+    sudo update-alternatives --set phar /usr/bin/phar$(phpVersion)
+    sudo update-alternatives --set phpdbg /usr/bin/phpdbg$(phpVersion)
+    sudo update-alternatives --set php-cgi /usr/bin/php-cgi$(phpVersion)
+    sudo update-alternatives --set phar.phar /usr/bin/phar.phar$(phpVersion)
+    php -version
+  displayName: 'Use PHP version $(phpVersion)'
+
+- script: |
+    curl -sL https://deb.nodesource.com/setup_11.x | sudo -E bash -
+    sudo apt-get install -y build-essential debconf-utils screen nodejs mysql-server google-chrome-stable
+    sudo apt-get install -y unzip xvfb autogen autoconf libtool pkg-config nasm
+    sudo mysql -uroot -proot -e "use mysql; update user set authentication_string=PASSWORD('poowf') where User='root'; update user set plugin='mysql_native_password';FLUSH PRIVILEGES;"
+    sudo mysql -u root -ppoowf -e 'create database invoiceneko_test;'
+  displayName: 'Installing System Dependencies'
+
+- script: |
+    mysql --version
+  displayName: 'MySQL Version'
+
+# - script: |
+#     cp .env.travis .env
+#   displayName: 'Environment Setup'
+
+- script: |
+    sudo composer self-update
+    composer install --no-interaction --prefer-dist --no-suggest
+    composer --version
+  displayName: 'Installing Package Dependencies'
+
+- script: |
+    php artisan key:generate
+    php artisan migrate:fresh --seed
+  displayName: 'Running Migrations'
