@@ -11,13 +11,13 @@ variables:
   azureSubscription: '2e9b81cd-9efe-40cb-8767-e133a64594ac'
 
   # Web app name
-  webAppName: ''
+  webAppName: 'GroupBuy-CSIT321'
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
 
   # Environment name
-  environmentName: ''
+  environmentName: 'staging'
 
   # Root folder under which your composer.json file is available.
   rootFolder: $(System.DefaultWorkingDirectory)
