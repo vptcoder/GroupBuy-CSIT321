@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Groupbuy;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -17,6 +18,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UsersTableSeeder::class,
             ProductsTableSeeder::class,
+            GroupbuysTableSeeder::class,
+            OrdersTableSeeder::class,
         ]);
     }
 }

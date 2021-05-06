@@ -41,8 +41,9 @@
 					<!-- Ratings-->
 					<div class="product-ratings">
 					<div class="container d-flex align-items-center justify-content-between">
-						<div class="ratings"><i class="lni lni-star-filled"></i><i class="lni lni-star-filled"></i><i class="lni lni-star-filled"></i><i class="lni lni-star-filled"></i><i class="lni lni-star-filled"></i><span class="ps-1">3 ratings</span></div>
-						<div class="total-result-of-ratings"><span>5.0</span><span>Very Good                                </span></div>
+						<router-link :to="{ path: '/join?pid='+product.id }" 
+							class="col-md-4 btn btn-sm btn-primary full-width">Join
+						</router-link>
 					</div>
 					</div>
 				</div>			
@@ -55,33 +56,15 @@
 				</div>
 			</div>
 
-			<hr>
-			<hr>
-			<hr>
-
 			<div style="margin-left:30px">
 				<div>
-					Color: <b>{{product.name}}</b>
-					<br>
-					Style: <b>1012345</b> 
-					<br>
 					<b style="color:#A93226;font-size:25px;margin-left:10px;">${{product.price}}</b>
-					<img src="/assets/img/icons/Oval 9.png" style="margin-left:150px">
-					<b style="margin-left:10px">1</b>
-					<img src="/assets/img/icons/Oval 8.png" style="margin-left:10px">
 				</div>
 				<br>
 				<div>
-					<b style="color:#A93226;font-size:15px;">SGD</b><b style="color:black;font-size:15px;margin-left:5px;text-decoration:line-through;">$ 280</b>
-					<label style="margin-left:160px;color:red;">9 slots left</label>
+					<label v-if="product.groupbuy_id == null" style="margin-left:160px;color:red;">{{product.max}} slots left</label>
+					<label v-else style="margin-left:160px;color:red;">{{product.groupbuy_max-product.groupbuy_orders}} slots left</label>
 				</div>
-			</div>
-			<hr>
-			<div>
-				<img src="/assets/img/icons/bb.png"  style="margin-left:30px;"> <b>15 days return</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<img src="/assets/img/icons/gg.png"> <b>100% Authentic</b>
-				<br>
-				<img src="/assets/img/icons/car.png"  style="margin-left:30px;"><b> Free Shipping</b>
 			</div>
 			<hr>
 			<div>
@@ -89,7 +72,6 @@
 				<br>
 				<p style="margin-left:30px;">{{product.description}}</p>			
 			</div>
-			<router-link :to="{ path: '/checkout?pid='+product.id }" class="col-md-4 btn btn-sm btn-primary float-right">Buy Now</router-link>
 		</div>
 	</div>	
 </template>
@@ -119,7 +101,7 @@ export default {
 	},
 	methods: {
 		promptlogin(){
-			alert("Please login!")
+			alert("Please login or create account to continue :)")
 		},
 		watch(userid) {
 			var found = false;
@@ -238,4 +220,8 @@ opacity: 0.2;
 .owl-carousel .next-slide:hover{
 background-position: -24px -53px;
 }   
+
+.full-width {
+	width: 100%;
+}
 </style>

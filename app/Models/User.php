@@ -23,9 +23,9 @@ class User extends Authenticatable
         'username',
         'name',
         'email',
-        'shipphing_streetaddress',
-        'shipphing_city',
-        'shipphing_postalcode',
+        'shipping_streetaddress',
+        'shipping_city',
+        'shipping_postalcode',
         'password',
     ];
 

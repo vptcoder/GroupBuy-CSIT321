@@ -28,19 +28,19 @@
 								<div class="form-group row">
 									<label for="name" class="col-md-4 col-form-label text-md-right">Shipping Street Address</label>
 									<div class="col-md-6">
-										<input id="name" type="text" class="form-control" v-model="shipphing_streetaddress" required autofocus>
+										<input id="name" type="text" class="form-control" v-model="shipping_streetaddress" required autofocus>
 									</div>
 								</div>
 								<div class="form-group row">
 									<label for="name" class="col-md-4 col-form-label text-md-right">Shipping City</label>
 									<div class="col-md-6">
-										<input id="name" type="text" class="form-control" v-model="shipphing_city" required autofocus>
+										<input id="name" type="text" class="form-control" v-model="shipping_city" required autofocus>
 									</div>
 								</div>
 								<div class="form-group row">
 									<label for="name" class="col-md-4 col-form-label text-md-right">Shipping Postal Code</label>
 									<div class="col-md-6">
-										<input id="name" type="text" class="form-control" v-model="shipphing_postalcode" required autofocus>
+										<input id="name" type="text" class="form-control" v-model="shipping_postalcode" required autofocus>
 									</div>
 								</div>
 
@@ -80,9 +80,9 @@ export default {
 			username : "",
 			name : "",
 			email : "",
-			shipphing_streetaddress : "",
-			shipphing_city : "",
-			shipphing_postalcode : "",
+			shipping_streetaddress : "",
+			shipping_city : "",
+			shipping_postalcode : "",
 			password : "",
 			password_confirmation : ""
 		}
@@ -99,15 +99,15 @@ export default {
 			let username = this.username
 			let name = this.name
 			let email = this.email
-			let shipphing_streetaddress = this.shipphing_streetaddress
-			let shipphing_city = this.shipphing_city
-			let shipphing_postalcode = this.shipphing_postalcode
+			let shipping_streetaddress = this.shipping_streetaddress
+			let shipping_city = this.shipping_city
+			let shipping_postalcode = this.shipping_postalcode
 			let password = this.password
 			let c_password = this.password_confirmation
 
 			//See UserController.php > register function for parameters order and rules 
 			axios.
-				post('api/register', {username, name, email, shipphing_streetaddress, shipphing_city, shipphing_postalcode, password, c_password}).
+				post('api/register', {username, name, email, shipping_streetaddress, shipping_city, shipping_postalcode, password, c_password}).
 				then(response => {
 					let data = response.data
 					localStorage.setItem('bigStore.user', JSON.stringify(data.user))

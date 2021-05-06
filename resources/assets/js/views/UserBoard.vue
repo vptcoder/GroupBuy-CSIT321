@@ -58,7 +58,7 @@
 				</div>
 				<div class="single-profile-data d-flex align-items-center justify-content-between">
 					<div class="title d-flex align-items-center"><i class="lni lni-map-marker"></i><span>Shipping</span></div>
-					<div class="data-content">{{user.shipphing_streetaddress}}, {{user.shipphing_postalcode}}, {{user.shipphing_city}}</div>
+					<div class="data-content">{{user.shipping_streetaddress}}, {{user.shipping_postalcode}}, {{user.shipping_city}}</div>
 				</div>
 				<div class="single-profile-data d-flex align-items-center justify-content-between">
 					<div class="title d-flex align-items-center"><i class="lni lni-star"></i><span>To Pay</span></div>

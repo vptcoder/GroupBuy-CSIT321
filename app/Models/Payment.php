@@ -6,20 +6,30 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Shoptoken extends Model
+// Status code - Admin POV:
+// G11 - Pending payment
+// G12 - Paid
+// G21 - Cancelled
+
+class Payment extends Model
 {
     // use HasFactory;
     use SoftDeletes;
 
     protected $fillable = [
-        'product_id', 'user_id', 'groupbuy_id'
+        'order_id'
+        , 'user_id'
+        , 'amount'
+        , 'method'
+		, 'date_due'
+        , 'date_paid'
     ];
 
     public function user(){
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function product(){
-        return $this->belongsTo(Product::class, 'product_id');
+    public function order(){
+        return $this->belongsTo(Order::class, 'order_id');
     }
 }

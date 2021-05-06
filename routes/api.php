@@ -19,12 +19,57 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::post('login', 'App\Http\Controllers\UserController@login');
-Route::post('register', 'App\Http\Controllers\UserController@register');
-Route::get('/products', 'App\Http\Controllers\ProductController@index');
-Route::post('/upload-file', 'App\Http\Controllers\ProductController@uploadFile');
-Route::get('/products/{product}', 'App\Http\Controllers\ProductController@show');
-Route::resource('/watchlists', 'App\Http\Controllers\WatchlistController');
+//UserController
+Route::post(
+    'login',
+    'App\Http\Controllers\UserController@login'
+);
+Route::post(
+    'register',
+    'App\Http\Controllers\UserController@register'
+);
+
+//ProductController
+Route::get(
+    '/products',
+    'App\Http\Controllers\ProductController@index'
+);
+Route::get(
+    '/availableProducts',
+    'App\Http\Controllers\ProductController@userIndex'
+);
+Route::get(
+    '/products/{product}',
+    'App\Http\Controllers\ProductController@show'
+);
+Route::get(
+    '/adminproducts',
+    'App\Http\Controllers\ProductController@adminIndex'
+);
+Route::post(
+    '/upload-file',
+    'App\Http\Controllers\ProductController@uploadFile'
+);
+
+//WatchlistController
+Route::resource(
+    '/watchlists',
+    'App\Http\Controllers\WatchlistController'
+);
+
+//GroupbuyController
+Route::get(
+    '/activeGroupbuys',
+    'App\Http\Controllers\GroupbuyController@userIndex'
+);
+Route::get(
+    '/admingroupbuys',
+    'App\Http\Controllers\GroupbuyController@adminIndex'
+);
+Route::post(
+    '/groupbuys/join',
+    'App\Http\Controllers\GroupbuyController@store'
+);
 
 Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/users', 'App\Http\Controllers\UserController@index');
