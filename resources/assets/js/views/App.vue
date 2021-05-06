@@ -150,13 +150,13 @@
 						<i class="lni lni-power-switch"></i>Login
 					</router-link>
 				</li>
-				
+
 				<li>
 					<router-link :to="{ name: 'register' }" class="nav-link" v-if="!isLoggedIn">
 						<i class="lni lni-power-switch"></i>Register
 					</router-link>
 				</li>
-				<li class="nav-link" v-if="isLoggedIn" @click="logout"> 
+				<li class="nav-link" v-if="isLoggedIn" @click="logout">
 					<i class="lni lni-power-switch"></i>Sign Out
 				</li>
 			</ul>
@@ -300,7 +300,16 @@ export default {
 .navbar-brand {
 	text-align: center;
 }
-
+.navbar-brand:active,
+.navbar-brand:focus,
+.navbar-brand:hover {
+	color: #ea4c62;
+	text-align: center;
+}
+.router-link-exact-active {
+	color: #ea4c62;
+	font-weight: 700;
+}
 input.navbar-search {
 	height: 35px;
 	font-size: 14px;

@@ -22,12 +22,15 @@
 > Created when someone starts a groupbuy of a product
 > link by id to Product table
 - _id_
-- 'date start'
-- 'date end'
-- 'required orders'
-- 'current orders'
-- 'started by'
-- 'success date'
+- 'product_id'
+- 'status'
+- 'date_start'
+- 'date_end'
+- 'min_required'
+- 'max_available'
+- 'current_orders'
+- 'started_by'
+- 'success_date'
 
 ### Order table
 - [ ] done

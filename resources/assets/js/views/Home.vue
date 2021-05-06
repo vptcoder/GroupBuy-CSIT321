@@ -168,38 +168,93 @@
 				<div class="row g-3">
 					<!-- Single Top Product Card-->
 					<div class="col-6 col-md-4 col-lg-3" v-for="(product,index) in products" :key="index">
-						<div class="card top-product-card">
+						<div v-if="product.groupbuy_id == null" class="card top-product-card">
 							<router-link class="card-body" :to="{ path: '/products/'+product.id}">
-								<span v-if="product.orders.length > 0" class="badge badge-success">On going</span>
-								<span v-else class="badge badge-pending" >Pending</span>
-								<a class="wishlist-btn notwatching-btn" v-if="!user" v-on:click.prevent @click="promptlogin()">
+								<span class="badge badge-pending">{{product.groupbuy_status}}</span>
+								<a
+									class="wishlist-btn notwatching-btn"
+									v-if="!user"
+									v-on:click.prevent
+									@click="promptlogin()"
+								>
 									<i class="lni lni-heart"></i>
 								</a>
-								<a class="wishlist-btn " v-else v-bind:class="!product.watchlists.some(w => w.user_id == user.id) ? 'notwatching-btn' : 'watching-btn'" v-on:click.prevent @click="watch(product, user.id)">
-									<i class="lni lni-heart"></i>
+								<a
+									class="wishlist-btn"
+									v-else
+									v-bind:class="!product.watchlists.some(w => w.user_id == user.id) ? 'notwatching-btn' : 'watching-btn'"
+									v-on:click.prevent
+									@click="watch(product, user.id)"
+								>
+									<i
+										class="lni"
+										v-bind:class="!product.watchlists.some(w => w.user_id == user.id) ? 'lni-heart' : 'lni-heart-filled'"
+									></i>
 								</a>
-								<a class="product-thumbnail d-block" >
-									<img class="mb-2" :src="product.image" :alt="product.name" />
+								<a class="product-thumbnail d-block">
+									<img class="mb-2" :src="product.product_image" :alt="product.product_name" />
 								</a>
-								<a class="product-title d-block" v-html="product.name">
-									
-								</a>
-								<p class="sale-price">
-									${{product.price}}
-								</p>
-								<span v-if="product.orders.length > 0" class="badge bottom-badge badge-success">{{product.orders.length}} buyers</span>
-								<span v-else class="badge bottom-badge badge-watch-pending" >{{product.watchlists.length}} watchers</span>
+								<a class="product-title d-block" v-html="product.product_name"></a>
+								<p class="sale-price">${{product.product_price}}</p>
+								<span class="badge bottom-badge badge-watch-pending">{{product.watchlists.length}} watchers</span>
 
-								<span v-if="product.orders.length === 0" class="badge badge-pending bottom-badge">minimum required: {{product.min}}</span>
-								<span v-else-if="product.orders.length < product.min" class="badge badge-success bottom-badge">+{{product.min - product.orders.length}} buyers needed</span>
-								<span v-else-if="product.orders.length < product.max" class="badge badge-success bottom-badge">+{{product.max - product.orders.length}} to finish</span>
+								<span class="badge badge-pending bottom-badge">minimum required: {{product.product_min}}</span>
+							</router-link>
+						</div>
+						<div v-else class="card top-product-card">
+							<router-link class="card-body" :to="{ path: '/products/'+product.id}">
+								<span class="badge badge-success">{{product.groupbuy_status}}</span>
+								<a
+									class="wishlist-btn notwatching-btn"
+									v-if="!user"
+									v-on:click.prevent
+									@click="promptlogin()"
+								>
+									<i class="lni lni-heart"></i>
+								</a>
+								<a
+									class="wishlist-btn"
+									v-else
+									v-bind:class="!product.watchlists.some(w => w.user_id == user.id) ? 'notwatching-btn' : 'watching-btn'"
+									v-on:click.prevent
+									@click="watch(product, user.id)"
+								>
+									<i
+										class="lni"
+										v-bind:class="!product.watchlists.some(w => w.user_id == user.id) ? 'lni-heart' : 'lni-heart-filled'"
+									></i>
+								</a>
+								<a class="product-thumbnail d-block">
+									<img class="mb-2" :src="product.product_image" :alt="product.product_name" />
+								</a>
+								<a class="product-title d-block" v-html="product.product_name"></a>
+								<p class="sale-price">${{product.product_price}}</p>
+								<span class="badge bottom-badge badge-success">{{product.groupbuy_orders}} ordered</span>
+
+								<span
+									v-if="product.groupbuy_orders === 0"
+									class="badge badge-pending bottom-badge"
+								>minimum required: {{product.groupbuy_min}}</span>
+								<span
+									v-else-if="product.groupbuy_orders < product.groupbuy_min"
+									class="badge badge-success bottom-badge"
+								>+{{product.groupbuy_min - product.groupbuy_orders}} buyers needed</span>
+								<span
+									v-else-if="product.groupbuy_orders < product.groupbuy_max"
+									class="badge badge-success bottom-badge"
+								>+{{product.groupbuy_max - product.groupbuy_orders}} to finish</span>
+								<span v-else class="badge badge-success bottom-badge">Full!</span>
+
+								<span class="badge bottom-badge badge-success">
+									<i class="lni lni-timer"></i>
+									{{timediff(timestamp, product.groupbuy_date_end)}}
+								</span>
 							</router-link>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-
 	</div>
 </template>
 
@@ -208,24 +263,55 @@ export default {
 	data() {
 		return {
 			user: null,
-			products: []
+			products: [],
+			products2: [],
+			timestamp: ""
 		};
 	},
+	created() {
+		setInterval(this.getNow, 1000);
+	},
 	beforeMount() {
-		this.user = JSON.parse(localStorage.getItem('bigStore.user'))
+		this.user = JSON.parse(localStorage.getItem("bigStore.user"));
 	},
 	mounted() {
 		axios
 			.get("api/products/")
-			.then(response => (this.products = response.data));
+			.then(response => (this.products2 = response.data));
+
+		axios
+			.get("api/availableProducts/")
+			.then(response => {
+				this.products = response.data;
+			})
+			.catch(error => {
+				alert(error);
+			});
 	},
 	methods: {
+		getNow: function() {
+			const today = new Date();
+			const date =
+				today.getFullYear() +
+				"-" +
+				(today.getMonth() + 1) +
+				"-" +
+				today.getDate();
+			const time =
+				today.getHours() +
+				":" +
+				today.getMinutes() +
+				":" +
+				today.getSeconds();
+			const dateTime = date + " " + time;
+			this.timestamp = dateTime;
+		},
 		watch(product, userid) {
 			var found = false;
 			var indexFound;
 			var idFound;
-			for (var i = 0; i < product.watchlists.length; i++){
-				if (product.watchlists[i].user_id == userid){
+			for (var i = 0; i < product.watchlists.length; i++) {
+				if (product.watchlists[i].user_id == userid) {
 					found = true;
 					indexFound = i;
 					idFound = product.watchlists[i].id;
@@ -235,41 +321,56 @@ export default {
 			console.log("User exists in watchlist? - ", found);
 			console.log("User at index - ", indexFound);
 
-			if(!found){
+			if (!found) {
 				var productid = product.id;
 				var res;
 				console.log("userid: ", userid);
 				console.log("productid: ", productid);
-				
-				axios.post("/api/watchlists", {productid, userid})
-				.then(function (response) {
-					product.watchlists.push({
-						'id': response.data.data.id.toString()
-						, 'product_id': response.data.data.product_id.toString()
-						, 'user_id': response.data.data.user_id.toString()
+
+				axios
+					.post("/api/watchlists", { productid, userid })
+					.then(function(response) {
+						product.watchlists.push({
+							id: response.data.data.id.toString(),
+							product_id: response.data.data.product_id.toString(),
+							user_id: response.data.data.user_id.toString()
+						});
+						console.log("userid added.");
+					})
+					.catch(function(error) {
+						console.log("userid not added.", error);
 					});
-					console.log("userid added.");
-				})
-				.catch(function (error){
-					console.log("userid not added.", error);
-				})
-				
 			} else {
 				product.watchlists.splice(indexFound, 1);
-				axios.delete(`/api/watchlists/${idFound}`)
-				.then(function (response){
-					console.log("userid removed.");
-				})
-				.catch(function (error){
-					console.log("userid not removed.", error);
-				})
+				axios
+					.delete(`/api/watchlists/${idFound}`)
+					.then(function(response) {
+						console.log("userid removed.");
+					})
+					.catch(function(error) {
+						console.log("userid not removed.", error);
+					});
 			}
 		},
-		promptlogin(){
-			alert("Please login!")
+		promptlogin() {
+			alert("Please login or create account to continue :)");
+		},
+		timediff(currentTime, productTime) {
+			var calTime = new Date(
+				Date.parse(productTime) - Date.parse(currentTime)
+			);
+			var date = calTime.getDay();
+			var time =
+				calTime.getHours() +
+				":" +
+				calTime.getMinutes() +
+				":" +
+				calTime.getSeconds();
+			var dateTime = date + " days " + time + " left";
+			return dateTime;
 		}
-
-	},	
+	},
+	computed: {}
 };
 </script>
 

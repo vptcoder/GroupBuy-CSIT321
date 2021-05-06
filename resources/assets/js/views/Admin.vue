@@ -5,6 +5,7 @@
 			<button class="btn" @click="setComponent('main')">Dashboard</button>
 			<div></div>
 			<button class="btn" @click="setComponent('products')">Products</button>
+			<button class="btn" @click="setComponent('groupbuys')">Groupbuys</button>
 			<button class="btn" @click="setComponent('orders')">Orders</button>
 			<button class="btn" @click="setComponent('payments')">Payments</button>
 			<button class="btn" @click="setComponent('users')">Users</button>
@@ -25,6 +26,7 @@ import Users from '../components/admin/Users'
 import Payments from '../components/admin/Payments'
 import Products from '../components/admin/Products'
 import Orders from '../components/admin/Orders'
+import Groupbuys from '../components/admin/Groupbuys'
 
 export default {
 	data() {
@@ -34,7 +36,7 @@ export default {
 		}
 	},
 	components: {
-		Main, Users, Products, Orders, Payments
+		Main, Users, Products, Orders, Payments, Groupbuys
 	},
 	beforeMount() {
 		this.setComponent(this.$route.params.page)
@@ -61,6 +63,10 @@ export default {
 					this.activeComponent = Products
 					this.$router.push({name: 'admin-pages', params: {page: 'products'}})
 					break;
+				case "groupbuys":
+					this.activeComponent = Groupbuys
+					this.$router.push({name: 'admin-pages', params: {page: 'groupbuys'}})
+					break;
 				default:
 					this.activeComponent = Main
 					this.$router.push({name: 'admin'})
@@ -73,12 +79,15 @@ export default {
 </script>
 
 <style scoped>
+.container {
+	max-width: 95%;
+}
 .topnavcontainer-admin{
 	display: grid;
 	width: 100%;
 	align-items: center;
 	justify-content: right;
-	grid-template-columns: 1fr 3fr 1fr 1fr 1fr 1fr;
+	grid-template-columns: 1fr 3fr 1fr 1fr 1fr 1fr 1fr;
 }
 .subheader-area {
     transition-duration: 500ms;
@@ -91,7 +100,7 @@ export default {
     z-index: 1000;
     box-shadow: 0 0 8px rgba(15, 15, 15, 0.15);
 	display: grid;
-	grid-template-columns: 1fr 3fr 1fr 1fr 1fr 1fr;
+	grid-template-columns: 1fr 3fr 1fr 1fr 1fr 1fr 1fr;
 }
 .subheader-area .btn:hover,.subheader-area .btn:active, .subheader-area .btn:focus {
 	color: #100DD1;
