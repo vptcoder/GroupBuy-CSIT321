@@ -63,6 +63,10 @@ Route::get(
     'App\Http\Controllers\GroupbuyController@userIndex'
 );
 Route::get(
+    '/joinedGroupbuys',
+    'App\Http\Controllers\GroupbuyController@userIndexJoined'
+);
+Route::get(
     '/admingroupbuys',
     'App\Http\Controllers\GroupbuyController@adminIndex'
 );

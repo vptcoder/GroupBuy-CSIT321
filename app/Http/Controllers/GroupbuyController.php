@@ -27,6 +27,59 @@ class GroupbuyController extends Controller
         return response()->json($g, 200);
     }
 
+    public function userIndexJoined(Request $request)
+    {
+        $gs = Groupbuy::join('orders', 'groupbuys.id', '=', 'orders.groupbuy_id')
+        ->join('products', 'products.id', 'groupbuys.product_id')
+        ->select(
+            'groupbuys.id',
+            'groupbuys.status as groupbuy_status',
+            'groupbuys.min_required',
+            'groupbuys.max_available',
+            'groupbuys.date_end',
+            'products.id as product_id',
+            'products.name as product_name',
+            'products.image as product_image',
+            'products.price as product_price',
+            'orders.id as order_id',
+            'orders.user_id'
+        )
+        ->where('groupbuy_status', '=', 'g11')
+        ->where('user_id', $request->userid)        
+        ->with('orders')
+        ->get();
+
+        foreach ($gs as $g) {
+            $sumQuantity = 0;
+            if (!empty($g->orders) && $g->orders->count() > 0) {
+                foreach ($g->orders as $o) {
+                    $sumQuantity += $o->quantity;
+                }
+            }
+            $g->groupbuy_orders = $sumQuantity;
+    
+            $status = null;
+            switch ($g->groupbuy_status) {
+                case 'g11':
+                    $status = "Active";
+                    break;
+                case 'g12':
+                    $status = "Processing";
+                    break;
+                case 'g13':
+                    $status = "Processing";
+                    break;
+                case 'g21':
+                    $status = "Closed";
+                    break;
+            }
+            $g->groupbuy_status = $status;
+    
+        }
+        return response()->json($gs, 200);
+
+    }
+
     public function adminIndex()
     {
         $groupbuys =
