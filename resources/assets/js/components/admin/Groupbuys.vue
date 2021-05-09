@@ -1,8 +1,6 @@
 <template>
 	<div class="page-content-wrapper">
-		<p>
-			Double-click on item to open
-		</p>
+		<p>Double-click on item to open</p>
 		<table class="table table-responsive table-striped">
 			<thead>
 				<tr>
@@ -19,7 +17,12 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr class="tr-data" v-for="(groupbuy,index) in groupbuys" :key="index" @dblclick="editingItem = groupbuy">
+				<tr
+					class="tr-data"
+					v-for="(groupbuy,index) in groupbuys"
+					:key="index"
+					@dblclick="startEditing(groupbuy)"
+				>
 					<!-- <td>{{index+1}}</td> -->
 					<td>
 						<h6 class="mb-0" v-html="groupbuy.id"></h6>
@@ -62,12 +65,12 @@
 			<i class="lni lni-timer"></i>
 			{{timestamp}}
 		</p>
-		<modal @close="endEditing"  :groupbuy="editingItem" v-show="editingItem != null"></modal>
+		<modal @close="endEditing" :groupbuy="editingItem" v-show="editingItem != null"></modal>
 	</div>
 </template>
 
 <script>
-import Modal from './GroupbuyModal'
+import Modal from "./GroupbuyModal";
 
 export default {
 	data() {
@@ -79,7 +82,7 @@ export default {
 			showModal: false
 		};
 	},
-	components: {Modal},
+	components: { Modal },
 	beforeMount() {
 		axios
 			.get("/api/admingroupbuys/")
@@ -106,8 +109,28 @@ export default {
 			const dateTime = date + " " + time;
 			this.timestamp = dateTime;
 		},
-		endEditing(groupbuy) {
-			this.editingItem = null
+		startEditing(groupbuy) {
+			this.editingItem = Object.assign({}, groupbuy);
+		},
+		endEditing(status) {
+			console.log(status);
+			if (status == true) {
+				var g = this.groupbuys.find(g => g.id == this.editingItem.id);
+				g.status = this.editingItem.status;
+
+				let id = g.id;
+				let status = g.status;
+
+				axios
+					.put(`/api/groupbuys/${g.id}/updateStatus/`, {
+						id, status
+					})
+					.then(response => {
+						console.log(response);
+						// this.products[index] = product;
+					});
+			}
+			this.editingItem = null;
 
 			// let index = this.products.indexOf(product)
 			// let name = product.name
@@ -118,7 +141,7 @@ export default {
 
 			// axios.put(`/api/products/${product.id}`, {name, min, max, price, description})
 			// 		.then(response => this.products[index] = product)
-		},
+		}
 	}
 };
 </script>
@@ -131,6 +154,6 @@ tr.tr-data {
 	transition-duration: 100ms;
 }
 tr.tr-data:hover {
-	background-color:rgb(238, 185, 185);
+	background-color: rgb(238, 185, 185);
 }
 </style>

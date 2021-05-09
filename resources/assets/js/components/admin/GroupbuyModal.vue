@@ -7,25 +7,23 @@
 				</div>
 				<div class="modal-body">
 					<slot name="body">
-						Name: <h6 class="mb-0">{{data.product_name}}</h6>
-						Price: <input type="text" v-model="data.price">
-						Min: <input type="text" v-model="data.min">
-						Max: <input type="text" v-model="data.max">
-						<textarea v-model="data.description" placeholder="description"></textarea>
-						<span >
-							<img :src="data.image" v-show="data.image != null">
-							<input type="file" id="file" @change="attachFile">
-						</span>
+						Name:
+						<h6 class="mb-0">{{data.product_name}}</h6>
+						 <input type="text" v-model="data.product_name">Status:
+						<br />
+						<input type="radio" v-model="data.status" :disabled="!data.to_g11" value="Active" /> Active
+						<br />
+						<input type="radio" v-model="data.status" :disabled="!data.to_g12" value="Pending payments" /> Pending Payments
+						<br />
+						<input type="radio" v-model="data.status" :disabled="!data.to_g13" value="Processing orders" /> Processing orders
+						<br />
+						<input type="radio" v-model="data.status" :disabled="!data.to_g21" value="Closed" /> Closed
 					</slot>
 				</div>
 				<div class="modal-footer">
 					<slot name="footer">
-						<button class="modal-default-button" @click="uploadFile">
-							Finish
-						</button>
-						<button class="modal-default-button" @click="cancelFile">
-							Cancel
-						</button>
+						<button class="modal-default-button" @click="finishEdit">Finish</button>
+						<button class="modal-default-button" @click="cancelEdit">Cancel</button>
 					</slot>
 				</div>
 			</div>
@@ -41,9 +39,9 @@
 	left: 0;
 	width: 100%;
 	height: 100%;
-	background-color: rgba(0, 0, 0, .5);
+	background-color: rgba(0, 0, 0, 0.5);
 	display: table;
-	transition: opacity .3s ease;
+	transition: opacity 0.3s ease;
 }
 .modal-wrapper {
 	display: table-cell;
@@ -55,8 +53,8 @@
 	padding: 20px 30px;
 	background-color: #fff;
 	border-radius: 2px;
-	box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
-	transition: all .3s ease;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+	transition: all 0.3s ease;
 	font-family: Helvetica, Arial, sans-serif;
 }
 .modal-header h3 {
@@ -84,16 +82,16 @@
 
 <script>
 export default {
-	props: ['groupbuy'],
+	props: ["groupbuy"],
 	data() {
 		return {
-			attachment: null
-		}
+			olddata: null
+		};
 	},
 	computed: {
 		data: function() {
 			if (this.groupbuy != null) {
-				return this.groupbuy
+				return this.groupbuy;
 			}
 			return {
 				name: "",
@@ -102,29 +100,16 @@ export default {
 				price: "",
 				description: "",
 				image: false
-			}
+			};
 		}
 	},
 	methods: {
-		attachFile(event) {
-			this.attachment = event.target.files[0];
+		finishEdit(event) {
+			this.$emit("close", true);
 		},
-		uploadFile(event) {
-			if (this.attachment != null) {
-				var formData = new FormData();
-				formData.append("image", this.attachment)
-				let headers = {'Content-Type': 'multipart/form-data'}
-				axios.post("/api/upload-file", formData, {headers}).then(response => {
-					this.groupbuy.image = response.data
-					this.$emit('close', this.groupbuy)
-				})
-			} else {
-				this.$emit('close', this.groupbuy)
-			}
-		},
-		cancelFile(event){
-				this.$emit('close', this.groupbuy)
+		cancelEdit(event) {
+			this.$emit("close", false);
 		}
 	}
-}
+};
 </script>
