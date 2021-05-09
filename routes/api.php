@@ -63,12 +63,20 @@ Route::get(
     'App\Http\Controllers\GroupbuyController@userIndex'
 );
 Route::get(
+    '/joinedGroupbuys',
+    'App\Http\Controllers\GroupbuyController@userIndexJoined'
+);
+Route::get(
     '/admingroupbuys',
     'App\Http\Controllers\GroupbuyController@adminIndex'
 );
 Route::post(
     '/groupbuys/join',
     'App\Http\Controllers\GroupbuyController@store'
+);
+Route::put(
+    '/groupbuys/{groupbuy}/updateStatus',
+    'App\Http\Controllers\GroupbuyController@updateStatus'
 );
 
 Route::group(['middleware' => 'auth:api'], function () {

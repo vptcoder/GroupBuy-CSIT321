@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use DateTime;
+use Carbon\Carbon;
 use DB;
 
 class ProductsTableSeeder extends Seeder
@@ -15,6 +15,7 @@ class ProductsTableSeeder extends Seeder
      */
     public function run()
     {
+		date_default_timezone_set('Asia/Singapore');
         $products = [
             [
                 'status' => "p11",
@@ -24,7 +25,7 @@ class ProductsTableSeeder extends Seeder
                 'max' => 10,
                 'price' => 200.10,
                 'image' => 'http://images.thenorthface.com/is/image/TheNorthFace/236x204_CLR/mens-better-than-naked-jacket-AVMH_LC9_hero.png',
-                'created_at' => new DateTime,
+                'created_at' => Carbon::now(),
                 'updated_at' => null,
             ],
             [
@@ -35,7 +36,7 @@ class ProductsTableSeeder extends Seeder
                 'max' => 10,
                 'price' => 1600.21,
                 'image' => 'http://images.thenorthface.com/is/image/TheNorthFace/236x204_CLR/womens-better-than-naked-jacket-AVKL_NN4_hero.png',
-                'created_at' => new DateTime,
+                'created_at' => Carbon::now(),
                 'updated_at' => null,
             ],
             [
@@ -47,7 +48,7 @@ class ProductsTableSeeder extends Seeder
                 'max' => 10,
                 'price' => 378.00,
                 'image' => 'http://images.thenorthface.com/is/image/TheNorthFace/236x204_CLR/womens-single-track-shoe-ALQF_JM3_hero.png',
-                'created_at' => new DateTime,
+                'created_at' => Carbon::now(),
                 'updated_at' => null,
             ],
             [
@@ -58,7 +59,7 @@ class ProductsTableSeeder extends Seeder
                 'max' => 10,
                 'price' => 21.10,
                 'image' => 'http://images.thenorthface.com/is/image/TheNorthFace/236x204_CLR/enduro-boa-hydration-pack-AJQZ_JK3_hero.png',
-                'created_at' => new DateTime,
+                'created_at' => Carbon::now(),
                 'updated_at' => null,
             ]
         ];

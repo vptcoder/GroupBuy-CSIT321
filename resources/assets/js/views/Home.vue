@@ -356,18 +356,40 @@ export default {
 			alert("Please login or create account to continue :)");
 		},
 		timediff(currentTime, productTime) {
-			var calTime = new Date(
-				Date.parse(productTime) - Date.parse(currentTime)
-			);
-			var date = calTime.getDay();
-			var time =
-				calTime.getHours() +
-				":" +
-				calTime.getMinutes() +
-				":" +
-				calTime.getSeconds();
-			var dateTime = date + " days " + time + " left";
-			return dateTime;
+			var bucketMili = new Date(productTime) - new Date(currentTime);
+			var mili_per_day = 1000 * 60 * 60 * 24;
+			var mili_per_hour = 1000 * 60 * 60;
+			var mili_per_min = 1000 * 60;
+			var mili_per_sec = 1000;
+
+			var remainingDays = Math.floor(bucketMili / mili_per_day);
+			var bucketMili = bucketMili - mili_per_day * remainingDays;
+
+			var remainintHours = Math.floor(bucketMili / mili_per_hour);
+			var bucketMili = bucketMili - mili_per_hour * remainintHours;
+
+			var remainingMins = Math.floor(bucketMili / mili_per_min);
+			var bucketMili = bucketMili - mili_per_min * remainingMins;
+
+			var remainingSecs = Math.floor(bucketMili / mili_per_sec);
+
+			var remaining = "remaining time...";
+			if (
+				!isNaN(remainingDays) &&
+				!isNaN(remainintHours) &&
+				!isNaN(remainingMins) &&
+				!isNaN(remainingSecs)
+			) {
+				remaining =
+					remainingDays +
+					" days " +
+					remainintHours +
+					":" +
+					remainingMins +
+					":" +
+					remainingSecs;
+			}
+			return remaining;
 		}
 	},
 	computed: {}

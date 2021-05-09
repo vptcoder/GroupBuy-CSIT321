@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use DateTime;
+use Carbon\Carbon;
 use DB;
 
 class OrdersTableSeeder extends Seeder
@@ -15,19 +15,20 @@ class OrdersTableSeeder extends Seeder
      */
     public function run()
     {
+		date_default_timezone_set('Asia/Singapore');
         $orders = [
             [
                 'groupbuy_id' => 1
                 , 'product_id' => 2
                 , 'user_id' => 2
                 , 'status' => 'o11'
-                , 'quantity' => 2
+                , 'quantity' => 7
                 , 'confirmedPrice' => 3200.42
                 , 'shipping_streetaddress' => '01 Test Street, #11-01'
                 , 'shipping_city' => 'Singapore'
                 , 'shipping_postalcode' => '666661'
                 , 'is_delivered' => false
-                , 'created_at' => new DateTime
+                , 'created_at' => Carbon::now()
                 , 'updated_at' => null
             ]
             , [
@@ -41,7 +42,7 @@ class OrdersTableSeeder extends Seeder
                 , 'shipping_city' => 'Singapore'
                 , 'shipping_postalcode' => '666661'
                 , 'is_delivered' => false
-                , 'created_at' => new DateTime
+                , 'created_at' => Carbon::now()
                 , 'updated_at' => null
             ]
             , [
@@ -55,7 +56,7 @@ class OrdersTableSeeder extends Seeder
                 , 'shipping_city' => 'Singapore'
                 , 'shipping_postalcode' => '666661'
                 , 'is_delivered' => false
-                , 'created_at' => new DateTime
+                , 'created_at' => Carbon::now()
                 , 'updated_at' => null
             ]
         ];

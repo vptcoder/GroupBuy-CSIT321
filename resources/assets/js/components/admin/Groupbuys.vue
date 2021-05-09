@@ -1,5 +1,6 @@
 <template>
 	<div class="page-content-wrapper">
+		<p>Double-click on item to open</p>
 		<table class="table table-responsive table-striped">
 			<thead>
 				<tr>
@@ -13,11 +14,15 @@
 					<td>Current orders</td>
 					<td>Started By</td>
 					<td>Date Success</td>
-					<td>Action</td>
 				</tr>
 			</thead>
 			<tbody>
-				<tr v-for="(groupbuy,index) in groupbuys" :key="index" @dblclick="editingItem = groupbuy">
+				<tr
+					class="tr-data"
+					v-for="(groupbuy,index) in groupbuys"
+					:key="index"
+					@dblclick="startEditing(groupbuy)"
+				>
 					<!-- <td>{{index+1}}</td> -->
 					<td>
 						<h6 class="mb-0" v-html="groupbuy.id"></h6>
@@ -53,33 +58,31 @@
 					<td>
 						<h6 class="mb-0">{{groupbuy.date_success}}</h6>
 					</td>
-					<td>
-						<p>
-							<i class="lni lni-magnifier"></i>Open
-						</p>
-					</td>
 				</tr>
 			</tbody>
 		</table>
 		<p>
 			<i class="lni lni-timer"></i>
-			<i class="lni lni-hourglass"></i>
 			{{timestamp}}
 		</p>
+		<modal @close="endEditing" :groupbuy="editingItem" v-show="editingItem != null"></modal>
 	</div>
 </template>
 
 <script>
+import Modal from "./GroupbuyModal";
+
 export default {
 	data() {
 		return {
 			groupbuys: [],
 			editingItem: null,
-			addingProduct: null,
-			timestamp: ""
+			editingGroupbuy: null,
+			timestamp: "",
+			showModal: false
 		};
 	},
-	// components: {Modal},
+	components: { Modal },
 	beforeMount() {
 		axios
 			.get("/api/admingroupbuys/")
@@ -105,6 +108,39 @@ export default {
 				today.getSeconds();
 			const dateTime = date + " " + time;
 			this.timestamp = dateTime;
+		},
+		startEditing(groupbuy) {
+			this.editingItem = Object.assign({}, groupbuy);
+		},
+		endEditing(status) {
+			console.log(status);
+			if (status == true) {
+				var g = this.groupbuys.find(g => g.id == this.editingItem.id);
+				g.status = this.editingItem.status;
+
+				let id = g.id;
+				let status = g.status;
+
+				axios
+					.put(`/api/groupbuys/${g.id}/updateStatus/`, {
+						id, status
+					})
+					.then(response => {
+						console.log(response);
+						// this.products[index] = product;
+					});
+			}
+			this.editingItem = null;
+
+			// let index = this.products.indexOf(product)
+			// let name = product.name
+			// let min = product.min
+			// let max = product.max
+			// let price = product.price
+			// let description = product.description
+
+			// axios.put(`/api/products/${product.id}`, {name, min, max, price, description})
+			// 		.then(response => this.products[index] = product)
 		}
 	}
 };
@@ -113,5 +149,11 @@ export default {
 <style scoped>
 h6 {
 	font-size: 14px;
+}
+tr.tr-data {
+	transition-duration: 100ms;
+}
+tr.tr-data:hover {
+	background-color: rgb(238, 185, 185);
 }
 </style>
