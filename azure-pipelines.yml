@@ -43,7 +43,6 @@ stages:
       displayName: 'Use PHP version $(phpVersion)'
 
     - script: composer install --no-interaction --prefer-dist
-        composer global require laravel/installer
       workingDirectory: $(rootFolder)
       displayName: 'Composer install'
 
