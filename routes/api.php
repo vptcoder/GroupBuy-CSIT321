@@ -79,6 +79,12 @@ Route::put(
     'App\Http\Controllers\GroupbuyController@updateStatus'
 );
 
+//Notification
+Route::get(
+    'noti/yours',
+    'App\Http\Controllers\NotificationController@indexUser'
+);
+
 Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/users', 'App\Http\Controllers\UserController@index');
     Route::get('users/{user}', 'App\Http\Controllers\UserController@show');

@@ -218,6 +218,16 @@ class GroupbuyController extends Controller
                 'groupbuy_id' => $g->id, 'product_id' => $request->productid, 'user_id' => $request->userid, 'status' => 'o11', 'quantity' => $request->quantity, 'confirmedPrice' => $request->confirmedPrice, 'shipping_streetaddress' => $request->shipping_streetaddress, 'shipping_city' => $request->shipping_city, 'shipping_postalcode' => $request->shipping_postalcode, 'is_delivered' => false
             ]);
 
+            //Create noti for the order
+            error_log(print_r(("Create noti for the order"), TRUE));
+            if ($order) {
+                NotificationController::storeForUser(
+                    $request->userid,
+                    'Order placed!',
+                    'You have sucessfully placed your order!'
+                );
+            }
+
             //Update Groupbuy's status according to amount already ordered
             $orders_count = $g->orders()->get()->sum('quantity');
 
@@ -227,6 +237,23 @@ class GroupbuyController extends Controller
                 $g->status = "g12";
                 $g->date_success = $currentTime;
                 $g->save();
+
+                //Create noti for groupbuy success
+                error_log(print_r(("Create noti for groupbuy success"), TRUE));
+                $p = $g->product()->first();
+                error_log(print_r(($p->name), TRUE));
+                $title = "Groupbuy '".($p->name)."' is successful!";
+                $message = "Groupbuy '".($p->name)."' is successful! You can go make payment now.";
+                error_log(print_r(($title), TRUE));
+                error_log(print_r(($message), TRUE));
+
+                foreach ($g->orders()->get() as $o) {
+                    NotificationController::storeForUser(
+                        $o->user_id,
+                        $title,
+                        $message
+                    );
+                }
             }
 
             return response()->json([
@@ -260,9 +287,9 @@ class GroupbuyController extends Controller
                 $status = "g21";
                 break;
         }
-        $log = "GroupbuyController@updateStatus: Groupbuy.id=".($request->id)." - Groupbuy.statustext=".($request->status);
+        $log = "GroupbuyController@updateStatus: Groupbuy.id=" . ($request->id) . " - Groupbuy.statustext=" . ($request->status);
         error_log(print_r($log, TRUE));
-        $log = "GroupbuyController@updateStatus: Groupbuy.id=".($request->id)." - Groupbuy.status=".($status);
+        $log = "GroupbuyController@updateStatus: Groupbuy.id=" . ($request->id) . " - Groupbuy.status=" . ($status);
         error_log(print_r($log, TRUE));
 
         $querystatus = Groupbuy::where('id', $request->id)->update(['status' => $status]);
