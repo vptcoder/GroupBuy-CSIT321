@@ -40,6 +40,9 @@ Created: 15 Dec 2019
 'Roboto', sans-serif;
 ----------------------------------------- */
 /* Reboot CSS */
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400&display=swap');
+
 * {
   margin: 0;
   padding: 0; }
@@ -49,7 +52,8 @@ html {
   font-family: "Roboto", sans-serif;
   color: #747794;
   overflow-x: hidden;
-  background-color: #e5e8ff; }
+  background-color: #fff; /*#e5e8ff*/ /* Background Color -XR dbd7ca*/
+ }
 
 h1,
 h2,
@@ -297,7 +301,10 @@ textarea:invalid {
 
 .bg-success,
 .badge-success {
-  background-color: #00b894 !important; }
+  /* background-color: #00b894 !important;  */ /*XR*/
+  background-color: #fff!important;
+  border: 1px solid;
+}
 
 .text-dark {
   color: #020310 !important; }
@@ -1895,8 +1902,8 @@ li.suha-dropdown-menu {
             transition-duration: 500ms;
     display: block;
     font-size: 12px;
-    font-weight: 700;
-    line-height: 1;
+    font-weight: 200;
+    line-height: 1.5;
     color: #747794; }
   .catagory-card:hover, .catagory-card:focus {
     background-color: #fef8ff; }
@@ -1986,18 +1993,32 @@ li.suha-dropdown-menu {
   position: relative;
   z-index: 1; }
   .top-product-card .badge {
-    position: absolute;
+    /*position: absolute;*/ /*XR*/
     top: 1rem;
     left: 1rem;
     z-index: 10; }
+  /*  .top-product-card .status { /*XR*/
+    /*    position: absolute;
+        /* top: 1rem; */
+        /*   bottom: 9rem;
+        z-index: 10;
+        width: 85%;
+    }*/
   .top-product-card .wishlist-btn {
     position: absolute;
-    top: 1rem;
+    bottom: 4.5rem; /* top:1rem XR*/
     right: 1rem;
     z-index: 10;
     color: #ea4c62;
     font-size: 1.25rem;
     line-height: 1; }
+
+    .wishlist-likes { /*XR*/
+      /* right: 5rem; */
+      top: 1.5rem;
+      left: 0.3rem;
+      width: 100%;
+      font-size: 12px!important; }
     .top-product-card .wishlist-btn:hover, .top-product-card .wishlist-btn:focus {
       -webkit-transform: translateY(-2px);
               transform: translateY(-2px); }
@@ -2015,12 +2036,12 @@ li.suha-dropdown-menu {
     line-height: 1; }
   .top-product-card .product-title {
     font-size: 13px;
-    font-weight: 700;
+    font-weight: 400;
     margin-bottom: 0.25rem;
     color: #020310; }
   .top-product-card .sale-price {
     margin-bottom: 0.25rem;
-    color: #100DD1;
+    color: #b97a57;
     font-weight: 700;
     font-size: 1.125rem; }
     .top-product-card .sale-price span {
