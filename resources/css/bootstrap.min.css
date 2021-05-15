@@ -2689,7 +2689,7 @@ textarea.form-control-lg {
 	opacity: .65
 }
 .btn-primary {
-	color: #fff;
+	color: #212529;
 	background-color: #0d6efd;
 	border-color: #0d6efd
 }
@@ -2782,14 +2782,13 @@ textarea.form-control-lg {
 	border-color: #198754
 }
 .btn-info {
-	color: #000;
-	background-color: #0dcaf0;
-	border-color: #0dcaf0
+	color: #495057;
+	 
 }
 .btn-info:hover {
-	color: #000;
-	background-color: #31d2f2;
-	border-color: #25cff2
+	color: #fff;
+	background-color: #495057;
+	border-color: #495057;
 }
 .btn-check:focus+.btn-info, .btn-info:focus {
 	color: #000;

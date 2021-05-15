@@ -52,9 +52,9 @@
 					</router-link>
 				</div>
 				<!-- Search Form-->
-				<div v-show="show" class="top-search-form">
+				<div v-show="show" class="top-search-form" style="width:100%; padding-left:5px;">
 					<form action method>
-						<input class="form-control" type="search" placeholder="Enter your keyword" />
+						<input class="form-control" type="search" placeholder="Search" />
 						<button type="submit">
 							<i class="fa fa-search"></i>
 						</button>
@@ -64,11 +64,11 @@
 					<h2>Admin</h2>
 				</div>
 				<!-- Navbar Toggler-->
-				<div class="suha-navbar-toggler d-flex flex-wrap" id="suhaNavbarToggler">
+				<!-- <div class="suha-navbar-toggler d-flex flex-wrap" id="suhaNavbarToggler">
 					<span></span>
 					<span></span>
 					<span></span>
-				</div>
+				</div> -->
 			</div>
 		</div>
 
@@ -179,22 +179,26 @@
 					<ul class="h-100 d-flex align-items-center justify-content-between ps-0">
 						<li v-show="show">
 							<router-link :to="{ name: 'home' }" class="navbar-brand">
-								<i class="lni lni-home"></i>Home
+								<img src="https://img.icons8.com/windows/32/000000/home.png"/>
+								Home
 							</router-link>
 						</li>
 						<li v-show="show">
 							<router-link :to="{ name: 'watchlist' }" class="navbar-brand">
-								<i class="lni lni-heart"></i>Yours
+								<img src="https://img.icons8.com/windows/32/000000/like.png"/>
+								Wishlist
 							</router-link>
 						</li>
 						<li v-show="show">
 							<router-link :to="{ name: 'notifications' }" class="navbar-brand">
-								<i class="lni lni-alarm"></i>Notifications
+								<img src="https://img.icons8.com/windows/32/000000/appointment-reminders.png"/>
+								Notifications
 							</router-link>
 						</li>
 						<li v-show="show">
 							<router-link :to="{ name: 'userboard' }" class="navbar-brand">
-								<i class="lni lni-user"></i>User
+								<img src="https://img.icons8.com/windows/32/000000/gender-neutral-user.png"/>
+								Profile
 							</router-link>
 						</li>
 						<!-- Admin controls-->

@@ -1,5 +1,5 @@
 <template>
-	<div class="page-content-wrapper">
+	<div class="page-content-wrapper" style="background-color: #f4f3ee;">
 		<!-- Product Catagories-->
 		<div class="product-catagories-wrapper py-3">
 			<div class="container">
@@ -134,25 +134,25 @@
 									<i
 										class="lni"
 										v-bind:class="!product.watchlists.some(w => w.user_id == user.id) ? 'lni-heart' : 'lni-heart-filled'"
-									><span class="wishlist-btn wishlist-likes">{{product.watchlists.length}}</span>
-</i>
+									> 
+									</i>
+									<span class="wishlist-btn wishlist-likes">{{product.watchlists.length}} watches</span>
 								</a>
 								<a class="product-thumbnail d-block">
 									<img class="mb-2" :src="product.product_image" :alt="product.product_name" />
 								</a>
 								<a class="product-title d-block" v-html="product.product_name"></a>
 								<p class="sale-price">${{product.product_price}}</p>
-								<span class="badge bottom-badge badge-watch-pending">{{product.watchlists.length}} watchers</span>
-
-								<span class="badge badge-pending bottom-badge">minimum required: {{product.product_min}}</span>
+								<!--<span class="badge bottom-badge badge-watch-pending">{{product.watchlists.length}} watchers</span>
+-->
+								<span class="badge badge-pending bottom-badge">Min required: {{product.product_min}}</span>
 							</router-link>
 						</div>
 						<div v-else class="card top-product-card">
 							<router-link class="card-body" :to="{ path: '/products/'+product.id}">
  							 <span class="badge badge-success">{{product.groupbuy_status}}</span>
 
-								<span class="badge badge-success">
-									<i class="lni lni-timer"></i>
+								<span class="badge badge-success">			 
 									{{timediff(timestamp, product.groupbuy_date_end)}}
 								</span>
  
@@ -182,12 +182,12 @@
 								<a class="product-title d-block" v-html="product.product_name"></a>
 								<p class="sale-price">${{product.product_price}}</p>
 								 
-								<span class="badge bottom-badge badge-success">{{product.groupbuy_orders}}/{{product.groupbuy_max}} purchased</span>
-
+								<!--<span class="badge bottom-badge badge-success">{{product.groupbuy_orders}}/{{product.groupbuy_max}} purchased</span>
+-->
 								<span
 									v-if="product.groupbuy_orders === 0"
 									class="badge badge-pending bottom-badge"
-								>minimum required: {{product.groupbuy_min}}</span>
+								>Min required: {{product.groupbuy_min}}</span>
 								<span
 									v-else-if="product.groupbuy_orders < product.groupbuy_min"
 									class="badge badge-success bottom-badge"
@@ -323,7 +323,7 @@ export default {
 
 			var remainingSecs = Math.floor(bucketMili / mili_per_sec);
 
-			var remaining = "remaining time...";
+			var remaining = "";
 			if (
 				!isNaN(remainingDays) &&
 				!isNaN(remainintHours) &&
@@ -420,7 +420,7 @@ export default {
 }
 
 .watching-btn {
-	color: #ea4c62;
+	color: #a93226;
 }
 
 .notwatching-btn {
