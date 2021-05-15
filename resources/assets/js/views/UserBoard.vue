@@ -28,22 +28,106 @@
 			<!-- Profile Wrapper-->
 			<div class="profile-wrapper-area py-3">
 			<!-- User Information-->
-			<div class="card user-info-card">
-				<div class="card-body p-4 d-flex align-items-center">
-				<div class="user-profile me-3"><img src="img/bg-img/9.jpg" alt=""></div>
+			<!--  <div class="card user-info-card">
+				  <div class="card-body p-4 d-flex align-items-center">  
+				<div class="user-profile me-3"><img src="img/bg-img/10.jpg" alt=""></div>
 				<div class="user-info">
 					<p class="mb-0 text-white">{{user.email}}</p>
 					<h5 class="mb-0">{{user.name}}</h5>
 				</div>
 				</div>
+				-->
+ 
+					<!-- Profile Details 
+					<p data-v-1e5f2553="">This is product 1's description. Short text</p>  -->
+			 
+				<div class="card user-info-card container d-flex justify-content-between">
+					<div class="card-body mx-auto p-4 d-flex align-items-center"> 
+						<img data-v-17cbdf11="" src="/assets/img/bg-img/9.jpg" alt="" style="float:center; align:center;">
+					</div>
+				</div>
+
+				<div class="card user-info-card container d-flex justify-content-between" style="background-color:white; text-align:center;">
+					<div class="user-info" style="background-color:white; text-align:center; padding-top:5px; padding-bottom:5px;">
+						<h5 class="mb-0 text-dark" style="text-transform: uppercase;">{{user.name}}</h5>
+						<p class="mb-0 text-secondary ">{{user.email}}</p>
+					</div>
+				</div>
 			</div>
-			<!-- User Meta Data-->
-			<div class="card user-data-card">
+			
+
+			<!-- Orders Data-->
+			<div class="row g-2">    
+    			<div class="col-8"> 
+					<h5>Orders</h5>
+    			</div>
+    			<div class="col-4"> 
+					<a class="btn btn-info w-100" href="edit-profile.html">View History &gt;</a></div>
+    			</div>
+		 
+				<div class="card user-data-card">
+					<div class="row g-2">    
+						<div class="col-3">
+							<div class="card catagory-card">
+								<div class="card-body">
+									<a href="catagory.html" class="text-danger">
+										<img src="https://img.icons8.com/windows/32/000000/bank-card-back-side--v1.png"/>
+										<span>To Pay</span>
+									</a>
+								</div>
+							</div>
+						</div> 
+						<div class="col-3">
+							<div class="card catagory-card">
+								<div class="card-body">
+									<a href="catagory.html" class="text-danger">
+										<img src="https://img.icons8.com/windows/32/000000/open-parcel.png"/> 
+										<span>Processing</span>
+									</a>
+								</div>
+							</div>
+						</div> 
+						<div class="col-3">
+							<div class="card catagory-card">
+								<div class="card-body">
+									<a href="catagory.html" class="text-danger">
+										<img src="https://img.icons8.com/windows/32/000000/truck.png"/> 
+										<span>Shipping</span>
+									</a>
+								</div>
+							</div>
+						</div> 
+						<div class="col-3">
+							<div class="card catagory-card">
+								<div class="card-body">
+									<a href="catagory.html" class="text-danger">
+										<img src="https://img.icons8.com/windows/32/000000/smartphone-tablet.png"> 
+										<span>Cancelled</span>
+									</a>
+								</div>
+							</div>
+						</div> 
+					</div>
+				</div>
+				<!-- User Meta Data-->
+				<br><br>
+				<div class="row g-2">    
+					<div class="col-8"> 
+						<h5>Profile</h5>
+					</div>
+					<div class="col-4"> 
+						<a class="btn btn-info w-100" href="edit-profile.html">Edit Profile &gt;</a></div>
+					</div>
+				</div>
 				<div class="card-body">
 				<div class="single-profile-data d-flex align-items-center justify-content-between">
-					<div class="title d-flex align-items-center"><i class="lni lni-user"></i><span>Username</span></div>
+					<div class="title d-flex align-items-center">
+						<i class="lni lni-user"></i><span>Username</span>
+					</div>
 					<div class="data-content">{{user.name}}</div>
 				</div>
+				<div>
+					<div>
 				<!-- <div class="single-profile-data d-flex align-items-center justify-content-between">
 					<div class="title d-flex align-items-center"><i class="lni lni-user"></i><span>Full Name</span></div>
 					<div class="data-content">SUHA JANNAT</div>
@@ -60,29 +144,9 @@
 					<div class="title d-flex align-items-center"><i class="lni lni-map-marker"></i><span>Shipping</span></div>
 					<div class="data-content">{{user.shipping_streetaddress}}, {{user.shipping_postalcode}}, {{user.shipping_city}}</div>
 				</div>
-				<div class="single-profile-data d-flex align-items-center justify-content-between">
-					<div class="title d-flex align-items-center"><i class="lni lni-star"></i><span>To Pay</span></div>
-					<div class="data-content"><a class="btn btn-danger btn-sm" href="my-order.html">View</a></div>
-				</div>
-				<div class="single-profile-data d-flex align-items-center justify-content-between">
-					<div class="title d-flex align-items-center"><i class="lni lni-star"></i><span>Processing</span></div>
-					<div class="data-content"><a class="btn btn-danger btn-sm" href="my-order.html">View</a></div>
-				</div>
-				<div class="single-profile-data d-flex align-items-center justify-content-between">
-					<div class="title d-flex align-items-center"><i class="lni lni-star"></i><span>To Receive</span></div>
-					<div class="data-content"><a class="btn btn-danger btn-sm" href="my-order.html">View</a></div>
-				</div>
-				<div class="single-profile-data d-flex align-items-center justify-content-between">
-					<div class="title d-flex align-items-center"><i class="lni lni-star"></i><span>Cancelled</span></div>
-					<div class="data-content"><a class="btn btn-danger btn-sm" href="my-order.html">View</a></div>
-				</div>
-				<!-- Edit Profile-->
-				<div class="edit-profile-btn mt-3"><a class="btn btn-info w-100" href="edit-profile.html"><i class="lni lni-pencil me-2"></i>Edit Profile</a></div>
-				</div>
-			</div>
+				 
 			</div>
 		</div>
-
 	</div>
 </template>
 
