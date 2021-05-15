@@ -114,7 +114,7 @@ class OrderController extends Controller
             PaymentController::createPayment($order);
 
             $p = $order->product()->first();
-            $title = "Groupbuy '" . ($p->name) . "' is successful!";
+            $title = "Groupbuy successful!";
             $message = "Groupbuy '" . ($p->name) . "' is successful! You can go make payment now.";
             $link = "/payment";
         } else if($status == 13){
