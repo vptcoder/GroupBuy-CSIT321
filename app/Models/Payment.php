@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 // Status code - Admin POV:
-// G11 - Pending payment
-// G12 - Paid
-// G21 - Cancelled
+// p11 - Pending payment
+// p12 - Paid
+// p21 - Cancelled
 
 class Payment extends Model
 {
@@ -19,6 +19,8 @@ class Payment extends Model
     protected $fillable = [
         'order_id'
         , 'user_id'
+        , 'status'
+        , 'transaction_id'
         , 'amount'
         , 'method'
 		, 'date_due'

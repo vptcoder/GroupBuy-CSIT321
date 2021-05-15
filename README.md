@@ -173,6 +173,7 @@
 
     #download laravel using composer
     composer global require laravel/installer
+    composer require stripe/stripe-php
 
     #check that laravel is downloaded
     ls $HOME/.composer/vendor/bin
@@ -198,6 +199,8 @@
     npm install vuex
     npm install vue-waypoint
     npm install vue-owl-carousel
+    npm install @vue-stripe/vue-stripe
+    npm install --save-dev @stripe/stripe-js
 ```
 
 ### part 2 (windows) - npm requirements
@@ -212,6 +215,7 @@
     npm install vuex
     npm install vue-waypoint
     npm install vue-owl-carousel
+    npm install --save-dev @stripe/stripe-js
 ```
 
 ## create laravel project and first commit to git — 2021-01-14 -- van only

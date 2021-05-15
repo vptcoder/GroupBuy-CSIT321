@@ -18,6 +18,7 @@ import Login from "./views/Login.vue";
 import Register from "./views/Register.vue";
 import SingleProduct from "./views/SingleProduct.vue";
 import Checkout from "./views/Checkout.vue";
+import Payment from "./views/MakePayment.vue";
 import Confirmation from "./views/Confirmation.vue";
 import UserBoard from "./views/UserBoard.vue";
 import Admin from "./views/Admin.vue";
@@ -81,6 +82,12 @@ const router = new VueRouter({
             path: "/checkout",
             name: "checkout",
             component: Checkout,
+            props: route => ({ pid: route.query.pid })
+        },
+        {
+            path: "/payment",
+            name: "payment",
+            component: Payment,
             props: route => ({ pid: route.query.pid })
         },
         {

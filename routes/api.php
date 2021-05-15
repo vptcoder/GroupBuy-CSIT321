@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PaymentController;
+use App\Models\Order;
 use App\Models\Watchlist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -63,6 +66,10 @@ Route::get(
     'App\Http\Controllers\GroupbuyController@userIndex'
 );
 Route::get(
+    '/joinedGroupbuys',
+    'App\Http\Controllers\GroupbuyController@userIndexJoined'
+);
+Route::get(
     '/admingroupbuys',
     'App\Http\Controllers\GroupbuyController@adminIndex'
 );
@@ -70,6 +77,25 @@ Route::post(
     '/groupbuys/join',
     'App\Http\Controllers\GroupbuyController@store'
 );
+Route::put(
+    '/groupbuys/{groupbuy}/updateStatus',
+    'App\Http\Controllers\GroupbuyController@updateStatus'
+);
+
+//Notification
+Route::get(
+    'noti/yours',
+    'App\Http\Controllers\NotificationController@indexUser'
+);
+Route::post('noti/read', 'App\Http\Controllers\NotificationController@read');
+
+//Order
+Route::get('/orders/topay', [OrderController::class, 'indexForPayment']);
+
+//Payment
+Route::get('/pay/get', [PaymentController::class, 'index']);
+Route::post('/pay/transaction', [PaymentController::class, 'makeStripePayment'])->name('make-payment');
+
 
 Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/users', 'App\Http\Controllers\UserController@index');

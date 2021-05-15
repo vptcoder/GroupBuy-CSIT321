@@ -8,11 +8,12 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Passport\HasApiTokens;
+use Laravel\Cashier\Billable;
 
 class User extends Authenticatable
 {
     // use HasFactory, Notifiable;
-    use SoftDeletes, Notifiable, HasApiTokens;
+    use SoftDeletes, Notifiable, HasApiTokens, Billable;
 
     /**
      * The attributes that are mass assignable.
@@ -51,7 +52,11 @@ class User extends Authenticatable
     public function orders() {
         return $this->hasMany(Order::class);
     }
-    
+
+    public function payments() {
+        return $this->hasMany(Payment::class);
+    }
+
     public function watchlists() {
         return $this->hasMany(Watchlist::class);
     }
@@ -59,4 +64,5 @@ class User extends Authenticatable
     public function shoptokens() {
         return $this->hasMany(ShopToken::class);
     }
+
 }

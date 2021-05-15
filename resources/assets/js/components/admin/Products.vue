@@ -1,5 +1,8 @@
 <template>
 	<div class="page-content-wrapper">
+		<p>
+			Double-click on item to open
+		</p>
 		<table class="table table-responsive table-striped">
 			<thead>
 				<tr>
@@ -15,7 +18,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr v-for="(product,index) in products" :key="index" @dblclick="editingItem = product">
+				<tr class="tr-data" v-for="(product,index) in products" :key="index" @dblclick="editingItem = product">
 					<td>{{index+1}}</td>
 					<td v-html="product.name"></td>
 					<td>{{product.price}}</td>
@@ -30,7 +33,7 @@
 			</tbody>
 		</table>
 		<modal @close="endEditing" :product="editingItem" v-show="editingItem != null"></modal>
-		<modal @close="addProduct"  :product="addingProduct" v-show="addingProduct != null"></modal>
+		<modal @close="addProduct" :product="addingProduct" v-show="addingProduct != null"></modal>
 		<br>
 		<button class="btn btn-primary" @click="newProduct">Add New Product</button>
 	</div>
@@ -105,3 +108,12 @@ export default {
 	}
 }
 </script>
+<style scoped>
+tr.tr-data {
+	transition-duration: 100ms;
+}
+
+tr.tr-data:hover {
+	background-color:rgb(238, 185, 185);
+}
+</style>
