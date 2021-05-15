@@ -57,6 +57,8 @@ class NotificationController extends Controller
      */
     public static function storeForUser(int $userid, string $title, string $message, string $link = null)
     {
+        error_log(print_r("NotificationController::storeForUser", TRUE));
+
         $n = new Notification;
         $n->user_id = $userid;
         $n->title = $title;
@@ -65,6 +67,20 @@ class NotificationController extends Controller
         $n->save();
 
         return $n;
+    }
+
+    public function read(Request $request)
+    {
+        error_log(print_r("NotificationController::read", TRUE));
+        $noti = Notification::where('id','=', $request->id)->first();
+        $noti->status = 'n11';
+        $status = $noti->save();
+
+        return response()->json([
+            'status'    => $status,
+            'data'      => $noti,
+            'message'   => $status ? 'Notification Read!' : 'Error Reading Notification'
+        ]);
     }
 
     /**

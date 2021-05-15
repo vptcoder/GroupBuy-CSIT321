@@ -142,6 +142,7 @@ class GroupbuyController extends Controller
      */
     public function store(Request $request)
     {
+        error_log(print_r("GroupbuyController::store", TRUE));
         error_log(print_r($request->groupbuyid, TRUE));
 
         date_default_timezone_set('Asia/Singapore');
@@ -168,7 +169,7 @@ class GroupbuyController extends Controller
             $g = Groupbuy::where('status', '=', "g11")->where('product_id', '=', $request->product_id)->first();
             if ($g === null) {
                 $dateEnd = clone ($currentTime);
-                $dateEnd->modify('+7 day');
+                $dateEnd->modify('+'.env('PERIOD_JOIN').' day');
 
                 $g = new Groupbuy;
                 $g->product_id = $request->productid;
@@ -241,18 +242,10 @@ class GroupbuyController extends Controller
                 //Create noti for groupbuy success
                 error_log(print_r(("Create noti for groupbuy success"), TRUE));
                 $p = $g->product()->first();
-                error_log(print_r(($p->name), TRUE));
-                $title = "Groupbuy '".($p->name)."' is successful!";
-                $message = "Groupbuy '".($p->name)."' is successful! You can go make payment now.";
-                error_log(print_r(($title), TRUE));
-                error_log(print_r(($message), TRUE));
 
                 foreach ($g->orders()->get() as $o) {
-                    NotificationController::storeForUser(
-                        $o->user_id,
-                        $title,
-                        $message
-                    );
+                    OrderController::updateToNextStatus($o);
+
                 }
             }
 

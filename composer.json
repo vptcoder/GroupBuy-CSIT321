@@ -12,10 +12,12 @@
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
+        "laravel/cashier": "^12.13",
         "laravel/framework": "^8.12",
         "laravel/passport": "^10.1",
         "laravel/tinker": "^2.5",
-        "nesbot/carbon": "^2.47"
+        "nesbot/carbon": "^2.47",
+        "stripe/stripe-php": "^7.78"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

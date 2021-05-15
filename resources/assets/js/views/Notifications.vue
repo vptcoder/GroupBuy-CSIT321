@@ -15,6 +15,7 @@
 						:key="index"
 						class="list-group-item d-flex align-items-center"
 						v-bind:class="noti.status != 'n01' ? 'readed' : ''"
+						@click="readNoti(noti)"
 					>
 						<span class="noti-icon">
 							<i class="lni lni-alarm"></i>
@@ -22,7 +23,7 @@
 						<div class="noti-info">
 							<h5 class="mb-0">{{noti.title}}</h5>
 							<h6 class="mb-0">{{noti.message}}</h6>
-							<h6 v-show="noti.link" class="mb-0">{{noti.link}}</h6>
+							<small v-show="noti.link" class="mb-0">{{noti.link}}</small>
 							<span>12 min ago</span>
 						</div>
 					</div>
@@ -46,6 +47,25 @@ export default {
 		axios
 			.get(`api/noti/yours/`, { params: { userid: this.user.id } })
 			.then(response => (this.notis = response.data));
+	},
+	methods: {
+		readNoti(noti) {
+			console.log(noti);
+			var id = noti.id;
+
+			axios.post(`api/noti/read`, { id }).then(response => {
+				console.log(response);
+				if (noti.link) {
+					this.$router.push({ path: noti.link });
+				} else {
+					axios
+						.get(`api/noti/yours/`, {
+							params: { userid: this.user.id }
+						})
+						.then(response => (this.notis = response.data));
+				}
+			});
+		}
 	}
 };
 </script>
