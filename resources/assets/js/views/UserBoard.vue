@@ -43,7 +43,7 @@
 			 
 				<div class="card user-info-card container d-flex justify-content-between">
 					<div class="card-body mx-auto p-4 d-flex align-items-center"> 
-						<img data-v-17cbdf11="" src="/assets/img/bg-img/9.jpg" alt="" style="float:center; align:center;">
+						<img src="/assets/img/bg-img/9.jpg" alt="" style="float:center; align:center; border-radius:50%; min-width:200px; max-width:200px; min-height:200px; max-height:200px;">
 					</div>
 				</div>
 
@@ -58,15 +58,19 @@
 
 			<!-- Orders Data-->
 			<div class="row g-2">    
-    			<div class="col-8"> 
+    			<div class="col-7"> 
 					<h5>Orders</h5>
     			</div>
-    			<div class="col-4"> 
-					<a class="btn btn-info w-100" href="edit-profile.html">View History &gt;</a></div>
-    			</div>
-		 
-				<div class="card user-data-card">
-					<div class="row g-2">    
+    			<div class="col-4" style="padding:0px!important;text-align:right; float:right;"> 
+					<a class="btn btn-info w-100" href="edit-profile.html"
+					style="float:right!important; text-align:right; padding: .325rem .2rem!important;">View History</a>
+				</div>
+
+		     	<div class="col-1" style="padding-top:4px; float:left;align-content:left;"> 
+					<img src="https://img.icons8.com/windows/12/000000/forward.png">    			
+				</div>
+			</div>
+ 					<div class="row g-2">    
 						<div class="col-3">
 							<div class="card catagory-card">
 								<div class="card-body">
@@ -108,17 +112,25 @@
 							</div>
 						</div> 
 					</div>
-				</div>
+				 
 				<!-- User Meta Data-->
 				<br><br>
 				<div class="row g-2">    
-					<div class="col-8"> 
+					<div class="col-7"> 
 						<h5>Profile</h5>
 					</div>
-					<div class="col-4"> 
-						<a class="btn btn-info w-100" href="edit-profile.html">Edit Profile &gt;</a></div>
+					<div class="col-4" style="padding:0px!important;text-align:right; float:right;"> 
+						<a class="btn btn-info w-100" href="edit-profile.html"
+						style="float:right!important; text-align:right; padding: .325rem .2rem!important;">Edit Profile</a>
+					</div>
+					 
+			
+					<div class="col-1" style="padding-top:4px; float:left;align-content:left;"> 
+						<img src="https://img.icons8.com/windows/12/000000/forward.png">    			
 					</div>
 				</div>
+				 
+				
 				<div class="card-body">
 				<div class="single-profile-data d-flex align-items-center justify-content-between">
 					<div class="title d-flex align-items-center">
@@ -144,7 +156,7 @@
 					<div class="title d-flex align-items-center"><i class="lni lni-map-marker"></i><span>Shipping</span></div>
 					<div class="data-content">{{user.shipping_streetaddress}}, {{user.shipping_postalcode}}, {{user.shipping_city}}</div>
 				</div>
-				 
+				</div>
 			</div>
 		</div>
 	</div>

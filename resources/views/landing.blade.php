@@ -33,7 +33,8 @@
     <link href=" {{ mix('css/default/lineicons.min.css') }}" rel="stylesheet">
     <link href=" {{ mix('css/style.css') }}" rel="stylesheet">
     <link href=" {{ mix('css/app.css') }}" rel="stylesheet">
-
+   	
+ 
 
     <!-- Web App Manifest-->
     {{-- <link rel="manifest" href="manifest.json"> --}}
@@ -64,6 +65,8 @@
     <script src="{{ mix('js/default/no-internet.js') }}"></script>
     <script src="{{ mix('js/default/active.js') }}"></script>
     <script src="{{ mix('js/pwa.js') }}"></script>
+	
+ 
 
 
 </body>

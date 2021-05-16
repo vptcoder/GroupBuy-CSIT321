@@ -1,13 +1,18 @@
 <template>
+
 	<div class="page-content-wrapper" style="background-color: #f4f3ee;">
+ 
 		<!-- Product Catagories-->
+	 
 		<div class="product-catagories-wrapper py-3">
 			<div class="container">
 				<div class="section-heading">
 					<h6>Product Categories</h6>
 				</div>
+				 
 				<div class="product-catagory-wrap">
 					<div class="row g-3">
+						
 						<!-- Single Catagory Card-->
 						<div class="col-4">
 							<div class="card catagory-card">
@@ -209,6 +214,8 @@
 </template>
 
 <script>
+ 
+ 
 export default {
 	data() {
 		return {
@@ -346,6 +353,36 @@ export default {
 </script>
 
 <style scoped>
+
+/* external css: flickity.css */
+
+* {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+ 
+.gallery {
+  background: #EEE;
+}
+
+.gallery-cell {
+  width: 66%;
+  height: 200px;
+  margin-right: 10px;
+  background: #8C8;
+  counter-increment: gallery-cell;
+}
+
+/* cell number */
+.gallery-cell:before {
+  display: block;
+  text-align: center;
+  content: counter(gallery-cell);
+  line-height: 200px;
+  font-size: 80px;
+  color: white;
+}
 .col-sm-3 {
 	float: center;
 	display: block;
