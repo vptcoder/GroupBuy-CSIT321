@@ -1,3 +1,4 @@
+@echo off
 echo -----COMPOSER PACKAGES-----
 call composer require laravel/installer
 call composer require stripe/stripe-php
@@ -29,4 +30,4 @@ call npm run dev
 echo -----DEPLOY-----
 call php artisan config:cache
 call php artisan route:cache
-call php artisan serve --host 0.0.0.0 --port 443
+call php artisan serve --host 0.0.0.0 --port 80
