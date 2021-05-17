@@ -1,28 +1,34 @@
-    composer global require laravel/installer
-    composer require stripe/stripe-php
-    REM composer update --no-scripts
-    composer install
-    npm install
+echo -----COMPOSER PACKAGES-----
+call composer require laravel/installer
+call composer require stripe/stripe-php
+REM composer update --no-scripts
+call composer install
 
-    npm install laravel-mix@latest --save-dev
-    npm install vue-router
-    npm install vue
-    npm install vuex
-    npm install vue-waypoint
-    npm install vue-owl-carousel
-    npm install --save-dev @stripe/stripe-js
-    npm install webpack
+echo -----NPM PACKAGES-----
+call npm install
 
-    REM .env.template -> .env
-    copy .env.example .env /y
-    php artisan key:generate
+call npm install laravel-mix@latest --save-dev
+call npm install vue-router
+call npm install vue
+call npm install vuex
+call npm install vue-waypoint
+call npm install vue-owl-carousel
+call npm install --save-dev @stripe/stripe-js
+call npm install webpack
 
-    php artisan migrate:fresh --seed
+echo -----.ENV FILE-----
+REM .env.template -> .env
+copy .env.example .env /y
+call php artisan key:generate
 
-    php artisan passport:install
+echo -----DB MIGRATION-----
+call php artisan migrate:fresh --seed
+call php artisan passport:install
 
-    npm run dev
-    
-    php artisan config:cache
-    php artisan route:cache
-    php artisan serve --host 0.0.0.0 --port 443
+echo -----BUILD-----
+call npm run dev
+
+echo -----DEPLOY-----
+call php artisan config:cache
+call php artisan route:cache
+call php artisan serve --host 0.0.0.0 --port 443
