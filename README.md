@@ -287,7 +287,7 @@ Build an e-commerce application using Laravel and Vue - Part 1: Application Setu
     npm run dev
     
     #publish the app
-    php artisan server
+    php artisan serve
 ```
 
 # GIT STANDARD OPERATING PROCEDURES
@@ -362,12 +362,11 @@ Time  Local     Server-feature    Server-master     Explainations
 ```bash
     #> install composer
     #> install npm
-    composer global require laravel/installer
+    composer require laravel/installer
     composer require stripe/stripe-php
-    composer update --no-scripts
     composer install
-    npm install
 
+    npm install
     npm install laravel-mix@latest --save-dev
     npm install vue-router
     npm install vue
@@ -376,14 +375,14 @@ Time  Local     Server-feature    Server-master     Explainations
     npm install vue-owl-carousel
     npm install --save-dev @stripe/stripe-js
 
-    .env.template -> .env
+    [mac: cp -rf .env.example .env] [win: copy /y .env.example .env]
     php artisan key:generate
 
     php artisan migrate:fresh --seed
-
     php artisan passport:install
 
     npm run dev
     php artisan config:cache
-    php artisan server
+    php artisan route:cache
+    php artisan serve
 ```
