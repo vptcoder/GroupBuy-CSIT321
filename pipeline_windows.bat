@@ -1,3 +1,4 @@
+@echo off
 echo -----COMPOSER PACKAGES-----
 call composer require laravel/installer
 call composer require stripe/stripe-php
