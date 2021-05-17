@@ -1,40 +1,6 @@
 <template>
 	<!-- NOTES: This file is for navigation bar code. -->
 	<div>
-		<!-- <nav v-show="show" class="navbar navbar-expand-md navbar-light navbar-laravel">
-			<div class="topnavcontainer">
-				<router-link :to="{ name: 'home' }" class="navbar-brand">G-BUY</router-link>
-				<input type="text" class="form-control navbar-search" name="Search" placeholder="Search" />
-			</div>
-		</nav>
-		<nav v-show="show" class="navbarbot navbar-expand-md navbar-light navbar-laravel">
-			<div class="botnavcontainer">
-				<div class="botnav-button">
-					<router-link :to="{ name: 'home' }" class="navbar-brand">
-						<input type="submit" class="button-home" value />
-					</router-link>
-				</div>
-
-				<div class="botnav-button">
-					<router-link :to="{ name: 'watchlist' }" class="navbar-brand">
-						<input type="submit" class="button-watch" value />
-					</router-link>
-				</div>
-
-				<div class="botnav-button">
-					<router-link :to="{ name: 'notifications' }" class="navbar-brand">
-						<input type="submit" class="button-notification" value />
-					</router-link>
-				</div>
-
-				<div class="botnav-button">
-					<router-link :to="{ name: 'viewownaccount' }" class="navbar-brand">
-						<input type="submit" class="button-account" value />
-					</router-link>
-				</div>
-			</div>
-		</nav>-->
-
 		<!-- Preloader-->
 		<div class="preloader" id="preloader">
 			<div class="spinner-grow text-secondary" role="status">
@@ -52,9 +18,9 @@
 					</router-link>
 				</div>
 				<!-- Search Form-->
-				<div v-show="show" class="top-search-form">
+				<div v-show="show" class="top-search-form" style="width:100%; padding-left:5px;">
 					<form action method>
-						<input class="form-control" type="search" placeholder="Enter your keyword" />
+						<input class="form-control" type="search" placeholder="Search" />
 						<button type="submit">
 							<i class="fa fa-search"></i>
 						</button>
@@ -179,22 +145,26 @@
 					<ul class="h-100 d-flex align-items-center justify-content-between ps-0">
 						<li v-show="show">
 							<router-link :to="{ name: 'home' }" class="navbar-brand">
-								<i class="lni lni-home"></i>Home
+								<img src="https://img.icons8.com/windows/32/000000/home.png"/>
+								Home
 							</router-link>
 						</li>
 						<li v-show="show">
 							<router-link :to="{ name: 'watchlist' }" class="navbar-brand">
-								<i class="lni lni-heart"></i>Yours
+								<img src="https://img.icons8.com/windows/32/000000/like.png"/>
+								Wishlist
 							</router-link>
 						</li>
 						<li v-show="show">
 							<router-link :to="{ name: 'notifications' }" class="navbar-brand">
-								<i class="lni lni-alarm"></i>Notifications
+								<img src="https://img.icons8.com/windows/32/000000/appointment-reminders.png"/>
+								Notifications
 							</router-link>
 						</li>
 						<li v-show="show">
 							<router-link :to="{ name: 'userboard' }" class="navbar-brand">
-								<i class="lni lni-user"></i>User
+								<img src="https://img.icons8.com/windows/32/000000/gender-neutral-user.png"/>
+								Profile
 							</router-link>
 						</li>
 						<!-- Admin controls-->

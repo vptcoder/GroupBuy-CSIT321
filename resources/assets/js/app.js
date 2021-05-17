@@ -18,8 +18,13 @@ import Login from "./views/Login.vue";
 import Register from "./views/Register.vue";
 import SingleProduct from "./views/SingleProduct.vue";
 import Checkout from "./views/Checkout.vue";
+import Payment from "./views/MakePayment.vue";
 import Confirmation from "./views/Confirmation.vue";
 import UserBoard from "./views/UserBoard.vue";
+import UserOrderPay from "./views/UserOrderPay.vue";
+import UserOrderProcessing from "./views/UserOrderProcessing.vue";
+import UserOrderShipping from "./views/UserOrderShipping.vue";
+import UserOrderCancelled from "./views/UserOrderCancelled.vue";
 import Admin from "./views/Admin.vue";
 import Watchlist from "./views/Watchlist.vue";
 import Notifications from "./views/Notifications.vue";
@@ -84,9 +89,51 @@ const router = new VueRouter({
             props: route => ({ pid: route.query.pid })
         },
         {
+            path: "/payment",
+            name: "payment",
+            component: Payment,
+            props: route => ({ pid: route.query.pid })
+        },
+        {
             path: "/dashboard",
             name: "userboard",
             component: UserBoard,
+            meta: {
+                requiresAuth: true,
+                is_user: true
+            }
+        },
+        {
+            path: "/userpay",
+            name: "userpay",
+            component: UserOrderPay,
+            meta: {
+                requiresAuth: true,
+                is_user: true
+            }
+        },
+        {
+            path: "/userorderprocessing",
+            name: "userorderprocessing",
+            component: UserOrderProcessing,
+            meta: {
+                requiresAuth: true,
+                is_user: true
+            }
+        },
+        {
+            path: "/userordershipping",
+            name: "userordershipping",
+            component: UserOrderShipping,
+            meta: {
+                requiresAuth: true,
+                is_user: true
+            }
+        },
+        {
+            path: "/userordercancelled",
+            name: "userordercancelled",
+            component: UserOrderCancelled,
             meta: {
                 requiresAuth: true,
                 is_user: true

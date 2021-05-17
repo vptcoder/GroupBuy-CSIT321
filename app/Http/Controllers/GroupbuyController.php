@@ -9,6 +9,7 @@ use Auth;
 use Carbon\Carbon;
 use DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
 use Monolog\Handler\FirePHPHandler;
 use PHPUnit\TextUI\XmlConfiguration\Group;
 
@@ -19,7 +20,7 @@ class GroupbuyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function userIndex()
+    public function indexUser()
     {
         $g = Groupbuy::where('status', '=', 'g01')
             ->get();
@@ -27,8 +28,11 @@ class GroupbuyController extends Controller
         return response()->json($g, 200);
     }
 
-    public function userIndexJoined(Request $request)
+    public function indexUserJoined(Request $request)
     {
+        error_log(print_r("GroupbuyController::indexUserJoined", TRUE));
+        error_log(print_r("GroupbuyController::indexUserJoined - userid: ".($request->userid), TRUE));
+
         $gs = Groupbuy::join('orders', 'groupbuys.id', '=', 'orders.groupbuy_id')
             ->join('products', 'products.id', 'groupbuys.product_id')
             ->select(
@@ -78,7 +82,60 @@ class GroupbuyController extends Controller
         return response()->json($gs, 200);
     }
 
-    public function adminIndex()
+    public function indexPendingPay(Request $request){
+        error_log(print_r("GroupbuyController::indexPendingPay", TRUE));
+        error_log(print_r("GroupbuyController::indexPendingPay - userid: ".($request->userid), TRUE));
+
+        $gs = Groupbuy::join('orders', 'groupbuys.id', '=', 'orders.groupbuy_id')
+            ->join('products', 'products.id', 'groupbuys.product_id')
+            ->select(
+                'groupbuys.id',
+                'groupbuys.status as groupbuy_status',
+                'groupbuys.min_required',
+                'groupbuys.max_available',
+                'groupbuys.date_end',
+                'products.id as product_id',
+                'products.name as product_name',
+                'products.image as product_image',
+                'products.price as product_price',
+                'orders.id as order_id',
+                'orders.user_id'
+            )
+            ->where('groupbuy_status', '=', 'g12')
+            ->where('user_id', $request->userid)
+            ->with('orders')
+            ->get();
+
+        foreach ($gs as $g) {
+            $sumQuantity = 0;
+            if (!empty($g->orders) && $g->orders->count() > 0) {
+                foreach ($g->orders as $o) {
+                    $sumQuantity += $o->quantity;
+                }
+            }
+            $g->groupbuy_orders = $sumQuantity;
+
+            $status = null;
+            switch ($g->groupbuy_status) {
+                case 'g11':
+                    $status = "Active";
+                    break;
+                case 'g12':
+                    $status = "Processing";
+                    break;
+                case 'g13':
+                    $status = "Processing";
+                    break;
+                case 'g21':
+                    $status = "Closed";
+                    break;
+            }
+            $g->groupbuy_status = $status;
+        }
+        return response()->json($gs, 200);
+    }
+
+    public function indexAdmin()
     {
         date_default_timezone_set('Asia/Singapore');
         $currentTime = Carbon::now();
@@ -142,6 +199,7 @@ class GroupbuyController extends Controller
      */
     public function store(Request $request)
     {
+        error_log(print_r("GroupbuyController::store", TRUE));
         error_log(print_r($request->groupbuyid, TRUE));
 
         date_default_timezone_set('Asia/Singapore');
@@ -167,8 +225,10 @@ class GroupbuyController extends Controller
 
             $g = Groupbuy::where('status', '=', "g11")->where('product_id', '=', $request->product_id)->first();
             if ($g === null) {
+                $period_join = Config::get('app.PERIOD_JOIN');
+                error_log(print_r("checkpoint PERIOD_JOIN - ".$period_join, TRUE));
                 $dateEnd = clone ($currentTime);
-                $dateEnd->modify('+7 day');
+                $dateEnd->modify('+'.$period_join.' day');
 
                 $g = new Groupbuy;
                 $g->product_id = $request->productid;
@@ -218,6 +278,16 @@ class GroupbuyController extends Controller
                 'groupbuy_id' => $g->id, 'product_id' => $request->productid, 'user_id' => $request->userid, 'status' => 'o11', 'quantity' => $request->quantity, 'confirmedPrice' => $request->confirmedPrice, 'shipping_streetaddress' => $request->shipping_streetaddress, 'shipping_city' => $request->shipping_city, 'shipping_postalcode' => $request->shipping_postalcode, 'is_delivered' => false
             ]);
 
+            //Create noti for the order
+            error_log(print_r(("Create noti for the order"), TRUE));
+            if ($order) {
+                NotificationController::storeForUser(
+                    $request->userid,
+                    'Order placed!',
+                    'You have sucessfully placed your order!'
+                );
+            }
+
             //Update Groupbuy's status according to amount already ordered
             $orders_count = $g->orders()->get()->sum('quantity');
 
@@ -227,6 +297,15 @@ class GroupbuyController extends Controller
                 $g->status = "g12";
                 $g->date_success = $currentTime;
                 $g->save();
+
+                //Create noti for groupbuy success
+                error_log(print_r(("Create noti for groupbuy success"), TRUE));
+                $p = $g->product()->first();
+
+                foreach ($g->orders()->get() as $o) {
+                    OrderController::updateToNextStatus($o);
+
+                }
             }
 
             return response()->json([
@@ -260,9 +339,9 @@ class GroupbuyController extends Controller
                 $status = "g21";
                 break;
         }
-        $log = "GroupbuyController@updateStatus: Groupbuy.id=".($request->id)." - Groupbuy.statustext=".($request->status);
+        $log = "GroupbuyController@updateStatus: Groupbuy.id=" . ($request->id) . " - Groupbuy.statustext=" . ($request->status);
         error_log(print_r($log, TRUE));
-        $log = "GroupbuyController@updateStatus: Groupbuy.id=".($request->id)." - Groupbuy.status=".($status);
+        $log = "GroupbuyController@updateStatus: Groupbuy.id=" . ($request->id) . " - Groupbuy.status=" . ($status);
         error_log(print_r($log, TRUE));
 
         $querystatus = Groupbuy::where('id', $request->id)->update(['status' => $status]);

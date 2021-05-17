@@ -173,6 +173,7 @@
 
     #download laravel using composer
     composer global require laravel/installer
+    composer require stripe/stripe-php
 
     #check that laravel is downloaded
     ls $HOME/.composer/vendor/bin
@@ -198,6 +199,7 @@
     npm install vuex
     npm install vue-waypoint
     npm install vue-owl-carousel
+    npm install --save-dev @stripe/stripe-js
 ```
 
 ### part 2 (windows) - npm requirements
@@ -212,6 +214,7 @@
     npm install vuex
     npm install vue-waypoint
     npm install vue-owl-carousel
+    npm install --save-dev @stripe/stripe-js
 ```
 
 ## create laravel project and first commit to git — 2021-01-14 -- van only
@@ -353,4 +356,34 @@ Time  Local     Server-feature    Server-master     Explainations
 
     #5. re-install passport to create Personal access client for user account management
     php artisan passport:install
+```
+
+# PIPELINE
+```bash
+    #> install composer
+    #> install npm
+    composer global require laravel/installer
+    composer require stripe/stripe-php
+    composer update --no-scripts
+    composer install
+    npm install
+
+    npm install laravel-mix@latest --save-dev
+    npm install vue-router
+    npm install vue
+    npm install vuex
+    npm install vue-waypoint
+    npm install vue-owl-carousel
+    npm install --save-dev @stripe/stripe-js
+
+    .env.template -> .env
+    php artisan key:generate
+
+    php artisan migrate:fresh --seed
+
+    php artisan passport:install
+
+    npm run dev
+    php artisan config:cache
+    php artisan server
 ```

@@ -229,4 +229,7 @@ return [
 
     ],
 
+    'PERIOD_JOIN' => env('PERIOD_JOIN'),
+    'PERIOD_PAY' => env('PERIOD_PAY'),
+    'STRIPE_SECRET' => env('STRIPE_SECRET'),
 ];

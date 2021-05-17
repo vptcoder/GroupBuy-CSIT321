@@ -18,6 +18,7 @@ class CreateOrdersTable extends Migration
             $table->unsignedInteger('groupbuy_id');
             $table->unsignedInteger('product_id');
             $table->unsignedInteger('user_id');
+            $table->unsignedInteger('payment_id')->nullable();
             $table->string('status');
             $table->unsignedInteger('quantity')->default(1);
             $table->double('confirmedPrice');
