@@ -12,7 +12,7 @@ call npm install vue
 call npm install vuex
 call npm install vue-waypoint
 call npm install vue-owl-carousel
-call npm install --save-dev @stripe/stripe-js
+call npm install @stripe/stripe-js --save-dev
 call npm install webpack
 
 echo -----.ENV FILE-----
