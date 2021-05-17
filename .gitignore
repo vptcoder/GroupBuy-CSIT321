@@ -2,7 +2,9 @@
 /public/hot
 /public/storage
 /public/js/*
-/public/css/app.css
+/public/css/*
+/public/assets/.DS_Store
+/public/assets/img/.DS_Store
 /storage/*.key
 /vendor
 .env
@@ -13,6 +15,5 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
-public/assets/.DS_Store
-public/assets/img/.DS_Store
-public/js/app.js
+
+
