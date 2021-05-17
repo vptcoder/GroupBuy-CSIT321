@@ -95,6 +95,7 @@ Route::post('noti/read', 'App\Http\Controllers\NotificationController@read');
 Route::get('/orders/topay', [OrderController::class, 'indexForPayment']);
 Route::get('/orders/toprocess', [OrderController::class, 'indexForProcessing']);
 Route::get('/orders/toship', [OrderController::class, 'indexForShipping']);
+Route::get('/orders/cancelled', [OrderController::class, 'indexForCancelled']);
 
 //Payment
 Route::post('/pay/transaction', [PaymentController::class, 'makeStripePayment'])->name('make-payment');

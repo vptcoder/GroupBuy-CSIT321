@@ -25,7 +25,7 @@
 					<td v-if="order.status == 'o13'">
 						<button class="btn btn-success" @click="ship(index)">Ship</button>
 					</td>
-					<td v-else-if="order.status == 'o13' & order.is_delivered == 0">
+					<td v-else-if="order.status == 'o14' & order.is_delivered == 0">
 						<button class="btn btn-success" @click="deliver(index)">Deliver</button>
 					</td>
 					<td v-else>

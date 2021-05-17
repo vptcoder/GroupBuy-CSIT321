@@ -61,7 +61,7 @@ export default {
 		console.log("user: ", this.user.id);
 
 		axios
-			.get("api/orders/toprocess/", { params: { userid: this.user.id } })
+			.get("api/orders/cancelled/", { params: { userid: this.user.id } })
 			.then(response => {
 				this.orders = response.data;
 				this.is_orders_fetched = true;

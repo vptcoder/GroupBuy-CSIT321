@@ -116,10 +116,35 @@ class OrderController extends Controller
         return response()->json($orders);
     }
 
-    public function deliverOrder(Order $order)
+    public function indexForCancelled(Request $request)
+    {
+        error_log(print_r("OrderController::indexForProcessing", TRUE));
+
+        $orders = Order::join('products', 'products.id', '=', 'orders.product_id')
+            ->join('payments', 'payments.id', '=', 'orders.payment_id')
+            ->select(
+                'orders.*',
+                'products.name as product_name',
+                'products.image as product_image',
+                'payments.date_paid'
+            )
+            ->where('orders.user_id', '=', $request->userid)
+            ->whereIn('orders.status', ['o21', 'o22'])
+            ->get();
+
+        foreach ($orders as $o) {
+            $o->selection = ($o->quantity) . " of " . ($o->product_name);
+        }
+
+        return response()->json($orders);
+    }
+
+    public function deliverOrder(Request $request)
     {
         error_log(print_r("OrderController::deliverOrder", TRUE));
 
+        $order = Order::where('id', $request->orderid)->first();
+        $order->status = 'o15';
         $order->is_delivered = true;
         $status = $order->save();
 
@@ -133,6 +158,7 @@ class OrderController extends Controller
     public function shipOrder(Request $request)
     {
         error_log(print_r("OrderController::shipOrder", TRUE));
+
         $order = Order::where('id', $request->orderid)->first();
         $order->status = 'o14';
         $status = $order->save();
