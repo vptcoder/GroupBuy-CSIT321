@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PaymentController;
+use App\Models\Order;
 use App\Models\Watchlist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -28,6 +31,7 @@ Route::post(
     'register',
     'App\Http\Controllers\UserController@register'
 );
+Route::get('users/{user}/orders', 'App\Http\Controllers\UserController@showOrders');
 
 //ProductController
 Route::get(
@@ -59,25 +63,55 @@ Route::resource(
 
 //GroupbuyController
 Route::get(
-    '/activeGroupbuys',
-    'App\Http\Controllers\GroupbuyController@userIndex'
+    '/groupbuys/active',
+    'App\Http\Controllers\GroupbuyController@indexUser'
 );
 Route::get(
-    '/admingroupbuys',
-    'App\Http\Controllers\GroupbuyController@adminIndex'
+    '/groupbuys/joined',
+    'App\Http\Controllers\GroupbuyController@indexUserJoined'
 );
+Route::get(
+    '/groupbuys/pendingpay',
+    'App\Http\Controllers\GroupbuyController@indexPendingPay'
+);
+
 Route::post(
     '/groupbuys/join',
     'App\Http\Controllers\GroupbuyController@store'
 );
+Route::put(
+    '/groupbuys/{groupbuy}/updateStatus',
+    'App\Http\Controllers\GroupbuyController@updateStatus'
+);
 
+//Notification
+Route::get(
+    'noti/yours',
+    'App\Http\Controllers\NotificationController@indexUser'
+);
+Route::post('noti/read', 'App\Http\Controllers\NotificationController@read');
+
+//Order
+Route::get('/orders/topay', [OrderController::class, 'indexForPayment']);
+Route::get('/orders/toprocess', [OrderController::class, 'indexForProcessing']);
+
+//Payment
+Route::get('/pay/get', [PaymentController::class, 'index']);
+Route::post('/pay/transaction', [PaymentController::class, 'makeStripePayment'])->name('make-payment');
+
+//ADMIN
 Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/users', 'App\Http\Controllers\UserController@index');
     Route::get('users/{user}', 'App\Http\Controllers\UserController@show');
     Route::patch('users/{user}', 'App\Http\Controllers\UserController@update');
-    Route::get('users/{user}/orders', 'App\Http\Controllers\UserController@showOrders');
     Route::patch('products/{product}/minmax/change', 'App\Http\Controllers\ProductController@updateMinMax');
     Route::patch('orders/{order}/deliver', 'App\Http\Controllers\OrderController@deliverOrder');
     Route::resource('/orders', 'App\Http\Controllers\OrderController');
     Route::resource('/products', 'App\Http\Controllers\ProductController')->except(['index', 'show']);
+
+    Route::get(
+        '/admingroupbuys',
+        'App\Http\Controllers\GroupbuyController@indexAdmin'
+    );
+    
 });

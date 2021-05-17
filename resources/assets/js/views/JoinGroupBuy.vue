@@ -1,5 +1,10 @@
 <template>
 	<div class="page-content-wrapper">
+		<div class="container d-flex justify-content-between">
+			<router-link :to="{ path: '/products/'+this.pid}" >
+				<img class="mt-3" src="https://img.icons8.com/ios/32/000000/back--v1.png"/>
+			</router-link>
+		</div>
 		<div v-if="!accessible">
 			<!-- Preloader-->
 			<label class="error-message">Please login or create account to continue :)</label>
@@ -14,7 +19,7 @@
 		</div>
 		<div v-else>
 			<!-- Product Slides-->
-			<carousel :items="1" :autoplay="false" :nav="true" :dots="true">
+			<carousel :items="1" :autoplay="false" :nav="false" :dots="true">
 				<div>
 					<img :src="product.image" :alt="product.name" />
 				</div>
@@ -55,8 +60,8 @@
 			<!-- Cart Amount Area-->
 			<div class="card cart-amount-area">
 				<div class="card-body d-flex align-items-center justify-content-between">
-					<h5 class="total-price mb-0">
-						$
+					<h5 class="total-price mb-0" > 
+						Total Price : $
 						<span>{{confirmedPrice}}</span>
 					</h5>
 					<a class="btn btn-warning" @click="confirmOrder_Start">Confirm Order</a>
@@ -161,5 +166,11 @@ export default {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+}
+
+.total-price {
+	font-weight:500;
+	color:red; 
+	font-size: 18px;
 }
 </style>

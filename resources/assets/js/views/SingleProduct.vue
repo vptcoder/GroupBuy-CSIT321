@@ -1,5 +1,6 @@
 <template>
 	<div class="page-content-wrapper">
+ 
 		<div v-if="!is_data_fetched" >
 			<!-- Preloader-->
 			<div class="preloader" id="preloader">
@@ -8,9 +9,10 @@
 				</div>
 			</div>
 		</div>
+ 
 		<div v-else >
 			<!-- Product Slides-->
-			<carousel :items="1" :autoplay="false" :nav="true" :dots="true" >
+			<carousel :items="1" :autoplay="false" :nav="false" :dots="true" >
 				<div >
 					<img :src="product.image" :alt="product.name" >
 				</div>
@@ -24,55 +26,76 @@
 			<div class="product-description pb-3">
 				<!-- Product Title & Meta Data-->
 				<div class="product-title-meta-data bg-white mb-3 py-3">
-					<div class="container d-flex justify-content-between">
+					<div class="container d-flex justify-content-between" style="display:block!important;">
 					<div class="p-title-price">
-						<h6 class="mb-1">{{product.name}}</h6>
+						<h6 class="mb-1 mx-4" style="text-align:center;">{{product.name}}</h6>
+						<hr>
 						<p class="sale-price mb-0">${{product.price}}</p>
+						<div>
+							<label v-if="product.groupbuy_id == null" style="color:red;">{{product.max}} slots left</label>
+							<label v-else style="color:red;">{{product.groupbuy_max-product.groupbuy_orders}} slots left</label>
+						</div>
 					</div>
-					<div class="p-wishlist-share">
-						<a class="wishlist-btn notwatching-btn" v-if="!user" v-on:click.prevent @click="promptlogin()">
-							<i class="lni lni-heart"></i>
-						</a>
-						<a class="wishlist-btn " v-else v-bind:class="!product.watchlists.some(w => w.user_id == user.id) ? 'notwatching-btn' : 'watching-btn'" v-on:click.prevent @click="watch(user.id)">
-							<i class="lni lni-heart"></i>
-						</a>
+					 
 					</div>
-					</div>
-					<!-- Ratings-->
-					<div class="product-ratings">
-					<div class="container d-flex align-items-center justify-content-between">
-						<router-link :to="{ path: '/join?pid='+product.id }" 
-							class="col-md-4 btn btn-sm btn-primary full-width">Join
-						</router-link>
-					</div>
-					</div>
+ 
 				</div>			
 				<!-- Product Specification-->
 				<div class="p-specification bg-white mb-3 py-3">
 					<div class="container">
 						<h6>Specifications</h6>
 						<p>{{product.description}}</p>
+						<!-- Button -->
+						<div class="container d-flex align-items-center justify-content-between"  style="width: 100%;position: fixed; bottom:3.6rem; background-color:#fff; display:block; height:50px;"> 
+							<router-link :to="{ path: '/join?pid='+product.id }" 
+								class="col-10 btn btn-sm btn-primary">Join
+							</router-link>
+
+							<a
+									class="col-2 btn btn-sm btn-primary wishlist-btn notwatching-btn"
+									style="border:0px;" v-if="!user"
+									v-on:click.prevent
+									@click="promptlogin()"
+								>
+									<i class="lni lni-heart"></i>
+							</a>
+							<a
+									class="col-2 btn btn-sm btn-primary wishlist-btn"
+									style="border:0px;" v-else
+									v-bind:class="!product.watchlists.some(w => w.user_id == user.id) ? 'notwatching-btn' : 'watching-btn'"
+									v-on:click.prevent
+									@click="watch(product, user.id)"
+								>
+									<i
+										class="lni"
+										v-bind:class="!product.watchlists.some(w => w.user_id == user.id) ? 'lni-heart' : 'lni-heart-filled'"
+									></i>
+							</a>
+								
+								<!-- <a class="col-2 btn btn-sm btn-primary wishlist-btn notwatching-btn" style="border:0px;" v-if="!user" v-on:click.prevent @click="promptlogin()">
+									<i class="lni lni-heart"></i>
+								</a>
+								<a class="col-2 btn btn-sm btn-primary wishlist-btn " style="border:0px;" v-else v-bind:class="!product.watchlists.some(w => w.user_id == user.id) ? 'notwatching-btn' : 'watching-btn'" v-on:click.prevent @click="watch(user.id)">
+									<i class="lni lni-heart"></i>
+							</a> -->
+						</div>
 					</div>
 				</div>
 			</div>
 
 			<div style="margin-left:30px">
-				<div>
-					<b style="color:#A93226;font-size:25px;margin-left:10px;">${{product.price}}</b>
-				</div>
-				<br>
+
+			
 				<div>
 					<label v-if="product.groupbuy_id == null" style="margin-left:160px;color:red;">{{product.max}} slots left</label>
 					<label v-else style="margin-left:160px;color:red;">{{product.groupbuy_max-product.groupbuy_orders}} slots left</label>
 				</div>
 			</div>
-			<hr>
-			<div>
-				<b style="Front-size:20px;margin-left:30px;">Description:</b>
-				<br>
-				<p style="margin-left:30px;">{{product.description}}</p>			
-			</div>
-		</div>
+ 
+ 
+				
+ 			</div>		
+					
 	</div>	
 </template>
 
@@ -156,6 +179,10 @@ export default {
 </script>
 
 <style scoped>
+.product-contents {
+	padding-left:20px;
+	padding-right: 20px;
+}
 .sale{
 	height: 30px;
 	width: 30px;
