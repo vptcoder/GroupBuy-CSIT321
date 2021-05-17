@@ -16,7 +16,35 @@ class OrderController extends Controller
      */
     public function index()
     {
-        return response()->json(Order::with(['product'])->get(), 200);
+        $orders = Order::with(['product'])->get();
+        foreach ($orders as $o) {
+            $o->statustext = null;
+            switch ($o->status) {
+                case 'o11':
+                    $status = "Order pending";
+                    break;
+                case 'o12':
+                    $status = "Pending payment";
+                    break;
+                case 'o13':
+                    $status = "Paid";
+                    break;
+                case 'o14':
+                    $status = "Shipping";
+                    break;
+                case 'o15':
+                    $status = "Order complete";
+                    break;
+                case 'o21':
+                    $status = "Cancelled";
+                    break;
+                case 'o22':
+                    $status = "Refunded";
+                    break;
+            }
+            $o->statustext = $status;
+        }
+        return response()->json($orders, 200);
     }
 
     public function indexForPayment(Request $request)
@@ -65,8 +93,33 @@ class OrderController extends Controller
         return response()->json($orders);
     }
 
+    public function indexForShipping(Request $request)
+    {
+        error_log(print_r("OrderController::indexForProcessing", TRUE));
+
+        $orders = Order::join('products', 'products.id', '=', 'orders.product_id')
+            ->join('payments', 'payments.id', '=', 'orders.payment_id')
+            ->select(
+                'orders.*',
+                'products.name as product_name',
+                'products.image as product_image',
+                'payments.date_paid'
+            )
+            ->where('orders.user_id', '=', $request->userid)
+            ->where('orders.status', '=', 'o14')
+            ->get();
+
+        foreach ($orders as $o) {
+            $o->selection = ($o->quantity) . " of " . ($o->product_name);
+        }
+
+        return response()->json($orders);
+    }
+
     public function deliverOrder(Order $order)
     {
+        error_log(print_r("OrderController::deliverOrder", TRUE));
+
         $order->is_delivered = true;
         $status = $order->save();
 
@@ -74,6 +127,20 @@ class OrderController extends Controller
             'status'    => $status,
             'data'      => $order,
             'message'   => $status ? 'Order Delivered!' : 'Error Delivering Order'
+        ]);
+    }
+
+    public function shipOrder(Request $request)
+    {
+        error_log(print_r("OrderController::shipOrder", TRUE));
+        $order = Order::where('id', $request->orderid)->first();
+        $order->status = 'o14';
+        $status = $order->save();
+
+        return response()->json([
+            'status'    => $status,
+            'data'      => $order,
+            'message'   => $status ? 'Order Shipping!' : 'Error Shipping Order'
         ]);
     }
 

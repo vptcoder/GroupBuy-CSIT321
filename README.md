@@ -365,6 +365,8 @@ Time  Local     Server-feature    Server-master     Explainations
     composer global require laravel/installer
     composer require stripe/stripe-php
     composer update --no-scripts
+    composer install
+    npm install
 
     npm install laravel-mix@latest --save-dev
     npm install vue-router
@@ -384,5 +386,4 @@ Time  Local     Server-feature    Server-master     Explainations
     npm run dev
     php artisan config:cache
     php artisan server
-
 ```

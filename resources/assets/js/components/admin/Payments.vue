@@ -4,19 +4,23 @@
 			<thead>
 				<tr>
 					<td></td>
-					<td>Name</td>
-					<td>Email</td>
-					<td>Joined</td>
-					<td>Total Orders</td>
+					<td>Order</td>
+					<td>User</td>
+					<td>Status</td>
+					<td>Amount</td>
+					<td>Date Due</td>
+					<td>Date Paid</td>
 				</tr>
 			</thead>
 			<tbody>
-				<tr v-for="(user,index) in users" :key="index">
+				<tr v-for="(p,index) in payments" :key="index">
 					<td>{{index+1}}</td>
-					<td>{{user.name}}</td>
-					<td>{{user.email}}</td>
-					<td>{{user.created_at}}</td>
-					<td>{{user.orders.length}}</td>
+					<td>{{p.order_id}}</td>
+					<td>{{p.user_id}}</td>
+					<td>{{p.status}}</td>
+					<td>{{p.amount}}</td>
+					<td>{{p.date_due}}</td>
+					<td>{{p.date_paid}}</td>
 				</tr>
 			</tbody>
 		</table>
@@ -27,11 +31,13 @@
 export default {
 	data() {
 		return {
-			users : []
+			payments: []
 		}
 	},
 	beforeMount() {
-		axios.get('/api/users/').then(response => this.users = response.data)
+		axios
+			.get("/api/pay/get/")
+			.then(response => (this.payments = response.data));
 	}
 }
 </script>

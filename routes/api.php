@@ -94,9 +94,9 @@ Route::post('noti/read', 'App\Http\Controllers\NotificationController@read');
 //Order
 Route::get('/orders/topay', [OrderController::class, 'indexForPayment']);
 Route::get('/orders/toprocess', [OrderController::class, 'indexForProcessing']);
+Route::get('/orders/toship', [OrderController::class, 'indexForShipping']);
 
 //Payment
-Route::get('/pay/get', [PaymentController::class, 'index']);
 Route::post('/pay/transaction', [PaymentController::class, 'makeStripePayment'])->name('make-payment');
 
 //ADMIN
@@ -105,7 +105,9 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('users/{user}', 'App\Http\Controllers\UserController@show');
     Route::patch('users/{user}', 'App\Http\Controllers\UserController@update');
     Route::patch('products/{product}/minmax/change', 'App\Http\Controllers\ProductController@updateMinMax');
-    Route::patch('orders/{order}/deliver', 'App\Http\Controllers\OrderController@deliverOrder');
+    // Route::patch('orders/{order}/deliver', 'App\Http\Controllers\OrderController@deliverOrder');
+    Route::post('/orders/deliver', [OrderController::class, 'deliverOrder']);
+    Route::post('/orders/ship', [OrderController::class, 'shipOrder']);
     Route::resource('/orders', 'App\Http\Controllers\OrderController');
     Route::resource('/products', 'App\Http\Controllers\ProductController')->except(['index', 'show']);
 
@@ -113,5 +115,8 @@ Route::group(['middleware' => 'auth:api'], function () {
         '/admingroupbuys',
         'App\Http\Controllers\GroupbuyController@indexAdmin'
     );
+
+    Route::get('/pay/get', [PaymentController::class, 'index']);
+    Route::get('/pay/adminget', [PaymentController::class, 'indexAdmin']);
     
 });

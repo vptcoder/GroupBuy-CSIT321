@@ -51,7 +51,7 @@ export default {
 					this.activeComponent = Users
 					this.$router.push({name: 'admin-pages', params: {page: 'users'}})
 					break;
-				case "paymentss":
+				case "payments":
 					this.activeComponent = Payments
 					this.$router.push({name: 'admin-pages', params: {page: 'payments'}})
 					break;

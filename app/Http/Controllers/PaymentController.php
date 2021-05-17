@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Order;
 use App\Models\Watchlist;
+use App\Models\Payment;
 use Illuminate\Http\Request;
 use Stripe;
 use Session;
@@ -17,7 +18,12 @@ class PaymentController extends Controller
 {
 	public function index()
 	{
-		return view('welcome');
+		error_log(print_r("PaymentController::index", TRUE));
+
+		$payments = Payment::orderBy('id', 'desc')->get();
+
+		return response()->json($payments, 200);
+		// return view('welcome');
 	}
 
 	public static function createPayment(Order $order)

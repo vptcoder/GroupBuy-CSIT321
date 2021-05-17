@@ -21,8 +21,10 @@ import Checkout from "./views/Checkout.vue";
 import Payment from "./views/MakePayment.vue";
 import Confirmation from "./views/Confirmation.vue";
 import UserBoard from "./views/UserBoard.vue";
-import UserGroupbuyPay from "./views/User-GroupbuyPay.vue";
-import UserGroupbuyProcessing from "./views/User-GroupbuyProcessing.vue";
+import UserOrderPay from "./views/UserOrderPay.vue";
+import UserOrderProcessing from "./views/UserOrderProcessing.vue";
+import UserOrderShipping from "./views/UserOrderShipping.vue";
+import UserOrderCancelled from "./views/UserOrderCancelled.vue";
 import Admin from "./views/Admin.vue";
 import Watchlist from "./views/Watchlist.vue";
 import Notifications from "./views/Notifications.vue";
@@ -104,7 +106,7 @@ const router = new VueRouter({
         {
             path: "/userpay",
             name: "userpay",
-            component: UserGroupbuyPay,
+            component: UserOrderPay,
             meta: {
                 requiresAuth: true,
                 is_user: true
@@ -113,7 +115,7 @@ const router = new VueRouter({
         {
             path: "/userorderprocessing",
             name: "userorderprocessing",
-            component: UserGroupbuyProcessing,
+            component: UserOrderProcessing,
             meta: {
                 requiresAuth: true,
                 is_user: true
@@ -122,7 +124,7 @@ const router = new VueRouter({
         {
             path: "/userordershipping",
             name: "userordershipping",
-            component: UserGroupbuyProcessing,
+            component: UserOrderShipping,
             meta: {
                 requiresAuth: true,
                 is_user: true
@@ -131,7 +133,7 @@ const router = new VueRouter({
         {
             path: "/userordercancelled",
             name: "userordercancelled",
-            component: UserGroupbuyProcessing,
+            component: UserOrderCancelled,
             meta: {
                 requiresAuth: true,
                 is_user: true

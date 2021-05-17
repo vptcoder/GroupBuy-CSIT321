@@ -14,7 +14,7 @@
 				<div class="container">
 					<!-- Section Heading-->
 					<div class="section-heading d-flex align-items-center pt-3 justify-content-between">
-						<h6>Orders processing:</h6>
+						<h6>Orders Processing:</h6>
 					</div>
 					<div class="row g-3">
 						<!-- Single Weekly Product Card-->
