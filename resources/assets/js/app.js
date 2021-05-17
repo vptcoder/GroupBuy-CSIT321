@@ -22,6 +22,7 @@ import Payment from "./views/MakePayment.vue";
 import Confirmation from "./views/Confirmation.vue";
 import UserBoard from "./views/UserBoard.vue";
 import UserGroupbuyPay from "./views/User-GroupbuyPay.vue";
+import UserGroupbuyProcessing from "./views/User-GroupbuyProcessing.vue";
 import Admin from "./views/Admin.vue";
 import Watchlist from "./views/Watchlist.vue";
 import Notifications from "./views/Notifications.vue";
@@ -102,8 +103,35 @@ const router = new VueRouter({
         },
         {
             path: "/userpay",
-            name: "user-pay",
+            name: "userpay",
             component: UserGroupbuyPay,
+            meta: {
+                requiresAuth: true,
+                is_user: true
+            }
+        },
+        {
+            path: "/userorderprocessing",
+            name: "userorderprocessing",
+            component: UserGroupbuyProcessing,
+            meta: {
+                requiresAuth: true,
+                is_user: true
+            }
+        },
+        {
+            path: "/userordershipping",
+            name: "userordershipping",
+            component: UserGroupbuyProcessing,
+            meta: {
+                requiresAuth: true,
+                is_user: true
+            }
+        },
+        {
+            path: "/userordercancelled",
+            name: "userordercancelled",
+            component: UserGroupbuyProcessing,
             meta: {
                 requiresAuth: true,
                 is_user: true

@@ -93,6 +93,7 @@ Route::post('noti/read', 'App\Http\Controllers\NotificationController@read');
 
 //Order
 Route::get('/orders/topay', [OrderController::class, 'indexForPayment']);
+Route::get('/orders/toprocess', [OrderController::class, 'indexForProcessing']);
 
 //Payment
 Route::get('/pay/get', [PaymentController::class, 'index']);

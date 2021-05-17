@@ -18,10 +18,13 @@ class OrderController extends Controller
     {
         return response()->json(Order::with(['product'])->get(), 200);
     }
+
     public function indexForPayment(Request $request)
     {
+        error_log(print_r("OrderController::indexForPayment", TRUE));
+
         $orders = Order::join('products', 'products.id', '=', 'orders.product_id')
-            ->leftJoin('payments', 'payments.id', '=', 'orders.payment_id')
+            ->join('payments', 'payments.id', '=', 'orders.payment_id')
             ->select(
                 'orders.*',
                 'products.name as product_name',
@@ -30,6 +33,29 @@ class OrderController extends Controller
             )
             ->where('orders.user_id', '=', $request->userid)
             ->where('orders.status', '=', 'o12')
+            ->get();
+
+        foreach ($orders as $o) {
+            $o->selection = ($o->quantity) . " of " . ($o->product_name);
+        }
+
+        return response()->json($orders);
+    }
+
+    public function indexForProcessing(Request $request)
+    {
+        error_log(print_r("OrderController::indexForProcessing", TRUE));
+
+        $orders = Order::join('products', 'products.id', '=', 'orders.product_id')
+            ->join('payments', 'payments.id', '=', 'orders.payment_id')
+            ->select(
+                'orders.*',
+                'products.name as product_name',
+                'products.image as product_image',
+                'payments.date_paid'
+            )
+            ->where('orders.user_id', '=', $request->userid)
+            ->where('orders.status', '=', 'o13')
             ->get();
 
         foreach ($orders as $o) {

@@ -48,30 +48,30 @@
 						<div class="col-3">
 							<div class="card catagory-card">
 								<div class="card-body">
-									<a href="catagory.html" class="text-danger">
+									<router-link :to="{ path: '/userorderprocessing'}" class="text-danger">
 										<img src="https://img.icons8.com/windows/32/000000/open-parcel.png" />
 										<span>Processing</span>
-									</a>
+									</router-link>
 								</div>
 							</div>
 						</div>
 						<div class="col-3">
 							<div class="card catagory-card">
 								<div class="card-body">
-									<a href="catagory.html" class="text-danger">
+									<router-link :to="{path: '/userordershipping'}" class="text-danger">
 										<img src="https://img.icons8.com/windows/32/000000/truck.png" />
 										<span>Shipping</span>
-									</a>
+									</router-link>
 								</div>
 							</div>
 						</div>
 						<div class="col-3">
 							<div class="card catagory-card">
 								<div class="card-body">
-									<a href="catagory.html" class="text-danger">
+									<router-link :to="{path: '/userordercancelled'}" href="catagory.html" class="text-danger">
 										<img src="https://img.icons8.com/windows/32/000000/smartphone-tablet.png" />
 										<span>Cancelled</span>
-									</a>
+									</router-link>
 								</div>
 							</div>
 						</div>

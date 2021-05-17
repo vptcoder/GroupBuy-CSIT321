@@ -25,9 +25,6 @@
 									class="card-body d-flex align-items-center"
 								>
 									<div class="product-thumbnail-side">
-										<!-- <a class="wishlist-btn" href="#">
-											<i class="lni lni-heart"></i>
-										</a>-->
 										<a class="product-thumbnail d-block">
 											<img class="mb-2" :src="o.product_image" :alt="o.product_name" />
 										</a>
