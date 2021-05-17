@@ -1,7 +1,6 @@
 echo -----COMPOSER PACKAGES-----
 call composer require laravel/installer
 call composer require stripe/stripe-php
-REM composer update --no-scripts
 call composer install
 
 echo -----NPM PACKAGES-----
@@ -17,7 +16,6 @@ call npm install --save-dev @stripe/stripe-js
 call npm install webpack
 
 echo -----.ENV FILE-----
-REM .env.template -> .env
 copy .env.example .env /y
 call php artisan key:generate
 
