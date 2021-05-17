@@ -1,40 +1,6 @@
 <template>
 	<!-- NOTES: This file is for navigation bar code. -->
 	<div>
-		<!-- <nav v-show="show" class="navbar navbar-expand-md navbar-light navbar-laravel">
-			<div class="topnavcontainer">
-				<router-link :to="{ name: 'home' }" class="navbar-brand">G-BUY</router-link>
-				<input type="text" class="form-control navbar-search" name="Search" placeholder="Search" />
-			</div>
-		</nav>
-		<nav v-show="show" class="navbarbot navbar-expand-md navbar-light navbar-laravel">
-			<div class="botnavcontainer">
-				<div class="botnav-button">
-					<router-link :to="{ name: 'home' }" class="navbar-brand">
-						<input type="submit" class="button-home" value />
-					</router-link>
-				</div>
-
-				<div class="botnav-button">
-					<router-link :to="{ name: 'watchlist' }" class="navbar-brand">
-						<input type="submit" class="button-watch" value />
-					</router-link>
-				</div>
-
-				<div class="botnav-button">
-					<router-link :to="{ name: 'notifications' }" class="navbar-brand">
-						<input type="submit" class="button-notification" value />
-					</router-link>
-				</div>
-
-				<div class="botnav-button">
-					<router-link :to="{ name: 'viewownaccount' }" class="navbar-brand">
-						<input type="submit" class="button-account" value />
-					</router-link>
-				</div>
-			</div>
-		</nav>-->
-
 		<!-- Preloader-->
 		<div class="preloader" id="preloader">
 			<div class="spinner-grow text-secondary" role="status">
@@ -64,11 +30,11 @@
 					<h2>Admin</h2>
 				</div>
 				<!-- Navbar Toggler-->
-				<!-- <div class="suha-navbar-toggler d-flex flex-wrap" id="suhaNavbarToggler">
+				<div class="suha-navbar-toggler d-flex flex-wrap" id="suhaNavbarToggler">
 					<span></span>
 					<span></span>
 					<span></span>
-				</div> -->
+				</div>
 			</div>
 		</div>
 

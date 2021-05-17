@@ -136,7 +136,7 @@
 										v-bind:class="!product.watchlists.some(w => w.user_id == user.id) ? 'lni-heart' : 'lni-heart-filled'"
 									> 
 									</i>
-									<span class="wishlist-btn wishlist-likes">{{product.watchlists.length}} watches</span>
+									<!-- <span class="wishlist-btn wishlist-likes">{{product.watchlists.length}} watches</span> -->
 								</a>
 								<a class="product-thumbnail d-block">
 									<img class="mb-2" :src="product.product_image" :alt="product.product_name" />

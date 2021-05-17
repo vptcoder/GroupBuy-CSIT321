@@ -21,6 +21,7 @@ import Checkout from "./views/Checkout.vue";
 import Payment from "./views/MakePayment.vue";
 import Confirmation from "./views/Confirmation.vue";
 import UserBoard from "./views/UserBoard.vue";
+import UserGroupbuyPay from "./views/User-GroupbuyPay.vue";
 import Admin from "./views/Admin.vue";
 import Watchlist from "./views/Watchlist.vue";
 import Notifications from "./views/Notifications.vue";
@@ -94,6 +95,15 @@ const router = new VueRouter({
             path: "/dashboard",
             name: "userboard",
             component: UserBoard,
+            meta: {
+                requiresAuth: true,
+                is_user: true
+            }
+        },
+        {
+            path: "/userpay",
+            name: "user-pay",
+            component: UserGroupbuyPay,
             meta: {
                 requiresAuth: true,
                 is_user: true

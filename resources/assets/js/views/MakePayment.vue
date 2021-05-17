@@ -1,12 +1,12 @@
 <template>
 	<div class="page-content-wrapper">
-		<div v-if="orders" class="container" >
+		<div v-if="orders.length == 0" class="container" >
 			<!-- Section Heading-->
 			<div class="section-heading d-flex align-items-center pt-3 justify-content-between">
 				<h6>You have no pending payment!</h6>
 			</div>
 		</div>
-		<div v-else class="container">
+		<div class="container">
 			<!-- Section Heading-->
 			<div class="section-heading d-flex align-items-center pt-3 justify-content-between">
 				<h6>Confirm and Pay for your purchase:</h6>
@@ -24,54 +24,6 @@
 							v-bind:value="option"
 						>{{option.selection}}</option>
 					</select>
-				</div>
-			</div>
-
-			<!-- Credit Card Info-->
-			<div v-show="test" class="credit-card-info-wrapper">
-				<img class="d-block mb-4" src="img/bg-img/credit-card.png" alt />
-				<div class="pay-credit-card-form">
-					<form action="payment-success.html" method>
-						<div class="mb-3">
-							<label for="cardNumber">Credit Card Number</label>
-							<input
-								class="form-control"
-								type="text"
-								id="cardNumber"
-								placeholder="1234 ×××× ×××× ××××"
-								value
-							/>
-							<small class="ms-1">
-								<i class="fa fa-lock me-1"></i>Your payment info is stored securely.
-								<a class="ms-1" href="#">Learn More</a>
-							</small>
-						</div>
-						<div class="mb-3">
-							<label for="cardholder">Cardholder Name</label>
-							<input class="form-control" type="text" id="cardholder" placeholder="SUHA JANNAT" value />
-						</div>
-						<div class="row">
-							<div class="col-6">
-								<div class="mb-3">
-									<label for="expiration">Exp. Date</label>
-									<input class="form-control" type="text" id="expiration" placeholder="12/20" value />
-								</div>
-							</div>
-							<div class="col-6">
-								<div class="mb-3">
-									<label for="cvvcode">CVV Code</label>
-									<input class="form-control" type="text" id="cvvcode" placeholder="××××" value />
-								</div>
-							</div>
-						</div>
-						<button
-							class="btn btn-warning btn-lg w-100"
-							type="submit"
-							@click="processPayment"
-							:disabled="paymentProcessing"
-							v-text="paymentProcessing ? 'Processing' : 'Pay Now'"
-						>Pay Now</button>
-					</form>
 				</div>
 			</div>
 

@@ -1,6 +1,6 @@
 <template>
 	<div class="page-content-wrapper">
-		<div v-if="!is_watchlist_fetched && is_groupbuys_fetched">
+		<div v-if="!(is_watchlist_fetched && is_groupbuys_fetched)">
 			<!-- Preloader-->
 			<div class="preloader" id="preloader">
 				<div class="spinner-grow text-secondary" role="status">
@@ -14,17 +14,17 @@
 				<div class="container">
 					<div class="row g-3 watchlist-views">
 						<!-- Single Catagory Card-->
-						<div class="col-4">
+						<div class="col-5">
 							<div @click="tab = 1" class="card catagory-card">
 								<div class="card-body">
 									<a>
-										<span v-bind:class="tab == 1 ? 'card-selected' : ''">Groupbuy</span>
+										<span v-bind:class="tab == 1 ? 'card-selected' : ''">Pending Groupbuy</span>
 									</a>
 								</div>
 							</div>
 						</div>
 						<!-- Single Catagory Card-->
-						<div class="col-4">
+						<div class="col-5">
 							<div @click="tab = 2" class="card catagory-card">
 								<div class="card-body">
 									<a>
@@ -146,10 +146,10 @@ export default {
 			});
 
 		axios
-			.get("api/joinedGroupbuys/", { params: { userid: this.user.id } })
+			.get("api/groupbuys/joined/", { params: { userid: this.user.id } })
 			.then(response => {
 				this.groupbuys = response.data;
-				this.is_groupbuys_fetched = true; //todo: move this to groupbuys retrieve function eventually.
+				this.is_groupbuys_fetched = true; 
 			});
 	},
 	methods: {
@@ -197,12 +197,11 @@ export default {
 			) {
 				remaining =
 					remainingDays +
-					" days " +
+					"d " +
 					remainintHours +
-					":" +
+					"h " +
 					remainingMins +
-					":" +
-					remainingSecs;
+					"m";
 			}
 			return remaining;
 		}

@@ -21,11 +21,14 @@ class OrderController extends Controller
     public function indexForPayment(Request $request)
     {
         $orders = Order::join('products', 'products.id', '=', 'orders.product_id')
+            ->leftJoin('payments', 'payments.id', '=', 'orders.payment_id')
             ->select(
                 'orders.*',
-                'products.name as product_name'
+                'products.name as product_name',
+                'products.image as product_image',
+                'payments.date_due'
             )
-            ->where('user_id', '=', $request->userid)
+            ->where('orders.user_id', '=', $request->userid)
             ->where('orders.status', '=', 'o12')
             ->get();
 
@@ -101,28 +104,26 @@ class OrderController extends Controller
         }
 
         $order->status = 'o' . $status;
-        $order->save();
-
-
-
 
         $title = null;
         $message = null;
         $link = null;
 
         if ($status == 12) {
-            PaymentController::createPayment($order);
+            $payment = PaymentController::createPayment($order);
+            $order->payment_id = $payment->id;
 
             $p = $order->product()->first();
             $title = "Groupbuy successful!";
             $message = "Groupbuy '" . ($p->name) . "' is successful! You can go make payment now.";
             $link = "/payment";
-        } else if($status == 13){
+        } else if ($status == 13) {
             $p = $order->product()->first();
             $title = "Payment completed!";
             $message = "Payment for '" . ($p->name) . "' has been made!.";
-
         }
+
+        $order->save();
 
         if ($title && $message) {
             NotificationController::storeForUser(

@@ -38,10 +38,10 @@
 						<div class="col-3">
 							<div class="card catagory-card">
 								<div class="card-body">
-									<a href="catagory.html" class="text-danger">
+									<router-link :to="{ path: '/userpay' }" class="text-danger">
 										<img src="https://img.icons8.com/windows/32/000000/bank-card-back-side--v1.png" />
 										<span>To Pay</span>
-									</a>
+									</router-link>
 								</div>
 							</div>
 						</div>
@@ -125,6 +125,9 @@
 .product-box { border: 1px solid #cccccc; padding: 10px 15px; }
 .hero-section { background: #ababab; height: 20vh; align-items: center; margin-bottom: 20px; margin-top: -20px; }
 .title { font-size: 60px; color: #ffffff; } */
+.catagory-card {
+	height: 87px;
+}
 </style>
 
 <script>

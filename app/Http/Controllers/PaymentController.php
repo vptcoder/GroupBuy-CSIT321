@@ -11,6 +11,7 @@ use Stripe;
 use Session;
 use Laravel\Cashier\Cashier;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Config;
 
 class PaymentController extends Controller
 {
@@ -25,16 +26,18 @@ class PaymentController extends Controller
 
 		date_default_timezone_set('Asia/Singapore');
 		$time_plus_3 = Carbon::now();
-		$time_plus_3->modify('+' . env('PERIOD_PAY') . ' day');
+		$time_plus_3->modify('+' . Config::get('app.PERIOD_JOIN') . ' day');
 
-		$order->payment()->create([
+		$p = $order->payment()->create([
 			'order_id' => $order->id, 'user_id' => $order->user_id, 'status' => 'p11', 'amount' => $order->confirmedPrice, 'date_due' => $time_plus_3
 		]);
+
+		return $p;
 	}
 
 	public function makePayment(Request $request)
 	{
-		Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+		Stripe\Stripe::setApiKey(Config::get('app.STRIPE_SECRET'));
 		Stripe\Charge::create([
 			"amount" => 120 * 100,
 			"currency" => "inr",
