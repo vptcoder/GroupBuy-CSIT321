@@ -115,6 +115,7 @@
 							</div>
 							<div class="data-content">{{user.email}}</div>
 						</div>
+
 						<div class="single-profile-data d-flex align-items-center justify-content-between">
 							<div class="title d-flex align-items-center">
 								<i class="lni lni-map-marker"></i>
@@ -124,11 +125,38 @@
 								class="data-content"
 							>{{user.shipping_streetaddress}}, {{user.shipping_postalcode}}, {{user.shipping_city}}</div>
 						</div>
-					</div>
+						
+						<div class="single-profile-data d-flex align-items-center justify-content-between">
+							<div class="title d-flex align-items-center">
+								<router-link :to="{ name: 'login' }" class="nav-link" v-if="!isLoggedIn">
+									<i class="lni lni-power-switch"></i>
+									<span>Login</span>
+								</router-link>
+							</div>
+						</div>
+
+						<div class="single-profile-data d-flex align-items-center justify-content-between">
+							<div class="title d-flex align-items-center">
+								<router-link :to="{ name: 'register' }" class="nav-link" v-if="!isLoggedIn">
+									<i class="lni lni-power-switch"></i>
+									<span>Register</span>
+								</router-link>
+							</div>
+						</div> 
+
+						<div class="single-profile-data d-flex align-items-center justify-content-between">
+							<div class="title d-flex align-items-center nav-link" v-if="isLoggedIn" @click="logout">>
+									<i class="lni lni-power-switch"></i>
+									<span>Sign Out</span>
+ 							</div>
+						</div> 
+			 		<main v-bind:class="!show ? 'admin-page-margin' : ''">
+						<router-view @loggedIn="change"></router-view>
+					</main>
 				</div>
 				</div>
 			</div>
-	 
+	 </div>
  
 </template>
 
@@ -144,7 +172,10 @@ export default {
 	data() {
 		return {
 			user: null,
-			orders: []
+			orders: [],
+			name: null,
+			user_type: 0,
+			isLoggedIn: localStorage.getItem("bigStore.jwt") != null
 		};
 	},
 	beforeMount() {
@@ -157,6 +188,34 @@ export default {
 		axios
 			.get(`api/users/${this.user.id}/orders`)
 			.then(response => (this.orders = response.data));
+	},
+ 
+	mounted() {
+		this.setDefaults();
+	},
+	methods: {
+		setDefaults() {
+			if (this.isLoggedIn) {
+				let user = JSON.parse(localStorage.getItem("bigStore.user"));
+				this.name = user.name;
+				this.user_type = user.is_admin;
+			}
+		},
+		change() {
+			this.isLoggedIn = localStorage.getItem("bigStore.jwt") != null;
+			this.setDefaults();
+		},
+		logout() {
+			localStorage.removeItem("bigStore.jwt");
+			localStorage.removeItem("bigStore.user");
+			this.change();
+			this.$router.push("/");
+		}
+	},
+	computed: {
+		show: function() {
+			return this.$store.state.navigation.show;
+		}
 	}
 };
 </script>

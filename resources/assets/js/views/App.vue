@@ -64,11 +64,11 @@
 					<h2>Admin</h2>
 				</div>
 				<!-- Navbar Toggler-->
-				<!-- <div class="suha-navbar-toggler d-flex flex-wrap" id="suhaNavbarToggler">
+				  <div class="suha-navbar-toggler d-flex flex-wrap" id="suhaNavbarToggler">
 					<span></span>
 					<span></span>
 					<span></span>
-				</div> -->
+				</div>  
 			</div>
 		</div>
 
