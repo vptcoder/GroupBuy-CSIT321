@@ -247,8 +247,9 @@ textarea:invalid {
   background-color: #fff;
   border-color: #020310; }
   .btn-primary:hover, .btn-primary:focus {
-    background-color: #020310;
-    border-color: #020310; }
+    background-color: #a93226;
+    color: white;
+   }
 
 .btn-success {
   background-color: #00b894;
@@ -1160,8 +1161,7 @@ textarea:invalid {
   top: 0;
   left: -250px;
   height: 100%;
-  background: #100DD1;
-  background: linear-gradient(to left, #100DD1, #0d3bd1);
+  background: linear-gradient(to left, #8a817c, #463f3a);
   overflow-y: auto;
   width: 240px; }
   .suha-sidenav-wrapper .go-home-btn {

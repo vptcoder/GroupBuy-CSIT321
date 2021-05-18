@@ -144,10 +144,9 @@
 							</div>
 						</div> 
 
-						<div class="single-profile-data d-flex align-items-center justify-content-between">
-							<div class="title d-flex align-items-center nav-link" v-if="isLoggedIn" @click="logout">>
-									<i class="lni lni-power-switch"></i>
-									<span>Sign Out</span>
+						<div class="row g-2 single-profile-data d-flex align-items-center justify-content-between">
+							<div class="col-12 signout" v-if="isLoggedIn" @click="logout">					 
+									<span>Log Out</span>
  							</div>
 						</div> 
 			 		<main v-bind:class="!show ? 'admin-page-margin' : ''">
@@ -219,3 +218,16 @@ export default {
 	}
 };
 </script>
+
+<style scoped>
+.signout { 
+    background-color: #a93226;
+    color: white;
+    font-size: 12px;
+    height: 25px;
+    border-radius: 5px;
+    float: center;
+    text-align: center; 
+	padding: 4px;
+}
+</style>

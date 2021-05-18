@@ -7,6 +7,7 @@
 		</div>
 		<div v-if="!accessible">
 			<!-- Preloader-->
+			
 			<label class="error-message">Please login or create account to continue :)</label>
 		</div>
 		<div v-else-if="accessible && !is_data_fetched">

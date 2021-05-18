@@ -311,6 +311,7 @@ export default {
 		},
 		promptlogin() {
 			alert("Please login or create account to continue :)");
+			
 		},
 		timediff(currentTime, productTime) {
 			var bucketMili = new Date(productTime) - new Date(currentTime);
