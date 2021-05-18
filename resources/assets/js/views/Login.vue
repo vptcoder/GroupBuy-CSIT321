@@ -2,7 +2,6 @@
 	<div class="page-content-wrapper">
 		<div class="container">
 			<div class="row justify-content-center">
-				<div class="col-md-8">
 					<div class="logo">
 						<img src="/assets/img/core-img/brand-logo.png" alt="" style="float:center;align:center;padding: 30px;min-width: 100%;height: auto;">	
 					</div>
@@ -28,7 +27,7 @@
 									</div>
 
 									<div class="col-8">
-										<button type="submit" class="btn btn-primary float-end my-3">
+										<button type="submit" class="btn btn-primary float-end my-3" @click="handleSubmit">
 											Login
 										</button>
 									</div>
@@ -38,8 +37,8 @@
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>
+	
+	
 </template>
 
 <script>
@@ -78,10 +77,3 @@
 		}
 	}
 </script>
-
-<style scoped>
-.logo {
-	align-content: center;
-    padding: 25px;
-}
-</style>

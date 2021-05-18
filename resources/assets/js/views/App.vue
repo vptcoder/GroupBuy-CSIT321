@@ -43,7 +43,7 @@
 		</div>
 
 		<!-- Header Area-->
-		<div class="header-area" id="headerArea" >
+		<div class="header-area" id="headerArea">
 			<div class="container h-100 d-flex align-items-center justify-content-between">
 				<!-- Logo Wrapper-->
 				<div class="logo-wrapper">
@@ -194,13 +194,13 @@
 								Home
 							</router-link>
 						</li>
-						<li v-show="show" v-if="!isLoggedIn">
+						<li v-show="show">
 							<router-link :to="{ name: 'watchlist' }" class="navbar-brand">
 								<img src="https://img.icons8.com/windows/32/000000/like.png"/>
 								Wishlist
 							</router-link>
 						</li>
-						<li v-show="show" v-if="!isLoggedIn">
+						<li v-show="show">
 							<router-link :to="{ name: 'notifications' }" class="navbar-brand">
 								<img src="https://img.icons8.com/windows/32/000000/appointment-reminders.png"/>
 								Notifications
@@ -244,10 +244,6 @@ export default {
 				this.name = user.name;
 				this.user_type = user.is_admin;
 			}
-
-			if (!this.isLoggedIn && $router == "UserBoard") {
-						isLoggedIn: localStorage.getItem("bigStore.jwt") != null;
-				}
 		},
 		change() {
 			this.isLoggedIn = localStorage.getItem("bigStore.jwt") != null;
