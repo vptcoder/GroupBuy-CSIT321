@@ -25,25 +25,23 @@
 			</carousel>
 			<div class="product-description pb-3">
 				<!-- Product Title & Meta Data-->
-				<div class="product-title-meta-data bg-white mb-3 py-3">
+				<div class="product-title-meta-data bg-white py-3">
 					<div class="container d-flex justify-content-between" style="display:block!important;">
-					<div class="p-title-price">
-						<h6 class="mb-1 mx-4" style="text-align:center;">{{product.name}}</h6>
-						<hr>
-						<p class="sale-price mb-0">${{product.price}}</p>
-						<div>
-							<label v-if="product.groupbuy_id == null" style="color:red;">{{product.max}} slots left</label>
-							<label v-else style="color:red;">{{product.groupbuy_max-product.groupbuy_orders}} slots left</label>
+						<div class="p-title-price">
+							<h6 class="mb-1 mx-4" style="text-align:center;">{{product.name}}</h6>
+							<hr>
+							<p class="sale-price mb-0">${{product.price}}</p>
+							<div>
+								<label v-if="product.groupbuy_id == null" style="color:red;  font-size:12px;">{{product.max}} slots left</label>
+								<label v-else style="color:red;  font-size:12px;">{{product.groupbuy_max-product.groupbuy_orders}} slots left</label>
+							</div>
 						</div>
 					</div>
-					 
-					</div>
- 
 				</div>			
 				<!-- Product Specification-->
 				<div class="p-specification bg-white mb-3 py-3">
 					<div class="container">
-						<h6>Specifications</h6>
+						<h5>Description</h5>
 						<p>{{product.description}}</p>
 						<!-- Button -->
 						<div class="container d-flex align-items-center justify-content-between"  style="width: 100%;position: fixed; bottom:3.6rem; background-color:#fff; display:block; height:50px;"> 
@@ -80,15 +78,6 @@
 							</a> -->
 						</div>
 					</div>
-				</div>
-			</div>
-
-			<div style="margin-left:30px">
-
-			
-				<div>
-					<label v-if="product.groupbuy_id == null" style="margin-left:160px;color:red;">{{product.max}} slots left</label>
-					<label v-else style="margin-left:160px;color:red;">{{product.groupbuy_max-product.groupbuy_orders}} slots left</label>
 				</div>
 			</div>
  

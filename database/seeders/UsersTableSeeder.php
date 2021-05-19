@@ -27,7 +27,7 @@ class UsersTableSeeder extends Seeder
         $admin->save();
         
         $testers = [
-            [
+            [ 
                 'username' => 'tester1'
                 , 'name' => 'tester1'
                 , 'email' => 'tester1_vptcoder@gbuytest.com'

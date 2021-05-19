@@ -10,7 +10,7 @@
         "production": "mix --production"
     },
     "devDependencies": {
-        "@stripe/stripe-js": "^1.14.0",
+        "@stripe/stripe-js": "^1.15.0",
         "axios": "^0.21",
         "laravel-mix": "^6.0.19",
         "lodash": "^4.17.19",
@@ -20,7 +20,7 @@
         "sass-loader": "^11.0.1",
         "vue-loader": "^15.9.6",
         "vue-template-compiler": "^2.6.12",
-        "webpack": "^5.37.0"
+        "webpack": "^5.37.1"
     },
     "dependencies": {
         "bootstrap": "^4.6.0",
