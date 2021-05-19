@@ -16,12 +16,8 @@ call npm install vue-owl-carousel
 call npm install @stripe/stripe-js --save-dev
 call npm install webpack
 
-echo -----.ENV FILE-----
-copy .env.example .env /y
-call php artisan key:generate
-
 echo -----DB MIGRATION-----
-call php artisan migrate:fresh --seed
+call php artisan migrate
 call php artisan passport:install
 
 echo -----BUILD-----
