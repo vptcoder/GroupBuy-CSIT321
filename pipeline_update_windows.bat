@@ -1,10 +1,10 @@
 @echo off
-echo -----COMPOSER PACKAGES-----
+echo -----INSTALL: COMPOSER PACKAGES-----
 call composer require laravel/installer
 call composer require stripe/stripe-php
 call composer install
 
-echo -----NPM PACKAGES-----
+echo -----INSTALL: NPM PACKAGES-----
 call npm install
 
 @REM call npm install laravel-mix@latest --save-dev
@@ -16,14 +16,14 @@ call npm install
 @REM call npm install @stripe/stripe-js --save-dev
 @REM call npm install webpack
 
-echo -----DB MIGRATION-----
+echo -----MIGRATE: DB-----
 call php artisan migrate
 call php artisan passport:install
 
-echo -----BUILD-----
+echo -----BUILD: APPLICATION-----
 call npm run dev
 
-echo -----DEPLOY-----
+echo -----DEPLOY: APPLICATION-----
 call php artisan config:cache
 call php artisan route:cache
 call php artisan serve --host 0.0.0.0 --port 80

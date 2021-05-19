@@ -1,13 +1,16 @@
 @echo off
-echo -----DB FILE CREATION-----
+echo -----CREATE: DB FILE CREATION-----
 type nul > database/database.sqlite
 
-echo -----COMPOSER PACKAGES-----
+echo -----CREATE: .ENV FILE-----
+copy .env.example .env /y
+
+echo -----INSTALL: COMPOSER PACKAGES-----
 call composer require laravel/installer
 call composer require stripe/stripe-php
 call composer install
 
-echo -----NPM PACKAGES-----
+echo -----INSTALL: NPM PACKAGES-----
 call npm install
 
 @REM call npm install laravel-mix@latest --save-dev
@@ -19,18 +22,19 @@ call npm install
 @REM call npm install @stripe/stripe-js --save-dev
 @REM call npm install webpack
 
-echo -----.ENV FILE-----
-copy .env.example .env /y
+echo -----GENERATE: APPLICATION KEY-----
+call php artisan config:clear
+call php artisan route:clear
 call php artisan key:generate
 
-echo -----DB MIGRATION-----
+echo -----MIGRATE: DB-----
 call php artisan migrate:fresh --seed
 call php artisan passport:install
 
-echo -----BUILD-----
+echo -----BUILD: APPLICATION-----
 call npm run dev
 
-echo -----DEPLOY-----
+echo -----DEPLOY: APPLICATION-----
 call php artisan config:cache
 call php artisan route:cache
 call php artisan serve --host 0.0.0.0 --port 80
