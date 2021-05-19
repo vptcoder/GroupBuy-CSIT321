@@ -7,14 +7,14 @@ call composer install
 echo -----NPM PACKAGES-----
 call npm install
 
-call npm install laravel-mix@latest --save-dev
-call npm install vue-router
-call npm install vue
-call npm install vuex
-call npm install vue-waypoint
-call npm install vue-owl-carousel
-call npm install @stripe/stripe-js --save-dev
-call npm install webpack
+@REM call npm install laravel-mix@latest --save-dev
+@REM call npm install vue-router
+@REM call npm install vue
+@REM call npm install vuex
+@REM call npm install vue-waypoint
+@REM call npm install vue-owl-carousel
+@REM call npm install @stripe/stripe-js --save-dev
+@REM call npm install webpack
 
 echo -----DB MIGRATION-----
 call php artisan migrate
