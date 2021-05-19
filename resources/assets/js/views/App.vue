@@ -30,11 +30,16 @@
 					<h2>Admin</h2>
 				</div>
 				<!-- Navbar Toggler-->
-				<div class="suha-navbar-toggler d-flex flex-wrap" id="suhaNavbarToggler">
+				<!-- <div v-show="!show" class="suha-navbar-toggler d-flex flex-wrap" id="suhaNavbarToggler">
 					<span></span>
 					<span></span>
 					<span></span>
-				</div>
+				</div>   -->
+
+				<!-- Navbar Toggler-->
+				<div v-show="!show" v-if="isLoggedIn" @click="logout">
+							<i class="lni lni-power-switch"></i>
+				</div>  
 			</div>
 		</div>
 
@@ -56,17 +61,22 @@
 			<!-- Sidenav Nav-->
 			<ul class="sidenav-nav ps-0">
 				<li>
-					<router-link :to="{ name: 'userboard' }" class="navbar-brand">
-						<i class="lni lni-user"></i>My Profile
+					<router-link :to="{ name: '/admin/products/' }" class="navbar-brand">
+						<i class="lni lni-user"></i>Products
 					</router-link>
 				</li>
 				<li>
+					<router-link :to="{ name: '/admin/products/' }" class="navbar-brand">
+						<i class="lni lni-user"></i>Products
+					</router-link>
+				</li>
+				<!-- <li>
 					<a href="notifications.html">
 						<i class="lni lni-alarm lni-tada-effect"></i>Notifications
 						<span class="ms-3 badge badge-warning">3</span>
 					</a>
-				</li>
-				<li class="suha-dropdown-menu">
+				</li> -->
+				<!-- <li class="suha-dropdown-menu">
 					<a href="#">
 						<i class="lni lni-cart"></i>Shop Pages
 					</a>
@@ -87,7 +97,7 @@
 							<a href="flash-sale.html">- Flash Sale</a>
 						</li>
 					</ul>
-				</li>
+				</li>  
 				<li>
 					<a href="pages.html">
 						<i class="lni lni-empty-file"></i>All Pages
@@ -111,6 +121,7 @@
 						<i class="lni lni-cog"></i>Settings
 					</a>
 				</li>
+				-->
 				<li>
 					<router-link :to="{ name: 'login' }" class="nav-link" v-if="!isLoggedIn">
 						<i class="lni lni-power-switch"></i>Login
@@ -123,7 +134,7 @@
 					</router-link>
 				</li>
 				<li class="nav-link" v-if="isLoggedIn" @click="logout">
-					<i class="lni lni-power-switch"></i>Sign Out
+						 Log Out
 				</li>
 			</ul>
 			<!-- Go Back Button-->
