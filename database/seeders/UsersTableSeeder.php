@@ -22,7 +22,7 @@ class UsersTableSeeder extends Seeder
         $admin->shipping_streetaddress = '69 Nuts Street, #21-34';
         $admin->shipping_city = 'Singapore';
         $admin->shipping_postalcode = '666666';
-        $admin->password = bcrypt('secret');
+        $admin->password = bcrypt('randomyomamajoke');
         $admin->is_admin = true;
         $admin->save();
         
