@@ -1,29 +1,29 @@
 @echo off
-echo -----COMPOSER PACKAGES-----
-call composer require laravel/installer
-call composer require stripe/stripe-php
+echo -----INSTALL: COMPOSER PACKAGES-----
+@REM call composer require laravel/installer
+@REM call composer require stripe/stripe-php
 call composer install
 
-echo -----NPM PACKAGES-----
+echo -----INSTALL: NPM PACKAGES-----
 call npm install
 
-call npm install laravel-mix@latest --save-dev
-call npm install vue-router
-call npm install vue
-call npm install vuex
-call npm install vue-waypoint
-call npm install vue-owl-carousel
-call npm install @stripe/stripe-js --save-dev
-call npm install webpack
+@REM call npm install laravel-mix@latest --save-dev
+@REM call npm install vue-router
+@REM call npm install vue
+@REM call npm install vuex
+@REM call npm install vue-waypoint
+@REM call npm install vue-owl-carousel
+@REM call npm install @stripe/stripe-js --save-dev
+@REM call npm install webpack
 
-echo -----DB MIGRATION-----
+echo -----MIGRATE: DB-----
 call php artisan migrate
 call php artisan passport:install
 
-echo -----BUILD-----
+echo -----BUILD: APPLICATION-----
 call npm run dev
 
-echo -----DEPLOY-----
+echo -----DEPLOY: APPLICATION-----
 call php artisan config:cache
 call php artisan route:cache
 call php artisan serve --host 0.0.0.0 --port 80

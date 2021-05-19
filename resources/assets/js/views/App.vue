@@ -61,14 +61,14 @@
 			<!-- Sidenav Nav-->
 			<ul class="sidenav-nav ps-0">
 				<li>
-					<router-link :to="{ name: '/admin/products/' }" class="navbar-brand">
+					<a href="/admin/products/" class="navbar-brand">
 						<i class="lni lni-user"></i>Products
-					</router-link>
+					</a>
 				</li>
 				<li>
-					<router-link :to="{ name: '/admin/products/' }" class="navbar-brand">
+					<a href="/admin/products/" class="navbar-brand">
 						<i class="lni lni-user"></i>Products
-					</router-link>
+					</a>
 				</li>
 				<!-- <li>
 					<a href="notifications.html">
