@@ -6,8 +6,8 @@ echo -----CREATE: .ENV FILE-----
 copy .env.example .env /y
 
 echo -----INSTALL: COMPOSER PACKAGES-----
-call composer require laravel/installer
-call composer require stripe/stripe-php
+@REM call composer require laravel/installer
+@REM call composer require stripe/stripe-php
 call composer install
 
 echo -----INSTALL: NPM PACKAGES-----

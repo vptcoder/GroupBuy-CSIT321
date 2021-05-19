@@ -1,7 +1,7 @@
 #! /bin/bash
 echo -----INSTALL: COMPOSER PACKAGES-----
-composer require laravel/installer
-composer require stripe/stripe-php
+# composer require laravel/installer
+# composer require stripe/stripe-php
 composer install
 
 echo -----INSTALL: NPM PACKAGES-----
