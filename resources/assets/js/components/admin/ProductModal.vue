@@ -7,25 +7,28 @@
 				</div>
 				<div class="modal-body">
 					<slot name="body">
-						Name: <input type="text" v-model="data.name">
-						Price: <input type="text" v-model="data.price">
-						Min: <input type="text" v-model="data.min">
-						Max: <input type="text" v-model="data.max">
+						Name:
+						<input type="text" v-model="data.name" />
+						Price:
+						<input type="text" v-model="data.price" />
+						Min:
+						<input type="text" v-model="data.min" />
+						Max:
+						<input type="text" v-model="data.max" />
+						Status:
+						<br/><input type="radio" v-model="data.status" value="p11" /> Available
+						<br/><input type="radio" v-model="data.status" value="p01" /> Hidden
 						<textarea v-model="data.description" placeholder="description"></textarea>
-						<span >
-							<img :src="data.image" v-show="data.image != null">
-							<input type="file" id="file" @change="attachFile">
+						<span>
+							<img :src="data.image" v-show="data.image != null" />
+							<input type="file" id="file" @change="attachFile" />
 						</span>
 					</slot>
 				</div>
 				<div class="modal-footer">
 					<slot name="footer">
-						<button class="modal-default-button" @click="uploadFile">
-							Finish
-						</button>
-						<button class="modal-default-button" @click="cancelFile">
-							Cancel
-						</button>
+						<button class="modal-default-button" @click="uploadFile">Finish</button>
+						<button class="modal-default-button" @click="cancelFile">Cancel</button>
 					</slot>
 				</div>
 			</div>
@@ -41,9 +44,9 @@
 	left: 0;
 	width: 100%;
 	height: 100%;
-	background-color: rgba(0, 0, 0, .5);
+	background-color: rgba(0, 0, 0, 0.5);
 	display: table;
-	transition: opacity .3s ease;
+	transition: opacity 0.3s ease;
 }
 .modal-wrapper {
 	display: table-cell;
@@ -55,8 +58,8 @@
 	padding: 20px 30px;
 	background-color: #fff;
 	border-radius: 2px;
-	box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
-	transition: all .3s ease;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+	transition: all 0.3s ease;
 	font-family: Helvetica, Arial, sans-serif;
 }
 .modal-header h3 {
@@ -84,25 +87,26 @@
 
 <script>
 export default {
-	props: ['product'],
+	props: ["product"],
 	data() {
 		return {
 			attachment: null
-		}
+		};
 	},
 	computed: {
 		data: function() {
 			if (this.product != null) {
-				return this.product
+				return this.product;
 			}
 			return {
 				name: "",
 				min: "",
 				max: "",
+				status: "p11",
 				price: "",
 				description: "",
 				image: false
-			}
+			};
 		}
 	},
 	methods: {
@@ -112,19 +116,21 @@ export default {
 		uploadFile(event) {
 			if (this.attachment != null) {
 				var formData = new FormData();
-				formData.append("image", this.attachment)
-				let headers = {'Content-Type': 'multipart/form-data'}
-				axios.post("/api/upload-file", formData, {headers}).then(response => {
-					this.product.image = response.data
-					this.$emit('close', this.product)
-				})
+				formData.append("image", this.attachment);
+				let headers = { "Content-Type": "multipart/form-data" };
+				axios
+					.post("/api/upload-file", formData, { headers })
+					.then(response => {
+						this.product.image = response.data;
+						this.$emit("close", true);
+					});
 			} else {
-				this.$emit('close', this.product)
+				this.$emit("close", 1);
 			}
 		},
-		cancelFile(event){
-				this.$emit('close', this.product)
+		cancelFile(event) {
+			this.$emit("close", false);
 		}
 	}
-}
+};
 </script>

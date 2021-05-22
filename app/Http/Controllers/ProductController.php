@@ -146,6 +146,8 @@ class ProductController extends Controller
                 'products.name',
                 'products.price',
                 'products.description',
+                'products.image',
+                'products.status',
                 'products.min',
                 'products.max',
                 'groupbuys.id as groupbuy_id'
@@ -171,7 +173,13 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $product = Product::create([
-            'name' => $request->name, 'min' => $request->min, 'max' => $request->max, 'price' => $request->price, 'description' => $request->description, 'image' => $request->image
+            'name' => $request->name,
+            'min' => $request->min, 
+            'max' => $request->max, 
+            'status' => $request->status,
+            'price' => $request->price, 
+            'description' => $request->description, 
+            'image' => $request->image
         ]);
 
         return response()->json([
@@ -270,7 +278,7 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         $status = $product->update(
-            $request->only(['name', 'description', 'price', 'image', 'min', 'max'])
+            $request->only(['name', 'description', 'price', 'image', 'min', 'max', 'status'])
         );
 
         return response()->json([
