@@ -54,7 +54,7 @@
 										<a class="product-title d-block">{{g.product_name}}</a>
 										<p class="sale-price">
 											<i class="lni lni-dollar"></i>
-											${{g.product_price}}
+											${{parseFloat(g.product_price).toFixed(2)}}
 										</p>
 										<span class="badge bottom-badge badge-success">{{g.groupbuy_orders}} ordered</span>
 
@@ -72,7 +72,7 @@
 										>+{{g.max_available - g.groupbuy_orders}} to finish</span>
 										<span v-else class="badge badge-success bottom-badge">Full!</span>
 
-										<span class="badge bottom-badge badge-success">
+										<span v-show="timediff(timestamp, g.date_end) !== 'expired'" class="badge bottom-badge badge-success">
 											<i class="lni lni-timer"></i>
 											{{timediff(timestamp, g.date_end)}}
 										</span>
@@ -101,7 +101,7 @@
 										<a class="product-title d-block">{{product.name}}</a>
 										<p class="sale-price">
 											<i class="lni lni-dollar"></i>
-											${{product.price}}
+											${{parseFloat(product.price).toFixed(2)}}
 										</p>
 										<a class="btn btn-success btn-sm" href="#">
 											<i class="me-1 lni lni-cart"></i>Join Now
@@ -202,6 +202,9 @@ export default {
 					"h " +
 					remainingMins +
 					"m";
+			}
+			if (remaining.startsWith('-')){
+				remaining = "expired";
 			}
 			return remaining;
 		}

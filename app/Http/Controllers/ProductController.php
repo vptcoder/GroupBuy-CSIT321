@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use SebastianBergmann\Environment\Console;
 
@@ -51,6 +52,7 @@ class ProductController extends Controller
 
     public function userIndex()
     {
+		date_default_timezone_set('Asia/Singapore');
         //1. Retrieve data
         $products = Product::select(
             'products.id',
@@ -81,7 +83,7 @@ class ProductController extends Controller
             ->get();
 
         //2. Organise data
-        foreach ($products as $p) {
+        foreach ($products as $pkey => $p) {
             if (!empty($p->groupbuys)) {
                 error_log(print_r($p->groupbuys->count(), TRUE));
 
@@ -125,6 +127,10 @@ class ProductController extends Controller
                 }
             }
             unset($p->groupbuys);
+
+            if(Carbon::now()->gt(Carbon::parse($p->groupbuy_date_end))){
+                unset($products[$pkey]);
+            }
         }
 
         return response()->json($products, 200);
@@ -146,6 +152,8 @@ class ProductController extends Controller
                 'products.name',
                 'products.price',
                 'products.description',
+                'products.image',
+                'products.status',
                 'products.min',
                 'products.max',
                 'groupbuys.id as groupbuy_id'
@@ -171,7 +179,13 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $product = Product::create([
-            'name' => $request->name, 'min' => $request->min, 'max' => $request->max, 'price' => $request->price, 'description' => $request->description, 'image' => $request->image
+            'name' => $request->name,
+            'min' => $request->min, 
+            'max' => $request->max, 
+            'status' => $request->status,
+            'price' => $request->price, 
+            'description' => $request->description, 
+            'image' => $request->image
         ]);
 
         return response()->json([
@@ -221,12 +235,13 @@ class ProductController extends Controller
                 $product->groupbuy_date_end = $product->groupbuys[0]->date_end;
 
                 $sumQuantity = 0;
-                if (!empty($product->groupbuys[0]->orders) && $product->groupbuys[0]->orders->count() > 0) {
-                    foreach ($product->groupbuys[0]->orders as $o) {
+                $product->groupbuy_orders = $product->groupbuys[0]->orders;
+                if (!empty($product->groupbuy_orders) && $product->groupbuy_orders->count() > 0) {
+                    foreach ($product->groupbuy_orders as $o) {
                         $sumQuantity += $o->quantity;
                     }
                 }
-                $product->groupbuy_orders = $sumQuantity;
+                $product->groupbuy_orders_qty = $sumQuantity;
 
                 $status = null;
                 switch ($product->groupbuys[0]->status) {
@@ -270,7 +285,7 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         $status = $product->update(
-            $request->only(['name', 'description', 'price', 'image', 'min', 'max'])
+            $request->only(['name', 'description', 'price', 'image', 'min', 'max', 'status'])
         );
 
         return response()->json([

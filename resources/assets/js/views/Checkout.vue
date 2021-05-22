@@ -5,7 +5,7 @@
 				<div class="order-box">
 					<img :src="product.image" :alt="product.name">
 					<h2 class="title" v-html="product.name"></h2>
-					<p class="small-text text-muted float-left">$ {{product.price}}</p>
+					<p class="small-text text-muted float-left">$ {{parseFloat(product.price).toFixed(2)}}</p>
 					<p class="small-text text-muted float-right">Available Units: {{product.units}}</p>
 					<br>
 					<hr>

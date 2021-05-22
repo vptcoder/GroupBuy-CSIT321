@@ -30,7 +30,7 @@
 										<a class="product-title d-block">{{o.product_name}}</a>
 										<p class="sale-price">
 											<i class="lni lni-dollar"></i>
-											Total: ${{o.confirmedPrice}}
+											Total: ${{parseFloat(o.confirmedPrice).toFixed(2)}}						
 										</p>
 										<span class="badge bottom-badge badge-success">Paid on: {{(new Date(o.date_paid)).toISOString().split('T')[0]}}</span>
 									</div>

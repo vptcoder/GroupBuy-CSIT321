@@ -1,13 +1,13 @@
 <template>
 	<div class="page-content-wrapper">
 		<div class="container d-flex justify-content-between">
-			<router-link :to="{ path: '/products/'+this.pid}" >
-				<img class="mt-3" src="https://img.icons8.com/ios/32/000000/back--v1.png"/>
+			<router-link :to="{ path: '/products/'+this.pid}">
+				<img class="mt-3" src="https://img.icons8.com/ios/32/000000/back--v1.png" />
 			</router-link>
 		</div>
 		<div v-if="!accessible">
 			<!-- Preloader-->
-			
+
 			<label class="error-message">Please login or create account to continue :)</label>
 		</div>
 		<div v-else-if="accessible && !is_data_fetched">
@@ -37,31 +37,37 @@
 					<div class="p-title-price">
 						<h5 class="mb-1">You are placing an order for:</h5>
 						<h6 class="mb-1">{{product.name}}</h6>
-						<p class="sale-price mb-0">${{product.price}}</p>
-						<table class="table mb-0">
-							<tbody>
-								<tr>
-									<td>
-										<img src="img/product/11.png" alt />
-									</td>
-									<td>
-										<p>Amount</p>
-									</td>
-									<td>
-										<div class="quantity">
-											<input class="qty-text" type="text" v-model="quantity" required autofocus />
-										</div>
-									</td>
-								</tr>
-							</tbody>
-						</table>
+						<div v-if="product.user_ordered" class="align-items-center">
+							<br/>
+							<h6 class="mb-1">You have joined this groupbuy!</h6>
+						</div>
+						<div v-else>
+							<p class="sale-price mb-0">${{parseFloat(product.price).toFixed(2)}}</p>
+							<table class="table mb-0">
+								<tbody>
+									<tr>
+										<td>
+											<img src="img/product/11.png" alt />
+										</td>
+										<td>
+											<p>Amount</p>
+										</td>
+										<td>
+											<div class="quantity">
+												<input class="qty-text" type="text" v-model="quantity" required autofocus />
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
 					</div>
 				</div>
 			</div>
 			<!-- Cart Amount Area-->
-			<div class="card cart-amount-area">
+			<div v-show="!product.user_ordered" class="card cart-amount-area">
 				<div class="card-body d-flex align-items-center justify-content-between">
-					<h5 class="total-price mb-0" > 
+					<h5 class="total-price mb-0">
 						Total Price : $
 						<span>{{confirmedPrice}}</span>
 					</h5>
@@ -100,6 +106,19 @@ export default {
 			this.user = JSON.parse(localStorage.getItem("bigStore.user"));
 			axios.get(`/api/products/${this.pid}`).then(response => {
 				this.product = response.data;
+				this.product.user_ordered = false;
+				if (
+					this.product.groupbuy_orders &&
+					this.product.groupbuy_orders.length > 0
+				) {
+					if (
+						this.product.groupbuy_orders.some(
+							o => o.user_id == this.user.id
+						)
+					) {
+						this.product.user_ordered = true;
+					}
+				}
 				this.is_data_fetched = true;
 			});
 		}
@@ -170,8 +189,8 @@ export default {
 }
 
 .total-price {
-	font-weight:500;
-	color:red; 
+	font-weight: 500;
+	color: red;
 	font-size: 18px;
 }
 </style>

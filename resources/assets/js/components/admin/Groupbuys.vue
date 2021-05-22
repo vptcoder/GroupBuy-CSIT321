@@ -131,16 +131,6 @@ export default {
 					});
 			}
 			this.editingItem = null;
-
-			// let index = this.products.indexOf(product)
-			// let name = product.name
-			// let min = product.min
-			// let max = product.max
-			// let price = product.price
-			// let description = product.description
-
-			// axios.put(`/api/products/${product.id}`, {name, min, max, price, description})
-			// 		.then(response => this.products[index] = product)
 		}
 	}
 };
