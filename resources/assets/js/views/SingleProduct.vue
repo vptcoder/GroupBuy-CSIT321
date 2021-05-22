@@ -33,7 +33,7 @@
 							<p class="sale-price mb-0">${{parseFloat(product.price).toFixed(2)}}</p>
 							<div>
 								<label v-if="product.groupbuy_id == null" style="color:red;  font-size:12px;">{{product.max}} slots left</label>
-								<label v-else style="color:red;  font-size:12px;">{{product.groupbuy_max-product.groupbuy_orders}} slots left</label>
+								<label v-else style="color:red;  font-size:12px;">{{product.groupbuy_max-product.groupbuy_orders_qty}} slots left</label>
 							</div>
 						</div>
 					</div>
@@ -45,7 +45,12 @@
 						<p>{{product.description}}</p>
 						<!-- Button -->
 						<div class="container d-flex align-items-center justify-content-between"  style="width: 100%;position: fixed; bottom:3.6rem; background-color:#fff; display:block; height:50px;"> 
+							<div 
+								v-if="product.user_ordered"
+								class="col-10 btn btn-sm btn-primary">Joined
+							</div>
 							<router-link :to="{ path: '/join?pid='+product.id }" 
+								v-else
 								class="col-10 btn btn-sm btn-primary">Join
 							</router-link>
 
@@ -104,7 +109,17 @@ export default {
 		this.user = JSON.parse(localStorage.getItem('bigStore.user'));
 
 		let url = `/api/products/${this.$route.params.id}`;
-		axios.get(url).then(response => {this.product = response.data; this.is_data_fetched = true;});
+		axios.get(url).then(response => {
+			this.product = response.data; 
+			this.product.user_ordered = false;
+			if(this.product.groupbuy_orders && this.product.groupbuy_orders.length > 0){ 
+				if(this.product.groupbuy_orders.some(o => o.user_id == this.user.id))
+				{
+					this.product.user_ordered = true;
+				}
+			}
+			this.is_data_fetched = true;
+		});
 
 	},components: {
 		carousel

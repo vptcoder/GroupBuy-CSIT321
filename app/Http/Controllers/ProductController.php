@@ -235,12 +235,13 @@ class ProductController extends Controller
                 $product->groupbuy_date_end = $product->groupbuys[0]->date_end;
 
                 $sumQuantity = 0;
-                if (!empty($product->groupbuys[0]->orders) && $product->groupbuys[0]->orders->count() > 0) {
-                    foreach ($product->groupbuys[0]->orders as $o) {
+                $product->groupbuy_orders = $product->groupbuys[0]->orders;
+                if (!empty($product->groupbuy_orders) && $product->groupbuy_orders->count() > 0) {
+                    foreach ($product->groupbuy_orders as $o) {
                         $sumQuantity += $o->quantity;
                     }
                 }
-                $product->groupbuy_orders = $sumQuantity;
+                $product->groupbuy_orders_qty = $sumQuantity;
 
                 $status = null;
                 switch ($product->groupbuys[0]->status) {
