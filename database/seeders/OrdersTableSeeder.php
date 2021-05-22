@@ -34,13 +34,13 @@ class OrdersTableSeeder extends Seeder
             , [
                 'groupbuy_id' => 1
                 , 'product_id' => 2
-                , 'user_id' => 2
+                , 'user_id' => 4
                 , 'status' => 'o11'
                 , 'quantity' => 1
                 , 'confirmedPrice' => 1600.21
-                , 'shipping_streetaddress' => '01 Test Street, #11-01'
+                , 'shipping_streetaddress' => '03 Test Street, #11-03'
                 , 'shipping_city' => 'Singapore'
-                , 'shipping_postalcode' => '666661'
+                , 'shipping_postalcode' => '666663'
                 , 'is_delivered' => false
                 , 'created_at' => Carbon::now()
                 , 'updated_at' => null
