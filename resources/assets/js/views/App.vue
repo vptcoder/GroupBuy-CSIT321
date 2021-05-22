@@ -12,13 +12,13 @@
 		<div class="header-area" id="headerArea">
 			<div class="container h-100 d-flex align-items-center justify-content-between">
 				<!-- Logo Wrapper-->
-				<div class="logo-wrapper">
+				<div v-show="isLoggedIn" class="logo-wrapper">
 					<router-link :to="{ name: 'home' }">
 						<img class="brand-logo" src="/assets/img/core-img/brand-logo.png" alt />
 					</router-link>
 				</div>
 				<!-- Search Form-->
-				<div v-show="show" class="top-search-form" style="width:100%; padding-left:5px;">
+				<div v-show="isLoggedIn && show" class="top-search-form" style="width:100%; padding-left:5px;">
 					<form action method>
 						<input class="form-control" type="search" placeholder="Search" />
 						<button type="submit">
@@ -144,7 +144,7 @@
 		</div>
 
 		<main v-bind:class="!show ? 'admin-page-margin' : ''">
-			<router-view @loggedIn="change"></router-view>
+			<router-view @loggedIn="change" @loggedOut="change"></router-view>
 		</main>
 
 		<!-- Internet Connection Status-->
