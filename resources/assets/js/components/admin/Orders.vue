@@ -17,7 +17,14 @@
 				<tr v-for="(order,index) in orders" :key="index">
 					<td>{{index+1}}</td>
 					<td v-html="order.product.name"></td>
-					<td>{{order.statustext}}</td>
+					<td v-if="order.status === 'o11'">Order Pending</td>
+					<td v-else-if="order.status === 'o12'">Payment pending</td>
+					<td v-else-if="order.status === 'o13'">Paid</td>
+					<td v-else-if="order.status === 'o14'">Shipping</td>
+					<td v-else-if="order.status === 'o15'">Order complete</td>
+					<td v-else-if="order.status === 'o21'">Cancelled</td>
+					<td v-else-if="order.status === 'o22'">Refunded</td>
+					<td v-else>Status Error!</td>
 					<td>{{order.quantity}}</td>
 					<td>{{order.quantity * order.product.price}}</td>
 					<td>{{order.address}}</td>
@@ -52,8 +59,9 @@ export default {
 		deliver(index) {
 			let order = this.orders[index];
 			let orderid = order.id;
-			axios.patch("/api/orders/deliver", { orderid }).then(response => {
+			axios.post("/api/orders/deliver", { orderid }).then(response => {
 				this.orders[index].is_delivered = 1;
+				this.orders[index].status = "o15";
 				this.$forceUpdate();
 			});
 		},
