@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use SebastianBergmann\Environment\Console;
 
@@ -51,6 +52,7 @@ class ProductController extends Controller
 
     public function userIndex()
     {
+		date_default_timezone_set('Asia/Singapore');
         //1. Retrieve data
         $products = Product::select(
             'products.id',
@@ -81,7 +83,7 @@ class ProductController extends Controller
             ->get();
 
         //2. Organise data
-        foreach ($products as $p) {
+        foreach ($products as $pkey => $p) {
             if (!empty($p->groupbuys)) {
                 error_log(print_r($p->groupbuys->count(), TRUE));
 
@@ -125,6 +127,10 @@ class ProductController extends Controller
                 }
             }
             unset($p->groupbuys);
+
+            if(Carbon::now()->gt(Carbon::parse($p->groupbuy_date_end))){
+                unset($products[$pkey]);
+            }
         }
 
         return response()->json($products, 200);

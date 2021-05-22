@@ -1,27 +1,24 @@
 <template>
-
 	<div class="page-content-wrapper" style="background-color: #f4f3ee;">
- 
 		<!-- Product Catagories-->
-	 
+
 		<div class="product-catagories-wrapper py-3">
 			<div class="container">
 				<div class="section-heading">
 					<h6>Product Categories</h6>
 				</div>
-				 
+
 				<div class="product-catagory-wrap">
 					<div class="row g-3">
-						
 						<!-- Single Catagory Card-->
 						<div class="col-4">
 							<div class="card catagory-card">
 								<div class="card-body">
 									<a class="text-danger" href="catagory.html">
-									<img src="https://img.icons8.com/windows/32/000000/sofa.png"/>
+										<img src="https://img.icons8.com/windows/32/000000/sofa.png" />
 										<span>Furniture</span>
 									</a>
- 								</div>
+								</div>
 							</div>
 						</div>
 						<!-- Single Catagory Card-->
@@ -29,7 +26,7 @@
 							<div class="card catagory-card">
 								<div class="card-body">
 									<a href="catagory.html">
-										 <img src="https://img.icons8.com/windows/32/000000/dining-room.png"/>
+										<img src="https://img.icons8.com/windows/32/000000/dining-room.png" />
 										<span>Food</span>
 									</a>
 								</div>
@@ -41,7 +38,7 @@
 								<div class="card-body">
 									<a class="text-warning" href="catagory.html">
 										<!-- <i class = "lni lni-burger"></i>-->
-										<img src="https://img.icons8.com/windows/32/000000/basketball.png"/>
+										<img src="https://img.icons8.com/windows/32/000000/basketball.png" />
 										<span>Sports</span>
 									</a>
 								</div>
@@ -52,7 +49,7 @@
 							<div class="card catagory-card">
 								<div class="card-body">
 									<a class="text-success" href="catagory.html">
-										<img src="https://img.icons8.com/windows/32/000000/red-felt-hat.png"/>
+										<img src="https://img.icons8.com/windows/32/000000/red-felt-hat.png" />
 										<span>Hats</span>
 									</a>
 								</div>
@@ -63,7 +60,7 @@
 							<div class="card catagory-card">
 								<div class="card-body">
 									<a class="text-danger" href="catagory.html">
-										<img src="https://img.icons8.com/windows/32/000000/smartphone-tablet.png"/>
+										<img src="https://img.icons8.com/windows/32/000000/smartphone-tablet.png" />
 										<span>Gadgets</span>
 									</a>
 								</div>
@@ -74,19 +71,19 @@
 							<div class="card catagory-card">
 								<div class="card-body">
 									<a class="text-info" href="catagory.html">
-										<img src="https://img.icons8.com/windows/32/000000/hanger.png"/>
+										<img src="https://img.icons8.com/windows/32/000000/hanger.png" />
 										<span>Fashion</span>
 									</a>
 								</div>
 							</div>
 						</div>
-						
+
 						<!-- Single Catagory Card-->
 						<div class="col-4">
 							<div class="card catagory-card">
 								<div class="card-body">
 									<a class="text-info" href="catagory.html">
-										<img src="https://img.icons8.com/windows/32/000000/womens-watch.png"/>
+										<img src="https://img.icons8.com/windows/32/000000/womens-watch.png" />
 										<span>Accessories</span>
 									</a>
 								</div>
@@ -97,7 +94,7 @@
 							<div class="card catagory-card">
 								<div class="card-body">
 									<a class="text-info" href="catagory.html">
-										<img src="https://img.icons8.com/windows/32/000000/potted-plant.png"/>
+										<img src="https://img.icons8.com/windows/32/000000/potted-plant.png" />
 										<span>Garden</span>
 									</a>
 								</div>
@@ -139,28 +136,25 @@
 									<i
 										class="lni"
 										v-bind:class="!product.watchlists.some(w => w.user_id == user.id) ? 'lni-heart' : 'lni-heart-filled'"
-									> 
-									</i>
+									></i>
 									<!-- <span class="wishlist-btn wishlist-likes">{{product.watchlists.length}} watches</span> -->
 								</a>
 								<a class="product-thumbnail d-block">
 									<img class="mb-2" :src="product.product_image" :alt="product.product_name" />
 								</a>
 								<a class="product-title d-block" v-html="product.product_name"></a>
-								<p class="sale-price">${{product.product_price}}</p>
+								<p class="sale-price">${{parseFloat(product.product_price).toFixed(2)}}</p>
 								<!--<span class="badge bottom-badge badge-watch-pending">{{product.watchlists.length}} watchers</span>
--->
+								-->
 								<span class="badge badge-pending bottom-badge">Min required: {{product.product_min}}</span>
 							</router-link>
 						</div>
 						<div v-else class="card top-product-card">
 							<router-link class="card-body" :to="{ path: '/products/'+product.id}">
- 							 <span class="badge badge-success">{{product.groupbuy_status}}</span>
+								<span class="badge badge-success">{{product.groupbuy_status}}</span>
 
-								<span class="badge badge-success">			 
-									{{timediff(timestamp, product.groupbuy_date_end)}}
-								</span>
- 
+								<span class="badge badge-success">{{timediff(timestamp, product.groupbuy_date_end)}}</span>
+
 								<a
 									class="wishlist-btn notwatching-btn"
 									v-if="!user"
@@ -186,9 +180,9 @@
 								</a>
 								<a class="product-title d-block" v-html="product.product_name"></a>
 								<p class="sale-price">${{parseFloat(product.product_price).toFixed(2)}}</p>
-								 
+
 								<!--<span class="badge bottom-badge badge-success">{{product.groupbuy_orders}}/{{product.groupbuy_max}} purchased</span>
--->
+								-->
 								<span
 									v-if="product.groupbuy_orders === 0"
 									class="badge badge-pending bottom-badge"
@@ -202,8 +196,6 @@
 									class="badge badge-success bottom-badge"
 								>+{{product.groupbuy_max - product.groupbuy_orders}} to finish</span>
 								<span v-else class="badge badge-success bottom-badge">Full!</span>
-
- 			 
 							</router-link>
 						</div>
 					</div>
@@ -214,8 +206,6 @@
 </template>
 
 <script>
- 
- 
 export default {
 	data() {
 		return {
@@ -311,7 +301,6 @@ export default {
 		},
 		promptlogin() {
 			alert("Please login or create account to continue :)");
-			
 		},
 		timediff(currentTime, productTime) {
 			var bucketMili = new Date(productTime) - new Date(currentTime);
@@ -354,35 +343,33 @@ export default {
 </script>
 
 <style scoped>
-
 /* external css: flickity.css */
 
 * {
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
 }
 
- 
 .gallery {
-  background: #EEE;
+	background: #eee;
 }
 
 .gallery-cell {
-  width: 66%;
-  height: 200px;
-  margin-right: 10px;
-  background: #8C8;
-  counter-increment: gallery-cell;
+	width: 66%;
+	height: 200px;
+	margin-right: 10px;
+	background: #8c8;
+	counter-increment: gallery-cell;
 }
 
 /* cell number */
 .gallery-cell:before {
-  display: block;
-  text-align: center;
-  content: counter(gallery-cell);
-  line-height: 200px;
-  font-size: 80px;
-  color: white;
+	display: block;
+	text-align: center;
+	content: counter(gallery-cell);
+	line-height: 200px;
+	font-size: 80px;
+	color: white;
 }
 .col-sm-3 {
 	float: center;
@@ -454,7 +441,7 @@ export default {
 }
 .top-product-card .badge-pending {
 	background-color: #fff;
-    border: 1px solid;
+	border: 1px solid;
 }
 
 .watching-btn {
