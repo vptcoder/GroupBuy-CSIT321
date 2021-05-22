@@ -1,51 +1,48 @@
 # 1. Macs Development Environment Configuration
 
-## PHP installation - via brew
-```bash
-brew install php
-brew services start php
-```
+## PHP installation - via downloaded installer
+- download php version 8.0.6 or higher from http://windows.php.net/downloads/
+- unzip the downloaded package to c:\php
+  - as a result php.ini should be at c:\php\php.ini
+- open c:\php\php.ini with text editor and enable the following extensions by removing the comment character ';' at the beginning of the line.
+  - extension=curl
+  - extension=ffi
+  - extension=ftp
+  - extension=fileinfo
+  - extension=gd
+  - extension=gettext
+  - extension=gmp
+  - extension=intl
+  - extension=imap
+  - extension=ldap
+  - extension=mbstring
+  - extension=exif      ; Must be after mbstring as it depends on it
+  - extension=mysqli
+  - extension=odbc
+  - extension=openssl
+  - extension=pdo_mysql
+  - extension=pdo_odbc
+  - extension=pdo_pgsql
+  - extension=pdo_sqlite
+  - extension=pgsql
+  - extension=shmop
+- save the edited file.
+- Open System Properties within Control Panel
+  - Select Advanced tab
+  - Select Environment Variables
+  - Under system variables, find the Path variable, double-click to edit
+  - Click New to add a new path - c:\php
+  - Click Ok
+  - Click Ok again
+  - Click Ok again
+ 
+## Composer installation - via downloaded installer
+- download Composer installation file from https://getcomposer.org/Composer-Setup.exe
+- Run the installation, select all default settings when prompted
 
-## Composer installation - using php
-```bash
-cd Downloads
-#download composer
-php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-
-#check if installer is corrupted
-php -r "if (hash_file('sha384', 'composer-setup.php') === '756890a4488ce9024fc62c56153228907f1545c228516cbf63f885e036d37e9a59d27d63f46af1d4d07ee0f76181c7d3') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
-
-#installing composer
-php composer-setup.php
-
-#unload installation file once finished
-php -r "unlink('composer-setup.php');"
-
-#move composer to PATH directory
-mv composer.phar /usr/local/bin/composer
-
-#add composer bin to PATH
-cd ~
-vim .zshrc
-    #add line
-    export PATH=~/.composer/vendor/bin:$PATH
-
-#apply updated .zshrc
-source .zshrc
-```
-
-## NPM installation - via brew
-```bash
-#installing npm
-brew install npm
-
-sudo vim ~/.zshrc 
-    #add the following line
-    export PATH=/opt/homebrew/Cellar/node/15.10.0_1/bin/node:$PATH
-
-#apply updated .zshrc
-source ~/.zshrc
-```
+## NPM installation - via downloaded installer
+- download NPM installation file from https://nodejs.org/en/download/, select version 14.17.0 for Windows
+- Run the installation, select all default settings when prompted
 
 # 2. Cloning Project from GitHub - via Visual Studio Code
 
@@ -60,8 +57,8 @@ source ~/.zshrc
 # 3. Application setup and local deployment
 - Open Visual Studio Code Terminal
 - run 
-    ```bash
-    bash pipeline_fresh_macs.sh
+    ```bat
+    .\pipeline_fresh_windows.bat
     ```
     This script contains all the necessary commands to:
     - install required composer packages (referencing composer.json and composer.lock)
@@ -73,8 +70,8 @@ source ~/.zshrc
 - The application is deployed and can be used or tested locally.
 
 - To do redeployment without renewing database, run
-    ```bash
-    bash pipeline_update_macs.sh
+    ```bat
+    .\pipeline_update_windows.bat
     ```
     This script contains all the necessary commands to:
     - install required composer packages (referencing composer.json and composer.lock)
