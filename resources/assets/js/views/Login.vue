@@ -22,7 +22,9 @@
 								<div class="form-group row">
 									<div class="col-4">
 										<div class="my-4" style="font-size:14px; color:black; text-decoration: underline;">
-											Register
+											<router-link :to="{ name: 'register' }" >
+												Register
+											</router-link>
 										</div>
 									</div>
 

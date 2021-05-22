@@ -20,7 +20,28 @@ class PaymentController extends Controller
 	{
 		error_log(print_r("PaymentController::index", TRUE));
 
-		$payments = Payment::orderBy('id', 'desc')->get();
+		$payments = Payment::join('users', 'users.id', '=', 'payments.user_id')
+			->select(
+				'payments.*',
+				'users.name as user_name'
+			)
+			->orderBy('payments.id', 'desc')
+			->get();
+		foreach ($payments as $p) {
+			$p->statustext = null;
+			switch ($p->status) {
+				case 'p11':
+					$status = "Pending payment";
+					break;
+				case 'p12':
+					$status = "Paid";
+					break;
+				case 'p21':
+					$status = "Cancelled";
+					break;
+			}
+			$p->statustext = $status;
+		}
 
 		return response()->json($payments, 200);
 		// return view('welcome');
