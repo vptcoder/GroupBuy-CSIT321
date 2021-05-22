@@ -15,7 +15,7 @@
 					<td>{{index+1}}</td>
 					<td>{{user.name}}</td>
 					<td>{{user.email}}</td>
-					<td>{{user.created_at}}</td>
+					<td>{{user.joined}}</td>
 					<td>{{user.orders.length}}</td>
 				</tr>
 			</tbody>

@@ -12,7 +12,6 @@
 					<td>Minimum orders</td>
 					<td>Maximum orders</td>
 					<td>Popularity</td>
-					<td>Active Groupbuy</td>
 					<td>Closed Groupbuy</td>
 				</tr>
 			</thead>
@@ -32,13 +31,6 @@
 					<td>{{product.min}}</td>
 					<td>{{product.max}}</td>
 					<td>{{product.watchlists_count}}</td>
-					<td v-if="!product.groupbuy_id">{{product.groupbuys_active_count}}</td>
-					<td v-else>
-						<router-link :to="{path: '/admin/groupbuys/'+product.groupbuy_id}">
-							{{product.groupbuys_active_count}}
-							<u>view</u>
-						</router-link>
-					</td>
 					<td>{{product.groupbuys_closed_count}}</td>
 				</tr>
 			</tbody>

@@ -11,7 +11,11 @@ class UserController extends Controller
 {
     public function index()
     {
-        return response()->json(User::with(['orders'])->get());
+        $users = User::with(['orders'])->get();
+        foreach ($users as $u){
+            $u->joined = $u->created_at->format('Y-m-d h:m:s');
+        }
+        return response()->json($users);
     }
 
     public function login(Request $request)
