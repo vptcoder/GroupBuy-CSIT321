@@ -27,7 +27,7 @@
 					<td>{{product.name}}</td>
 					<td v-if="product.status === 'p11'">Available</td>
 					<td v-else>Hidden</td>
-					<td>{{product.price}}</td>
+					<td>{{parseFloat(product.price).toFixed(2)}}</td>
 					<td>{{product.description}}</td>
 					<td>{{product.min}}</td>
 					<td>{{product.max}}</td>

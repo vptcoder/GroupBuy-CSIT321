@@ -26,7 +26,7 @@
 					<td v-else-if="order.status === 'o22'">Refunded</td>
 					<td v-else>Status Error!</td>
 					<td>{{order.quantity}}</td>
-					<td>{{order.quantity * order.product.price}}</td>
+					<td>{{(order.quantity * order.product.price).toFixed(2)}}</td>
 					<td>{{order.address}}</td>
 					<td>{{order.is_delivered == 1? "Yes" : "No"}}</td>
 					<td v-if="order.status == 'o13'">

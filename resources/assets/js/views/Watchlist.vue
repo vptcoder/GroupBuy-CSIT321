@@ -54,7 +54,7 @@
 										<a class="product-title d-block">{{g.product_name}}</a>
 										<p class="sale-price">
 											<i class="lni lni-dollar"></i>
-											${{g.product_price}}
+											${{parseFloat(g.product_price).toFixed(2)}}
 										</p>
 										<span class="badge bottom-badge badge-success">{{g.groupbuy_orders}} ordered</span>
 
@@ -101,7 +101,7 @@
 										<a class="product-title d-block">{{product.name}}</a>
 										<p class="sale-price">
 											<i class="lni lni-dollar"></i>
-											${{product.price}}
+											${{parseFloat(product.price).toFixed(2)}}
 										</p>
 										<a class="btn btn-success btn-sm" href="#">
 											<i class="me-1 lni lni-cart"></i>Join Now

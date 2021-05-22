@@ -37,7 +37,7 @@
 					<div class="p-title-price">
 						<h5 class="mb-1">You are placing an order for:</h5>
 						<h6 class="mb-1">{{product.name}}</h6>
-						<p class="sale-price mb-0">${{product.price}}</p>
+						<p class="sale-price mb-0">${{parseFloat(product.price).toFixed(2)}}</p>
 						<table class="table mb-0">
 							<tbody>
 								<tr>

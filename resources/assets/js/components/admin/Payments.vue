@@ -18,7 +18,7 @@
 					<td>{{p.order_id}}</td>
 					<td>{{p.user_name}}</td>
 					<td>{{p.statustext}}</td>
-					<td>{{p.amount}}</td>
+					<td>{{parseFloat(p.amount).toFixed(2)}}</td>
 					<td>{{p.date_due}}</td>
 					<td>{{p.date_paid}}</td>
 				</tr>

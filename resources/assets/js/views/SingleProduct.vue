@@ -30,7 +30,7 @@
 						<div class="p-title-price">
 							<h6 class="mb-1 mx-4" style="text-align:center;">{{product.name}}</h6>
 							<hr>
-							<p class="sale-price mb-0">${{product.price}}</p>
+							<p class="sale-price mb-0">${{parseFloat(product.price).toFixed(2)}}</p>
 							<div>
 								<label v-if="product.groupbuy_id == null" style="color:red;  font-size:12px;">{{product.max}} slots left</label>
 								<label v-else style="color:red;  font-size:12px;">{{product.groupbuy_max-product.groupbuy_orders}} slots left</label>

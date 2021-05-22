@@ -185,7 +185,7 @@
 									<img class="mb-2" :src="product.product_image" :alt="product.product_name" />
 								</a>
 								<a class="product-title d-block" v-html="product.product_name"></a>
-								<p class="sale-price">${{product.product_price}}</p>
+								<p class="sale-price">${{parseFloat(product.product_price).toFixed(2)}}</p>
 								 
 								<!--<span class="badge bottom-badge badge-success">{{product.groupbuy_orders}}/{{product.groupbuy_max}} purchased</span>
 -->
