@@ -6,11 +6,14 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
     public function index()
     {
+        Log::info('UserController::index');
+
         $users = User::with(['orders'])->get();
         foreach ($users as $u){
             $u->joined = $u->created_at->format('Y-m-d h:m:s');
@@ -20,6 +23,9 @@ class UserController extends Controller
 
     public function login(Request $request)
     {
+        Log::info('UserController::login');
+        Log::info($request);
+
         $status = 401;
         $response = ['error' => 'Unauthorised'];
 
@@ -35,6 +41,9 @@ class UserController extends Controller
 
     public function register(Request $request)
     {
+        Log::info('UserController::register');
+        Log::info($request);
+
         $validator = Validator::make($request->all(), [
             'username' =>'required|max:50'
             , 'name' => 'required|max:100'
@@ -62,10 +71,43 @@ class UserController extends Controller
         $data['password'] = bcrypt($data['password']);
 
         $user = User::create($data);
+        $user->status = 'u11';
         $user->is_admin = 0;
 
         return response()->json([
             'user' => $user, 'token' => $user->createToken('bigStore')->accessToken
+        ]);
+    }
+
+    public function activate(Request $request)
+    {
+        Log::info('UserController::activate');
+        Log::info($request);
+
+        $user = User::where('id', $request->userid)->first();
+        $user->status = 'u11';
+        $status = $user->save();
+
+        return response()->json([
+            'status'    => $status,
+            'data'      => $user,
+            'message'   => $status ? 'User Activated!' : 'Error Activating User'
+        ]);
+    }
+
+    public function deactivate(Request $request)
+    {
+        Log::info('UserController::deactivate');
+        Log::info($request);
+
+        $user = User::where('id', $request->userid)->first();
+        $user->status = 'u01';
+        $status = $user->save();
+
+        return response()->json([
+            'status'    => $status,
+            'data'      => $user,
+            'message'   => $status ? 'User Deactivated!' : 'Error Deactivating User'
         ]);
     }
 

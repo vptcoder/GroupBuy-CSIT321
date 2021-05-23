@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use Monolog\Handler\FirePHPHandler;
 use PHPUnit\TextUI\XmlConfiguration\Group;
+use Illuminate\Support\Facades\Log;
 
 class GroupbuyController extends Controller
 {
@@ -22,6 +23,8 @@ class GroupbuyController extends Controller
      */
     public function indexUser()
     {
+        Log::info('GroupbuyController::indexUser');
+
         $g = Groupbuy::where('status', '=', 'g01')
             ->get();
 
@@ -30,10 +33,15 @@ class GroupbuyController extends Controller
 
     public function indexUserJoined(Request $request)
     {
-        error_log(print_r("GroupbuyController::indexUserJoined", TRUE));
-        error_log(print_r("GroupbuyController::indexUserJoined - userid: ".($request->userid), TRUE));
+        Log::info('GroupbuyController::indexUserJoined');
+        Log::info($request);
 
-        $gs = Groupbuy::join('orders', 'groupbuys.id', '=', 'orders.groupbuy_id')
+        $gs = Groupbuy::join('orders', function ($join) {
+            $join->on('groupbuys.id', '=', 'orders.groupbuy_id')
+                ->whereNull('orders.deleted_at')
+                ->where('orders.status', '!=', 'o21')
+                ->where('orders.status', '!=', 'o22');
+        })
             ->join('products', 'products.id', 'groupbuys.product_id')
             ->select(
                 'groupbuys.id',
@@ -82,9 +90,10 @@ class GroupbuyController extends Controller
         return response()->json($gs, 200);
     }
 
-    public function indexPendingPay(Request $request){
-        error_log(print_r("GroupbuyController::indexPendingPay", TRUE));
-        error_log(print_r("GroupbuyController::indexPendingPay - userid: ".($request->userid), TRUE));
+    public function indexPendingPay(Request $request)
+    {
+        Log::info('GroupbuyController::indexPendingPay');
+        Log::info($request);
 
         $gs = Groupbuy::join('orders', 'groupbuys.id', '=', 'orders.groupbuy_id')
             ->join('products', 'products.id', 'groupbuys.product_id')
@@ -137,6 +146,8 @@ class GroupbuyController extends Controller
 
     public function indexAdmin()
     {
+        Log::info('GroupbuyController::indexAdmin');
+
         date_default_timezone_set('Asia/Singapore');
         $currentTime = Carbon::now();
 
@@ -199,8 +210,8 @@ class GroupbuyController extends Controller
      */
     public function store(Request $request)
     {
-        error_log(print_r("GroupbuyController::store", TRUE));
-        error_log(print_r($request->groupbuyid, TRUE));
+        Log::info('GroupbuyController::store');
+        Log::info($request);
 
         date_default_timezone_set('Asia/Singapore');
         $currentTime = Carbon::now();
@@ -226,9 +237,9 @@ class GroupbuyController extends Controller
             $g = Groupbuy::where('status', '=', "g11")->where('product_id', '=', $request->product_id)->first();
             if ($g === null) {
                 $period_join = Config::get('app.PERIOD_JOIN');
-                error_log(print_r("checkpoint PERIOD_JOIN - ".$period_join, TRUE));
+                error_log(print_r("checkpoint PERIOD_JOIN - " . $period_join, TRUE));
                 $dateEnd = clone ($currentTime);
-                $dateEnd->modify('+'.$period_join.' day');
+                $dateEnd->modify('+' . $period_join . ' day');
 
                 $g = new Groupbuy;
                 $g->product_id = $request->productid;
@@ -304,7 +315,6 @@ class GroupbuyController extends Controller
 
                 foreach ($g->orders()->get() as $o) {
                     OrderController::updateToNextStatus($o);
-
                 }
             }
 
@@ -324,6 +334,9 @@ class GroupbuyController extends Controller
      */
     public function updateStatus(Request $request)
     {
+        Log::info('GroupbuyController::updateStatus');
+        Log::info($request);
+
         $status = null;
         switch ($request->status) {
             case 'Active':

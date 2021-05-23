@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Notification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class NotificationController extends Controller
 {
@@ -14,6 +15,7 @@ class NotificationController extends Controller
      */
     public function index()
     {
+        Log::info('NotificationController::index');
         //
     }
 
@@ -25,6 +27,9 @@ class NotificationController extends Controller
      */
     public function indexUser(Request $request)
     {
+        Log::info('NotificationController::indexUser');
+        Log::info($request);
+
         $ns = Notification::where('user_id', $request->userid)->get();
         return response()->json($ns,200);
     }
@@ -36,6 +41,7 @@ class NotificationController extends Controller
      */
     public function create()
     {
+        Log::info('NotificationController::create');
         //
     }
 
@@ -47,6 +53,8 @@ class NotificationController extends Controller
      */
     public function store(Request $request)
     {
+        Log::info('NotificationController::store');
+        Log::info($request);
         //
     }
 
@@ -57,7 +65,11 @@ class NotificationController extends Controller
      */
     public static function storeForUser(int $userid, string $title, string $message, string $link = null)
     {
-        error_log(print_r("NotificationController::storeForUser", TRUE));
+        Log::info('NotificationController::index');
+        Log::info($userid);
+        Log::info($title);
+        Log::info($message);
+        Log::info($link);
 
         $n = new Notification;
         $n->user_id = $userid;
@@ -71,7 +83,9 @@ class NotificationController extends Controller
 
     public function read(Request $request)
     {
-        error_log(print_r("NotificationController::read", TRUE));
+        Log::info('NotificationController::read');
+        Log::info($request);
+
         $noti = Notification::where('id','=', $request->id)->first();
         $noti->status = 'n11';
         $status = $noti->save();
@@ -91,6 +105,8 @@ class NotificationController extends Controller
      */
     public function show($id)
     {
+        Log::info('NotificationController::show');
+        Log::info($id);
         //
     }
 
@@ -102,6 +118,8 @@ class NotificationController extends Controller
      */
     public function edit($id)
     {
+        Log::info('NotificationController::edit');
+        Log::info($id);
         //
     }
 
@@ -114,6 +132,9 @@ class NotificationController extends Controller
      */
     public function update(Request $request, $id)
     {
+        Log::info('NotificationController::update');
+        Log::info($request);
+        Log::info($id);
         //
     }
 
@@ -125,6 +146,8 @@ class NotificationController extends Controller
      */
     public function destroy($id)
     {
+        Log::info('NotificationController::destroy');
+        Log::info($id);
         //
     }
 }

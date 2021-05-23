@@ -20,6 +20,7 @@ class UsersTableSeeder extends Seeder
 
         $admin = new User;
         $admin->username = 'adminsupermint';
+        $admin->status = 'u11';
         $admin->name = 'Adminbot Rollout';
         $admin->email = 'admin@devtest.com';
         $admin->shipping_streetaddress = '69 Nuts Street, #21-34';
@@ -33,6 +34,7 @@ class UsersTableSeeder extends Seeder
         $testers = [
             [ 
                 'username' => 'Lim Xin Rou'
+                , 'status' => 'u11'
                 , 'name' => 'limxr'
                 , 'email' => 'tester1_vptcoder@gbuytest.com'
                 , 'shipping_streetaddress' => '01 Test Street, #11-01'
@@ -44,6 +46,7 @@ class UsersTableSeeder extends Seeder
             ]
             , [
                 'username' => 'Ernest Goh'
+                , 'status' => 'u11'
                 , 'name' => 'earnestalphaboi'
                 , 'email' => 'tester2_vptcoder@gbuytest.com'
                 , 'shipping_streetaddress' => '02 Test Street, #11-02'
@@ -55,6 +58,7 @@ class UsersTableSeeder extends Seeder
             ]
             , [
                 'username' => 'Yang Sean'
+                , 'status' => 'u11'
                 , 'name' => 'yangss'
                 , 'email' => 'tester3_vptcoder@gbuytest.com'
                 , 'shipping_streetaddress' => '03 Test Street, #11-03'
@@ -66,6 +70,7 @@ class UsersTableSeeder extends Seeder
             ]
             , [
                 'username' => 'Goh Lou Yang'
+                , 'status' => 'u11'
                 , 'name' => 'gohly'
                 , 'email' => 'tester4_vptcoder@gbuytest.com'
                 , 'shipping_streetaddress' => '03 Simin Street, #7-13'
@@ -77,6 +82,7 @@ class UsersTableSeeder extends Seeder
             ]
             , [
                 'username' => 'Ang Ding Wan'
+                , 'status' => 'u11'
                 , 'name' => 'angdw'
                 , 'email' => 'tester5_vptcoder@gbuytest.com'
                 , 'shipping_streetaddress' => '04 Simin Street, #5-10'
@@ -88,6 +94,7 @@ class UsersTableSeeder extends Seeder
             ]
             , [
                 'username' => 'Cheok Jia Xin'
+                , 'status' => 'u11'
                 , 'name' => 'cheokjx'
                 , 'email' => 'tester6_vptcoder@gbuytest.com'
                 , 'shipping_streetaddress' => '10 How Sun Drive, #2-28'
@@ -99,6 +106,7 @@ class UsersTableSeeder extends Seeder
             ]
             , [
                 'username' => 'Albert Brand'
+                , 'status' => 'u11'
                 , 'name' => 'alboy22'
                 , 'email' => 'tester7_vptcoder@gbuytest.com'
                 , 'shipping_streetaddress' => '11 Keong Saik Drive,'
@@ -110,6 +118,7 @@ class UsersTableSeeder extends Seeder
             ]
             , [
                 'username' => 'Emily Whitehead'
+                , 'status' => 'u11'
                 , 'name' => 'whitequeen'
                 , 'email' => 'tester8_vptcoder@gbuytest.com'
                 , 'shipping_streetaddress' => '8 Tampines Street, #20-05'

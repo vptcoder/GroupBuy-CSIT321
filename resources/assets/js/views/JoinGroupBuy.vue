@@ -25,10 +25,8 @@
 					<img :src="product.image" :alt="product.name" />
 				</div>
 				<div>
-					<img :src="product.image" :alt="product.name" />
-				</div>
-				<div>
-					<img :src="product.image" :alt="product.name" />
+					<h5>Description</h5>
+					<p>{{product.description}}</p>
 				</div>
 			</carousel>
 			<!-- Product Title & Meta Data-->
@@ -38,7 +36,7 @@
 						<h5 class="mb-1">You are placing an order for:</h5>
 						<h6 class="mb-1">{{product.name}}</h6>
 						<div v-if="product.user_ordered" class="align-items-center">
-							<br/>
+							<br />
 							<h6 class="mb-1">You have joined this groupbuy!</h6>
 						</div>
 						<div v-else>
@@ -66,12 +64,23 @@
 			</div>
 			<!-- Cart Amount Area-->
 			<div v-show="!product.user_ordered" class="card cart-amount-area">
-				<div class="card-body d-flex align-items-center justify-content-between">
+				<div class="container d-flex align-items-center justify-content-between">
 					<h5 class="total-price mb-0">
 						Total Price : $
 						<span>{{confirmedPrice}}</span>
 					</h5>
 					<a class="btn btn-warning" @click="confirmOrder_Start">Confirm Order</a>
+				</div>
+			</div>
+			<div
+				v-show="product.user_ordered & product.groupbuy_status == 'Active'"
+				class="card cart-amount-area"
+			>
+				<div class="container d-flex justify-content-between">
+					<h5 class="total-price mb-0">
+						<p>Are you sure? This will remove your existing order!</p>
+					</h5>
+					<a class="btn btn-warning" @click="deleteOrder">Leave Groupbuy</a>
 				</div>
 			</div>
 		</div>
@@ -122,9 +131,6 @@ export default {
 				this.is_data_fetched = true;
 			});
 		}
-
-		// let url = `/api/products/${this.$route.params.id}`;
-		// axios.get(url).then(response => {this.product = response.data; this.is_data_fetched = true;});
 	},
 	components: {
 		carousel,
@@ -167,6 +173,13 @@ export default {
 				.catch(error => {
 					console.log("groupbuy is not created.", error);
 				});
+		},
+		deleteOrder() {
+			let groupbuyid = this.product.groupbuy_id;
+			let userid = this.user.id;
+			axios.post("/api/orders/leave", { groupbuyid, userid }).then(response => {
+				this.$router.push({ path: "/" });
+			});
 		},
 		goHome() {
 			console.log("modal closed");

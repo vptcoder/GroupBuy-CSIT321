@@ -13,12 +13,13 @@ use Session;
 use Laravel\Cashier\Cashier;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Log;
 
 class PaymentController extends Controller
 {
 	public function index()
 	{
-		error_log(print_r("PaymentController::index", TRUE));
+        Log::info('PaymentController::index');
 
 		$payments = Payment::join('users', 'users.id', '=', 'payments.user_id')
 			->select(
@@ -49,7 +50,8 @@ class PaymentController extends Controller
 
 	public static function createPayment(Order $order)
 	{
-		error_log(print_r("PaymentController::createPayment", TRUE));
+        Log::info('PaymentController::createPayment');
+        Log::info($order);
 
 		date_default_timezone_set('Asia/Singapore');
 		$time_plus_3 = Carbon::now();
@@ -64,6 +66,9 @@ class PaymentController extends Controller
 
 	public function makePayment(Request $request)
 	{
+        Log::info('PaymentController::makePayment');
+        Log::info($request);
+
 		Stripe\Stripe::setApiKey(Config::get('app.STRIPE_SECRET'));
 		Stripe\Charge::create([
 			"amount" => 120 * 100,
@@ -79,6 +84,9 @@ class PaymentController extends Controller
 
 	public function makeStripePayment(Request $request)
 	{
+        Log::info('PaymentController::makeStripePayment');
+        Log::info($request);
+
 		error_log(print_r("PaymentController::createPayment", TRUE));
 		date_default_timezone_set('Asia/Singapore');
 
