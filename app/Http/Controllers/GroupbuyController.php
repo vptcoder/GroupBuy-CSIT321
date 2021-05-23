@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use Monolog\Handler\FirePHPHandler;
 use PHPUnit\TextUI\XmlConfiguration\Group;
+use Illuminate\Support\Facades\Log;
 
 class GroupbuyController extends Controller
 {
@@ -22,6 +23,8 @@ class GroupbuyController extends Controller
      */
     public function indexUser()
     {
+        Log::info('GroupbuyController::indexUser');
+
         $g = Groupbuy::where('status', '=', 'g01')
             ->get();
 
@@ -30,8 +33,8 @@ class GroupbuyController extends Controller
 
     public function indexUserJoined(Request $request)
     {
-        error_log(print_r("GroupbuyController::indexUserJoined", TRUE));
-        error_log(print_r("GroupbuyController::indexUserJoined - userid: ".($request->userid), TRUE));
+        Log::info('GroupbuyController::indexUserJoined');
+        Log::info($request);
 
         $gs = Groupbuy::join('orders', 'groupbuys.id', '=', 'orders.groupbuy_id')
             ->join('products', 'products.id', 'groupbuys.product_id')
@@ -83,8 +86,8 @@ class GroupbuyController extends Controller
     }
 
     public function indexPendingPay(Request $request){
-        error_log(print_r("GroupbuyController::indexPendingPay", TRUE));
-        error_log(print_r("GroupbuyController::indexPendingPay - userid: ".($request->userid), TRUE));
+        Log::info('GroupbuyController::indexPendingPay');
+        Log::info($request);
 
         $gs = Groupbuy::join('orders', 'groupbuys.id', '=', 'orders.groupbuy_id')
             ->join('products', 'products.id', 'groupbuys.product_id')
@@ -137,6 +140,8 @@ class GroupbuyController extends Controller
 
     public function indexAdmin()
     {
+        Log::info('GroupbuyController::indexAdmin');
+
         date_default_timezone_set('Asia/Singapore');
         $currentTime = Carbon::now();
 
@@ -199,8 +204,8 @@ class GroupbuyController extends Controller
      */
     public function store(Request $request)
     {
-        error_log(print_r("GroupbuyController::store", TRUE));
-        error_log(print_r($request->groupbuyid, TRUE));
+        Log::info('GroupbuyController::store');
+        Log::info($request);
 
         date_default_timezone_set('Asia/Singapore');
         $currentTime = Carbon::now();
@@ -324,6 +329,9 @@ class GroupbuyController extends Controller
      */
     public function updateStatus(Request $request)
     {
+        Log::info('GroupbuyController::updateStatus');
+        Log::info($request);
+
         $status = null;
         switch ($request->status) {
             case 'Active':

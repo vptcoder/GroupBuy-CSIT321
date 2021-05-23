@@ -8,6 +8,7 @@
 					<td>Email</td>
 					<td>Joined</td>
 					<td>Total Orders</td>
+					<td>Action</td>
 				</tr>
 			</thead>
 			<tbody>
@@ -17,7 +18,14 @@
 					<td>{{user.email}}</td>
 					<td>{{user.joined}}</td>
 					<td>{{user.orders.length}}</td>
-				</tr>
+					<td v-if="user.status == 'u11'">
+						<button class="btn btn-warning" @click="deactivate(index)">Deactivate</button>
+					</td>
+					<td v-else-if="user.status == 'u01'">
+						<button class="btn btn-warning" @click="activate(index)">Activate</button>
+					</td>
+					<td v-else>
+					</td>				</tr>
 			</tbody>
 		</table>
 	</div>
@@ -32,6 +40,24 @@ export default {
 	},
 	beforeMount() {
 		axios.get('/api/users/').then(response => this.users = response.data)
+	},
+	methods: {
+		deactivate(index) {
+			let user = this.users[index];
+			let userid = user.id;
+			axios.post("/api/users/deactivate", { userid }).then(response => {
+				this.users[index].status = "u01";
+				this.$forceUpdate();
+			});
+		},
+		activate(index) {
+			let user = this.users[index];
+			let userid = user.id;
+			axios.post("/api/users/activate", { userid }).then(response => {
+				this.users[index].status = "u11";
+				this.$forceUpdate();
+			});
+		}
 	}
 }
 </script>

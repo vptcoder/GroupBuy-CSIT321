@@ -6,6 +6,7 @@ use App\Models\Order;
 use Auth;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class OrderController extends Controller
 {
@@ -16,6 +17,8 @@ class OrderController extends Controller
      */
     public function index()
     {
+        Log::info('OrderController::index');
+
         $orders = Order::with(['product'])->get();
         foreach ($orders as $o) {
             $o->statustext = null;
@@ -49,7 +52,8 @@ class OrderController extends Controller
 
     public function indexForPayment(Request $request)
     {
-        error_log(print_r("OrderController::indexForPayment", TRUE));
+        Log::info('OrderController::indexForPayment');
+        Log::info($request);
 
         $orders = Order::join('products', 'products.id', '=', 'orders.product_id')
             ->join('payments', 'payments.id', '=', 'orders.payment_id')
@@ -72,7 +76,8 @@ class OrderController extends Controller
 
     public function indexForProcessing(Request $request)
     {
-        error_log(print_r("OrderController::indexForProcessing", TRUE));
+        Log::info('OrderController::indexForProcessing');
+        Log::info($request);
 
         $orders = Order::join('products', 'products.id', '=', 'orders.product_id')
             ->join('payments', 'payments.id', '=', 'orders.payment_id')
@@ -95,7 +100,8 @@ class OrderController extends Controller
 
     public function indexForShipping(Request $request)
     {
-        error_log(print_r("OrderController::indexForProcessing", TRUE));
+        Log::info('OrderController::indexForShipping');
+        Log::info($request);
 
         $orders = Order::join('products', 'products.id', '=', 'orders.product_id')
             ->join('payments', 'payments.id', '=', 'orders.payment_id')
@@ -118,7 +124,8 @@ class OrderController extends Controller
 
     public function indexForCancelled(Request $request)
     {
-        error_log(print_r("OrderController::indexForProcessing", TRUE));
+        Log::info('OrderController::indexForCancelled');
+        Log::info($request);
 
         $orders = Order::join('products', 'products.id', '=', 'orders.product_id')
             ->join('payments', 'payments.id', '=', 'orders.payment_id')
@@ -141,7 +148,8 @@ class OrderController extends Controller
 
     public function deliverOrder(Request $request)
     {
-        error_log(print_r("OrderController::deliverOrder", TRUE));
+        Log::info('OrderController::deliverOrder');
+        Log::info($request);
 
         $order = Order::where('id', $request->orderid)->first();
         $order->status = 'o15';
@@ -157,7 +165,8 @@ class OrderController extends Controller
 
     public function shipOrder(Request $request)
     {
-        error_log(print_r("OrderController::shipOrder", TRUE));
+        Log::info('OrderController::shipOrder');
+        Log::info($request);
 
         $order = Order::where('id', $request->orderid)->first();
         $order->status = 'o14';
@@ -178,6 +187,9 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+        Log::info('OrderController::store');
+        Log::info($request);
+
         $order = Order::create([
             'product_id' => $request->product_id,
             'user_id' => Auth::id(),
@@ -200,11 +212,17 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
+        Log::info('OrderController::show');
+        Log::info($order);
+
         return response()->json($order, 200);
     }
 
     public static function updateToNextStatus($order)
     {
+        Log::info('OrderController::updateToNextStatus');
+        Log::info($order);
+
         error_log(print_r("OrderController::updateToNextStatus", TRUE));
         $status = $order->status;
 
@@ -256,6 +274,10 @@ class OrderController extends Controller
 
     public function update(Request $request, Order $order)
     {
+        Log::info('OrderController::update');
+        Log::info($request);
+        Log::info($order);
+
         $status = $order->update(
             $request->only(['quantity'])
         );
@@ -268,6 +290,9 @@ class OrderController extends Controller
 
     public function destroy(Order $order)
     {
+        Log::info('OrderController::destroy');
+        Log::info($order);
+
         $status = $order->delete();
 
         return response()->json([
