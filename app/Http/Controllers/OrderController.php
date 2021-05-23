@@ -157,6 +157,17 @@ class OrderController extends Controller
         $order->status = 'o21';
         $status = $order->delete();
 
+        $p = $order->product()->first();
+        $title = "Groupbuy left!";
+        $message = "Your order for '" . ($p->name) . "' has been cancelled!";
+
+        if ($title && $message) {
+            NotificationController::storeForUser(
+                $order->user_id,
+                $title,
+                $message,
+            );
+        }
         return response()->json([
             'status' => $status, 'message' => $status ? 'Order Deleted!' : 'Error Deleting Order'
         ]);
@@ -171,6 +182,18 @@ class OrderController extends Controller
         $order->status = 'o15';
         $order->is_delivered = true;
         $status = $order->save();
+
+        $p = $order->product()->first();
+        $title = "Order delivered!";
+        $message = "Your order for '" . ($p->name) . "' has been delivered!";
+
+        if ($title && $message) {
+            NotificationController::storeForUser(
+                $order->user_id,
+                $title,
+                $message,
+            );
+        }
 
         return response()->json([
             'status'    => $status,
@@ -187,6 +210,18 @@ class OrderController extends Controller
         $order = Order::where('id', $request->orderid)->first();
         $order->status = 'o14';
         $status = $order->save();
+
+        $p = $order->product()->first();
+        $title = "Order is shipping!";
+        $message = "Your order for '" . ($p->name) . "' is now shipping!";
+
+        if ($title && $message) {
+            NotificationController::storeForUser(
+                $order->user_id,
+                $title,
+                $message,
+            );
+        }
 
         return response()->json([
             'status'    => $status,

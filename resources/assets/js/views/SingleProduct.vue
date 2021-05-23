@@ -45,7 +45,7 @@
 						<div class="container d-flex align-items-center justify-content-between"  style="width: 100%;position: fixed; bottom:3.6rem; background-color:#fff; display:block; height:50px;"> 
 							<router-link :to="{ path: '/join?pid='+product.id }"  
 								v-if="product.user_ordered"
-								class="col-10 btn btn-sm btn-primary">Joined (Click ti view)
+								class="col-10 btn btn-sm btn-primary">Joined (Click to view)
 							</router-link>
 							<router-link :to="{ path: '/join?pid='+product.id }" 
 								v-else
