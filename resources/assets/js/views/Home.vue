@@ -77,29 +77,6 @@
 								</div>
 							</div>
 						</div>
-
-						<!-- Single Catagory Card-->
-						<div class="col-4">
-							<div class="card catagory-card">
-								<div class="card-body">
-									<a class="text-info" href="catagory.html">
-										<img src="https://img.icons8.com/windows/32/000000/womens-watch.png" />
-										<span>Accessories</span>
-									</a>
-								</div>
-							</div>
-						</div>
-						<!-- Single Catagory Card-->
-						<div class="col-4">
-							<div class="card catagory-card">
-								<div class="card-body">
-									<a class="text-info" href="catagory.html">
-										<img src="https://img.icons8.com/windows/32/000000/potted-plant.png" />
-										<span>Garden</span>
-									</a>
-								</div>
-							</div>
-						</div>
 					</div>
 				</div>
 			</div>

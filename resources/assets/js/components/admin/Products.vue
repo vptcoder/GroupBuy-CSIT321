@@ -1,7 +1,7 @@
 <template>
 	<div class="page-content-wrapper">
 		<p>Double-click on item to open</p>
-		<table class="table table-responsive table-striped">
+		<table class="table table-responsive table-hover">
 			<thead>
 				<tr>
 					<td></td>
@@ -170,8 +170,5 @@ export default {
 tr.tr-data {
 	transition-duration: 100ms;
 }
-
-tr.tr-data:hover {
-	background-color: rgb(238, 185, 185);
-}
+ 
 </style>

@@ -2,8 +2,8 @@
 	<div class="page-content-wrapper">
 		<div class="container">
 			<div class="row justify-content-center">
-					<div class="logo">
-						<img src="/assets/img/core-img/brand-logo.png" alt="" style="float:center;align:center;padding: 30px;min-width: 100%;height: auto;">	
+					<div class="logo" style="float:center; padding: 1% 15%;">
+						<img src="/assets/img/core-img/brand-logo.png" alt="" style="float:center; align:center;padding: 30px; min-width: 50%; height: auto;">	
 					</div>
 					<div class="card-body">
 							<form>

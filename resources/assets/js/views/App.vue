@@ -38,7 +38,7 @@
 
 				<!-- Navbar Toggler-->
 				<div v-show="!show" v-if="isLoggedIn" @click="logout">
-							<i class="lni lni-power-switch"></i>
+							<i class="lni lni-power-switch"> Logout</i>
 				</div>  
 			</div>
 		</div>
@@ -168,6 +168,7 @@
 						</li>
 						<li v-show="show">
 							<router-link :to="{ name: 'notifications' }" class="navbar-brand">
+								<div class="notif">1</div>
 								<img src="https://img.icons8.com/windows/32/000000/appointment-reminders.png"/>
 								Notifications
 							</router-link>
@@ -231,6 +232,22 @@ export default {
 </script>
 
 <style scoped>
+.notif { 
+		border-radius: 50%;
+		width: 15%;
+		height: 25%;
+		position: absolute;
+		float: right;
+		align-content: right;
+		left: 55%;
+		top: 1%;
+		background-color: red;
+		font-size: 10px;
+		text-align: center;
+		color: white;
+		font-weight: 400;
+		padding: 1px 1px;
+	}
 /* .admin-page-margin {
 	padding-top: 0px !important;
 } */

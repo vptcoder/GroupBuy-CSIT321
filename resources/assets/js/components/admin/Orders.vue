@@ -1,6 +1,6 @@
 <template>
-	<div>
-		<table class="table table-responsive table-striped">
+	<div class="page-content-wrapper">
+		<table class="table table-responsive">
 			<thead>
 				<tr>
 					<td></td>

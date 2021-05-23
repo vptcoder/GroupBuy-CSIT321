@@ -1,10 +1,10 @@
 <template>
 	<div class="page-content-wrapper">
 		<p>Double-click on item to open</p>
-		<table class="table table-responsive table-striped">
+		<table class="table table-responsive ">
 			<thead>
 				<tr>
-					<td>ID</td>
+					<td></td>
 					<td>Product Name</td>
 					<td>Status</td>
 					<td>Start Date</td>
@@ -137,13 +137,12 @@ export default {
 </script>
 
 <style scoped>
+
 h6 {
-	font-size: 14px;
+	font-size:large;
 }
 tr.tr-data {
 	transition-duration: 100ms;
 }
-tr.tr-data:hover {
-	background-color: rgb(238, 185, 185);
-}
+ 
 </style>
