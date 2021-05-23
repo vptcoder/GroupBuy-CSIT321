@@ -96,6 +96,7 @@ Route::get('/orders/topay', [OrderController::class, 'indexForPayment']);
 Route::get('/orders/toprocess', [OrderController::class, 'indexForProcessing']);
 Route::get('/orders/toship', [OrderController::class, 'indexForShipping']);
 Route::get('/orders/cancelled', [OrderController::class, 'indexForCancelled']);
+Route::post('/orders/leave', [OrderController::class, 'leaveGroupBuy']);
 
 //Payment
 Route::post('/pay/transaction', [PaymentController::class, 'makeStripePayment'])->name('make-payment');

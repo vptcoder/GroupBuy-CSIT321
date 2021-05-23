@@ -36,7 +36,12 @@ class GroupbuyController extends Controller
         Log::info('GroupbuyController::indexUserJoined');
         Log::info($request);
 
-        $gs = Groupbuy::join('orders', 'groupbuys.id', '=', 'orders.groupbuy_id')
+        $gs = Groupbuy::join('orders', function ($join) {
+            $join->on('groupbuys.id', '=', 'orders.groupbuy_id')
+                ->whereNull('orders.deleted_at')
+                ->where('orders.status', '!=', 'o21')
+                ->where('orders.status', '!=', 'o22');
+        })
             ->join('products', 'products.id', 'groupbuys.product_id')
             ->select(
                 'groupbuys.id',
@@ -85,7 +90,8 @@ class GroupbuyController extends Controller
         return response()->json($gs, 200);
     }
 
-    public function indexPendingPay(Request $request){
+    public function indexPendingPay(Request $request)
+    {
         Log::info('GroupbuyController::indexPendingPay');
         Log::info($request);
 
@@ -231,9 +237,9 @@ class GroupbuyController extends Controller
             $g = Groupbuy::where('status', '=', "g11")->where('product_id', '=', $request->product_id)->first();
             if ($g === null) {
                 $period_join = Config::get('app.PERIOD_JOIN');
-                error_log(print_r("checkpoint PERIOD_JOIN - ".$period_join, TRUE));
+                error_log(print_r("checkpoint PERIOD_JOIN - " . $period_join, TRUE));
                 $dateEnd = clone ($currentTime);
-                $dateEnd->modify('+'.$period_join.' day');
+                $dateEnd->modify('+' . $period_join . ' day');
 
                 $g = new Groupbuy;
                 $g->product_id = $request->productid;
@@ -309,7 +315,6 @@ class GroupbuyController extends Controller
 
                 foreach ($g->orders()->get() as $o) {
                     OrderController::updateToNextStatus($o);
-
                 }
             }
 

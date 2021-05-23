@@ -17,10 +17,8 @@
 					<img :src="product.image" :alt="product.name" >
 				</div>
 				<div >
-					<img :src="product.image" :alt="product.name" >
-				</div>
-				<div >
-					<img :src="product.image" :alt="product.name" >
+					<h5>Description</h5>
+					<p>{{product.description}}</p>
 				</div>
 			</carousel>
 			<div class="product-description pb-3">
@@ -45,10 +43,10 @@
 						<p>{{product.description}}</p>
 						<!-- Button -->
 						<div class="container d-flex align-items-center justify-content-between"  style="width: 100%;position: fixed; bottom:3.6rem; background-color:#fff; display:block; height:50px;"> 
-							<div 
+							<router-link :to="{ path: '/join?pid='+product.id }"  
 								v-if="product.user_ordered"
-								class="col-10 btn btn-sm btn-primary">Joined
-							</div>
+								class="col-10 btn btn-sm btn-primary">Joined (Click ti view)
+							</router-link>
 							<router-link :to="{ path: '/join?pid='+product.id }" 
 								v-else
 								class="col-10 btn btn-sm btn-primary">Join

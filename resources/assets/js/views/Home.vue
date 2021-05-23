@@ -130,7 +130,7 @@
 					<div class="col-12 col-md-6" v-for="(product,index) in popularProducts" :key="index">
 						<div class="card weekly-product-card">
 							<router-link
-								:to="{ path: '/products/'+product.product_id}"
+								:to="{ path: '/products/'+product.id}"
 								class="card-body d-flex align-items-center"
 							>
 								<div class="product-thumbnail-side">

@@ -146,6 +146,22 @@ class OrderController extends Controller
         return response()->json($orders);
     }
 
+    public function leaveGroupBuy(Request $request)
+    {
+        Log::info('OrderController::leaveGroupBuy');
+        Log::info($request);
+
+        $order = Order::where('groupbuy_id', '=', $request->groupbuyid)
+            ->where('user_id', '=', $request->userid)->first();
+
+        $order->status = 'o21';
+        $status = $order->delete();
+
+        return response()->json([
+            'status' => $status, 'message' => $status ? 'Order Deleted!' : 'Error Deleting Order'
+        ]);
+    }
+
     public function deliverOrder(Request $request)
     {
         Log::info('OrderController::deliverOrder');
