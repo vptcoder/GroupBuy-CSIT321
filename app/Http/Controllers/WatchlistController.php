@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Watchlist;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class WatchlistController extends Controller
 {
@@ -17,6 +18,9 @@ class WatchlistController extends Controller
      */
     public function index(Request $request)
     {
+        Log::info('WatchlistController::index');
+        Log::info($request);
+
         // return response()->json(Watchlist::with(['user'])->get(),200);
         // return response()->json(Watchlist::whereHas('user', function($query) use($request){
         //     $query->where('id', '=', $request->userid);
@@ -35,6 +39,7 @@ class WatchlistController extends Controller
      */
     public function create()
     {
+        Log::info('WatchlistController::create');
         //
     }
 
@@ -46,6 +51,9 @@ class WatchlistController extends Controller
      */
     public function store(Request $request)
     {
+        Log::info('WatchlistController::store');
+        Log::info($request);
+
         $oldExist = Watchlist::onlyTrashed()->where('product_id', $request->productid)
             ->where('user_id', $request->userid)->first();
 
@@ -83,6 +91,8 @@ class WatchlistController extends Controller
      */
     public function show(Watchlist $watchlist)
     {
+        Log::info('WatchlistController::show');
+        Log::info($watchlist);
         //
     }
 
@@ -94,6 +104,8 @@ class WatchlistController extends Controller
      */
     public function edit(Watchlist $watchlist)
     {
+        Log::info('WatchlistController::edit');
+        Log::info($watchlist);
         //
     }
 
@@ -106,6 +118,9 @@ class WatchlistController extends Controller
      */
     public function update(Request $request, Watchlist $watchlist)
     {
+        Log::info('WatchlistController::update');
+        Log::info($request);
+        Log::info($watchlist);
         //
     }
 
@@ -117,6 +132,9 @@ class WatchlistController extends Controller
      */
     public function destroy(Watchlist $watchlist)
     {
+        Log::info('WatchlistController::destroy');
+        Log::info($watchlist);
+
         $status = $watchlist->delete();
 
         return response()->json([

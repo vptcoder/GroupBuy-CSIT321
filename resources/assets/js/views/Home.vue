@@ -1,7 +1,6 @@
 <template>
 	<div class="page-content-wrapper" style="background-color: #f4f3ee;">
 		<!-- Product Catagories-->
-
 		<div class="product-catagories-wrapper py-3">
 			<div class="container">
 				<div class="section-heading">
@@ -82,7 +81,56 @@
 			</div>
 		</div>
 
-		<!-- Top Products-->
+		<!-- Popular Products-->
+		<div class="flash-sale-wrapper">
+			<div class="container">
+				<div class="section-heading d-flex align-items-center justify-content-between">
+					<h6 class="me-1 d-flex align-items-center">
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="18"
+							height="18"
+							fill="currentColor"
+							class="bi bi-lightning me-1"
+							viewBox="0 0 16 16"
+						>
+							<path
+								fill-rule="evenodd"
+								d="M11.251.068a.5.5 0 0 1 .227.58L9.677 6.5H13a.5.5 0 0 1 .364.843l-8 8.5a.5.5 0 0 1-.842-.49L6.323 9.5H3a.5.5 0 0 1-.364-.843l8-8.5a.5.5 0 0 1 .615-.09zM4.157 8.5H7a.5.5 0 0 1 .478.647L6.11 13.59l5.732-6.09H9a.5.5 0 0 1-.478-.647L9.89 2.41 4.157 8.5z"
+							/>
+						</svg>
+						Popular Products
+					</h6>
+				</div>
+				<div class="row g-3">
+					<!-- Single Card-->
+					<div class="col-12 col-md-6" v-for="(product,index) in popularProducts" :key="index">
+						<div class="card weekly-product-card">
+							<router-link
+								:to="{ path: '/products/'+product.id}"
+								class="card-body d-flex align-items-center"
+							>
+								<div class="product-thumbnail-side">
+									<a class="product-thumbnail d-block">
+										<img class="mb-2" :src="product.product_image" :alt="product.product_name" />
+									</a>
+								</div>
+								<div class="product-description">
+									<a class="product-title d-block">{{product.product_name}}</a>
+									<p class="sale-price">
+										<i class="lni lni-dollar"></i>
+										${{parseFloat(product.product_price).toFixed(2)}}
+									</p>
+									<span class="progress-title">{{product.watchlists.length}} Interested</span>
+								</div>
+							</router-link>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- All Products-->
 		<div class="top-products-area clearfix py-3">
 			<div class="container">
 				<div class="section-heading d-flex align-items-center justify-content-between">
@@ -188,10 +236,13 @@ export default {
 		return {
 			user: null,
 			products: [],
+			popularProducts: [],
+			countPopularLimit: 3,
 			products2: [],
 			timestamp: ""
 		};
 	},
+
 	created() {
 		setInterval(this.getNow, 1000);
 	},
@@ -207,6 +258,30 @@ export default {
 			.get("api/availableProducts/")
 			.then(response => {
 				this.products = response.data;
+
+				let countPopularLimit = this.countPopularLimit;
+				for (var key in this.products) {
+					if (this.products.hasOwnProperty(key)) {
+						let p = this.products[key];
+						if (p.watchlists.length > 0) {
+							if (p.groupbuy_orders == null) {
+								p.groupbuy_orders = 0;
+							}
+							this.popularProducts.push(p);
+						}
+					}
+				}
+
+				this.popularProducts.sort((a, b) =>
+					a.watchlists.length < b.watchlists.length ? 1 : -1
+				);
+
+				this.popularProducts.forEach((element, index) => {
+					countPopularLimit--;
+					if (countPopularLimit == 0) {
+						this.popularProducts.splice(index, 1);
+					}
+				});
 			})
 			.catch(error => {
 				alert(error);

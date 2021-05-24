@@ -8,38 +8,49 @@
 			</div>
 		</div>
 
-		<!-- Header Area-->
-		<div class="header-area" id="headerArea">
+		<!-- Header Area - not logged in-->
+		<div v-if="!isLoggedIn" class="header-area" id="headerArea">
 			<div class="container h-100 d-flex align-items-center justify-content-between">
 				<!-- Logo Wrapper-->
-				<div v-show="isLoggedIn" class="logo-wrapper">
+				<div class="logo-wrapper">
+					<router-link :to="{ name: 'home' }">
+						<img class="brand-logo" src="/assets/img/core-img/brand-logo.png" alt />
+					</router-link>
+				</div>
+			</div>
+		</div>
+
+		<!-- Header Area - Buyer-->
+		<div v-if="isLoggedIn && user_type == 0" class="header-area" id="headerArea">
+			<div class="container h-100 d-flex align-items-center justify-content-between">
+				<!-- Logo Wrapper-->
+				<div class="logo-wrapper">
 					<router-link :to="{ name: 'home' }">
 						<img class="brand-logo" src="/assets/img/core-img/brand-logo.png" alt />
 					</router-link>
 				</div>
 				<!-- Search Form-->
-				<div v-show="isLoggedIn && show" class="top-search-form" style="width:100%; padding-left:5px;">
+				<!-- <div class="top-search-form" style="width:100%; padding-left:5px;">
 					<form action method>
 						<input class="form-control" type="search" placeholder="Search" />
 						<button type="submit">
 							<i class="fa fa-search"></i>
 						</button>
 					</form>
-				</div>
-				<div v-show="!show" class="top-search-form">
+				</div> -->
+			</div>
+		</div>
+		<!-- Header Area - Admin-->
+		<div v-else-if="isLoggedIn && user_type == 1" class="header-area" id="headerArea">
+			<div class="container h-100 d-flex align-items-center justify-content-between">
+				<div class="top-search-form">
 					<h2>Admin</h2>
 				</div>
-				<!-- Navbar Toggler-->
-				<!-- <div v-show="!show" class="suha-navbar-toggler d-flex flex-wrap" id="suhaNavbarToggler">
-					<span></span>
-					<span></span>
-					<span></span>
-				</div>   -->
 
 				<!-- Navbar Toggler-->
-				<div v-show="!show" v-if="isLoggedIn" @click="logout">
-							<i class="lni lni-power-switch"> Logout</i>
-				</div>  
+				<div @click="logout">
+					<i class="lni lni-power-switch"></i>
+				</div>
 			</div>
 		</div>
 
@@ -75,7 +86,7 @@
 						<i class="lni lni-alarm lni-tada-effect"></i>Notifications
 						<span class="ms-3 badge badge-warning">3</span>
 					</a>
-				</li> -->
+				</li>-->
 				<!-- <li class="suha-dropdown-menu">
 					<a href="#">
 						<i class="lni lni-cart"></i>Shop Pages
@@ -133,9 +144,7 @@
 						<i class="lni lni-power-switch"></i>Register
 					</router-link>
 				</li>
-				<li class="nav-link" v-if="isLoggedIn" @click="logout">
-						 Log Out
-				</li>
+				<li class="nav-link" v-if="isLoggedIn" @click="logout">Log Out</li>
 			</ul>
 			<!-- Go Back Button-->
 			<div class="go-home-btn" id="goHomeBtn">
@@ -156,26 +165,25 @@
 					<ul class="h-100 d-flex align-items-center justify-content-between ps-0">
 						<li v-show="show">
 							<router-link :to="{ name: 'home' }" class="navbar-brand">
-								<img src="https://img.icons8.com/windows/32/000000/home.png"/>
+								<img src="https://img.icons8.com/windows/32/000000/home.png" />
 								Home
 							</router-link>
 						</li>
 						<li v-show="show">
 							<router-link :to="{ name: 'watchlist' }" class="navbar-brand">
-								<img src="https://img.icons8.com/windows/32/000000/like.png"/>
+								<img src="https://img.icons8.com/windows/32/000000/like.png" />
 								Wishlist
 							</router-link>
 						</li>
 						<li v-show="show">
 							<router-link :to="{ name: 'notifications' }" class="navbar-brand">
-								<div class="notif">1</div>
-								<img src="https://img.icons8.com/windows/32/000000/appointment-reminders.png"/>
+								<img src="https://img.icons8.com/windows/32/000000/appointment-reminders.png" />
 								Notifications
 							</router-link>
 						</li>
 						<li v-show="show">
 							<router-link :to="{ name: 'userboard' }" class="navbar-brand">
-								<img src="https://img.icons8.com/windows/32/000000/gender-neutral-user.png"/>
+								<img src="https://img.icons8.com/windows/32/000000/gender-neutral-user.png" />
 								Profile
 							</router-link>
 						</li>

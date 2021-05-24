@@ -10,6 +10,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Passport\HasApiTokens;
 use Laravel\Cashier\Billable;
 
+// Status code - User POV - Admin POV:
+// u01 - Deactivated
+// u11 - Active
+
 class User extends Authenticatable
 {
     // use HasFactory, Notifiable;
@@ -22,6 +26,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'username',
+        'status',
         'name',
         'email',
         'shipping_streetaddress',

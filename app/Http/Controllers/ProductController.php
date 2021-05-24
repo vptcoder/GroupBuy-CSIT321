@@ -6,6 +6,7 @@ use App\Models\Product;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use SebastianBergmann\Environment\Console;
+use Illuminate\Support\Facades\Log;
 
 class ProductController extends Controller
 {
@@ -17,6 +18,7 @@ class ProductController extends Controller
      */
     public function index()
     {
+        Log::info('ProductController::index');
 
         $products = Product::leftJoin('groupbuys', function ($q) {
             $q->on('groupbuys.product_id', '=', 'products.id')
@@ -52,7 +54,9 @@ class ProductController extends Controller
 
     public function userIndex()
     {
-		date_default_timezone_set('Asia/Singapore');
+        Log::info('ProductController::userIndex');
+
+        date_default_timezone_set('Asia/Singapore');
         //1. Retrieve data
         $products = Product::select(
             'products.id',
@@ -143,6 +147,8 @@ class ProductController extends Controller
      */
     public function adminIndex()
     {
+        Log::info('ProductController::adminIndex');
+
         $products = Product::leftJoin('groupbuys', function ($q) {
             $q->on('groupbuys.product_id', '=', 'products.id')
                 ->where('groupbuys.status', '<>', 'g21');
@@ -178,6 +184,9 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        Log::info('ProductController::store');
+        Log::info($request);
+
         $product = Product::create([
             'name' => $request->name,
             'min' => $request->min, 
@@ -202,6 +211,9 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
+        Log::info('ProductController::show');
+        Log::info($product);
+
         $product = Product::where('id', '=', $product->id)
             ->with([
                 'watchlists', 'groupbuys' => function ($q) {
@@ -268,6 +280,9 @@ class ProductController extends Controller
 
     public function uploadFile(Request $request)
     {
+        Log::info('ProductController::uploadFile');
+        Log::info($request);
+
         if ($request->hasFile('image')) {
             $name = time() . "_" . $request->file('image')->getClientOriginalName();
             $request->file('image')->move(public_path('images'), $name);
@@ -284,6 +299,10 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
+        Log::info('ProductController::update');
+        Log::info($request);
+        Log::info($product);
+
         $status = $product->update(
             $request->only(['name', 'description', 'price', 'image', 'min', 'max', 'status'])
         );
@@ -295,6 +314,10 @@ class ProductController extends Controller
 
     public function updateMinMax(Request $request, Product $product)
     {
+        Log::info('ProductController::updateMinMax');
+        Log::info($request);
+        Log::info($product);
+
         $product->min = $request->get('min');
         $product->max = $request->get('max');
         $status = $product->save();
@@ -312,6 +335,9 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
+        Log::info('ProductController::destroy');
+        Log::info($product);
+
         $status = $product->delete();
 
         return response()->json([

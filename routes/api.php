@@ -96,6 +96,7 @@ Route::get('/orders/topay', [OrderController::class, 'indexForPayment']);
 Route::get('/orders/toprocess', [OrderController::class, 'indexForProcessing']);
 Route::get('/orders/toship', [OrderController::class, 'indexForShipping']);
 Route::get('/orders/cancelled', [OrderController::class, 'indexForCancelled']);
+Route::post('/orders/leave', [OrderController::class, 'leaveGroupBuy']);
 
 //Payment
 Route::post('/pay/transaction', [PaymentController::class, 'makeStripePayment'])->name('make-payment');
@@ -104,6 +105,8 @@ Route::post('/pay/transaction', [PaymentController::class, 'makeStripePayment'])
 Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/users', 'App\Http\Controllers\UserController@index');
     Route::get('users/{user}', 'App\Http\Controllers\UserController@show');
+    Route::post('/users/activate', 'App\Http\Controllers\UserController@activate');
+    Route::post('/users/deactivate', 'App\Http\Controllers\UserController@deactivate');
     Route::patch('users/{user}', 'App\Http\Controllers\UserController@update');
     Route::patch('products/{product}/minmax/change', 'App\Http\Controllers\ProductController@updateMinMax');
     // Route::patch('orders/{order}/deliver', 'App\Http\Controllers\OrderController@deliverOrder');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Shoptoken;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class ShoptokenController extends Controller
 {
@@ -14,6 +15,8 @@ class ShoptokenController extends Controller
      */
     public function index()
     {
+        Log::info('ShoptokenController::index');
+
         return response()->json(Shoptoken::with(['user'])->get(),200);
     }
 
@@ -24,6 +27,7 @@ class ShoptokenController extends Controller
      */
     public function create()
     {
+        Log::info('ShoptokenController::create');
         //
     }
 
@@ -35,6 +39,8 @@ class ShoptokenController extends Controller
      */
     public function store(Request $request)
     {
+        Log::info('ShoptokenController::store');
+        Log::info($request);
         //
     }
 
@@ -46,6 +52,8 @@ class ShoptokenController extends Controller
      */
     public function show(Shoptoken $shoptoken)
     {
+        Log::info('ShoptokenController::show');
+        Log::info($shoptoken);
         //
     }
 
@@ -57,6 +65,8 @@ class ShoptokenController extends Controller
      */
     public function edit(Shoptoken $shoptoken)
     {
+        Log::info('ShoptokenController::edit');
+        Log::info($shoptoken);
         //
     }
 
@@ -69,6 +79,9 @@ class ShoptokenController extends Controller
      */
     public function update(Request $request, Shoptoken $shoptoken)
     {
+        Log::info('ShoptokenController::update');
+        Log::info($request);
+        Log::info($shoptoken);
         //
     }
 
@@ -80,6 +93,8 @@ class ShoptokenController extends Controller
      */
     public function destroy(Shoptoken $shoptoken)
     {
+        Log::info('ShoptokenController::destroy');
+        Log::info($shoptoken);
         //
     }
 }

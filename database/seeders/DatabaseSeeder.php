@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             ProductsTableSeeder::class,
             GroupbuysTableSeeder::class,
             OrdersTableSeeder::class,
+            WatchlistsTableSeeder::class,
         ]);
     }
 }

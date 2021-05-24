@@ -20,6 +20,7 @@ class UsersTableSeeder extends Seeder
 
         $admin = new User;
         $admin->username = 'adminsupermint';
+        $admin->status = 'u11';
         $admin->name = 'Adminbot Rollout';
         $admin->email = 'admin@devtest.com';
         $admin->shipping_streetaddress = '69 Nuts Street, #21-34';
@@ -32,8 +33,9 @@ class UsersTableSeeder extends Seeder
         
         $testers = [
             [ 
-                'username' => 'tester1'
-                , 'name' => 'tester1'
+                'username' => 'Lim Xin Rou'
+                , 'status' => 'u11'
+                , 'name' => 'limxr'
                 , 'email' => 'tester1_vptcoder@gbuytest.com'
                 , 'shipping_streetaddress' => '01 Test Street, #11-01'
                 , 'shipping_city' => 'Singapore'
@@ -43,8 +45,9 @@ class UsersTableSeeder extends Seeder
                 , 'created_at' => Carbon::now(),
             ]
             , [
-                'username' => 'tester2'
-                , 'name' => 'tester2'
+                'username' => 'Ernest Goh'
+                , 'status' => 'u11'
+                , 'name' => 'earnestalphaboi'
                 , 'email' => 'tester2_vptcoder@gbuytest.com'
                 , 'shipping_streetaddress' => '02 Test Street, #11-02'
                 , 'shipping_city' => 'Singapore'
@@ -54,12 +57,73 @@ class UsersTableSeeder extends Seeder
                 , 'created_at' => Carbon::now(),
             ]
             , [
-                'username' => 'tester3'
-                , 'name' => 'tester3'
+                'username' => 'Yang Sean'
+                , 'status' => 'u11'
+                , 'name' => 'yangss'
                 , 'email' => 'tester3_vptcoder@gbuytest.com'
                 , 'shipping_streetaddress' => '03 Test Street, #11-03'
                 , 'shipping_city' => 'Singapore'
                 , 'shipping_postalcode' => '666663'
+                , 'password' => bcrypt('aacc12345')
+                , 'is_admin' => false 
+                , 'created_at' => Carbon::now(),
+            ]
+            , [
+                'username' => 'Goh Lou Yang'
+                , 'status' => 'u11'
+                , 'name' => 'gohly'
+                , 'email' => 'tester4_vptcoder@gbuytest.com'
+                , 'shipping_streetaddress' => '03 Simin Street, #7-13'
+                , 'shipping_city' => 'Singapore'
+                , 'shipping_postalcode' => '667113'
+                , 'password' => bcrypt('aacc12345')
+                , 'is_admin' => false 
+                , 'created_at' => Carbon::now(),
+            ]
+            , [
+                'username' => 'Ang Ding Wan'
+                , 'status' => 'u11'
+                , 'name' => 'angdw'
+                , 'email' => 'tester5_vptcoder@gbuytest.com'
+                , 'shipping_streetaddress' => '04 Simin Street, #5-10'
+                , 'shipping_city' => 'Singapore'
+                , 'shipping_postalcode' => '664510'
+                , 'password' => bcrypt('aacc12345')
+                , 'is_admin' => false 
+                , 'created_at' => Carbon::now(),
+            ]
+            , [
+                'username' => 'Cheok Jia Xin'
+                , 'status' => 'u11'
+                , 'name' => 'cheokjx'
+                , 'email' => 'tester6_vptcoder@gbuytest.com'
+                , 'shipping_streetaddress' => '10 How Sun Drive, #2-28'
+                , 'shipping_city' => 'Singapore'
+                , 'shipping_postalcode' => '510520'
+                , 'password' => bcrypt('aacc12345')
+                , 'is_admin' => false 
+                , 'created_at' => Carbon::now(),
+            ]
+            , [
+                'username' => 'Albert Brand'
+                , 'status' => 'u11'
+                , 'name' => 'alboy22'
+                , 'email' => 'tester7_vptcoder@gbuytest.com'
+                , 'shipping_streetaddress' => '11 Keong Saik Drive,'
+                , 'shipping_city' => 'Singapore'
+                , 'shipping_postalcode' => '544511'
+                , 'password' => bcrypt('aacc12345')
+                , 'is_admin' => false 
+                , 'created_at' => Carbon::now(),
+            ]
+            , [
+                'username' => 'Emily Whitehead'
+                , 'status' => 'u11'
+                , 'name' => 'whitequeen'
+                , 'email' => 'tester8_vptcoder@gbuytest.com'
+                , 'shipping_streetaddress' => '8 Tampines Street, #20-05'
+                , 'shipping_city' => 'Singapore'
+                , 'shipping_postalcode' => '628225'
                 , 'password' => bcrypt('aacc12345')
                 , 'is_admin' => false 
                 , 'created_at' => Carbon::now(),
