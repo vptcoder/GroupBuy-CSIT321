@@ -38,7 +38,11 @@
 						<div v-if="product.user_ordered" class="align-items-center">
 							<br />
 							<h6 class="mb-1">You have joined this groupbuy!</h6>
+							<div class="container d-flex align-items-center justify-content-between"  style="width: 100%;position: fixed; bottom:3.6rem; left:-0rem; background-color:#fff; display:block; height:50px;"> 
  
+								<a class="col-12 btn btn-sm " style="background-color: #a93226; color:#fff;" @click="deleteOrder">Leave</a>
+ 
+							</div>
 						</div>
 						<div v-else>
 							<div class ="row" > <!-- color: rgb(169, 50, 38);-->
@@ -47,8 +51,7 @@
 									<input class="qty-text" type="text" v-model="quantity" required autofocus />
 								</div>
 							</div>
-						</div>
-						<div v-show="!product.user_ordered">
+
 							<div class="container d-flex align-items-center justify-content-between"  style="width: 100%;position: fixed; bottom:3.6rem; left:-0rem; background-color:#fff; display:block; height:50px;"> 
 								<h5 class="col-8 total-price mb-0">
 									Total Price : $
@@ -56,23 +59,16 @@
 								</h5>
 								<a class="col-4 btn btn-sm btn-primary" @click="confirmOrder_Start">Confirm</a>
 							</div>
-						</div>
-
-						 
-						<div class="container d-flex align-items-center justify-content-between" 
-							v-show="product.user_ordered & product.groupbuy_status == 'Active'"
-							 style="width: 100%;position: fixed; bottom:3.6rem; left:-0rem; background-color:#fff; display:block; height:50px;"> 
- 
-								<a class="col-12 btn btn-sm " style="background-color: #a93226; color:#fff;" @click="deleteOrder">Leave</a>
  
 						</div>
+						<modal @close="goHome" v-show="joinSuccess == true"></modal>
 					</div>
 				</div>
 			</div>
-		</div>
-		<modal @close="goHome" v-show="joinSuccess == true"></modal>
-
-  	</div>
+ 
+ 
+	</div>
+  </div>
 </template>
 
 <script>
