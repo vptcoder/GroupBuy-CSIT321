@@ -189,4 +189,5 @@ export default {
 	color: #463f3a;
 	font-size: 18px;
 }
+ 
 </style>
