@@ -145,9 +145,9 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function adminIndex()
+    public function indexAdmin()
     {
-        Log::info('ProductController::adminIndex');
+        Log::info('ProductController::indexAdmin');
 
         $products = Product::leftJoin('groupbuys', function ($q) {
             $q->on('groupbuys.product_id', '=', 'products.id')
