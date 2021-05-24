@@ -10,7 +10,7 @@
 			<div
 				class="col-md-4 product-box d-flex align-content-center justify-content-center flex-wrap big-text"
 			>
-				<a href="/admin/groupbuys">Groupbuys ({{orders.length}})</a>
+				<a href="/admin/groupbuys">Groupbuys ({{groupbuys.length}})</a>
 			</div>
 			<hr />
 			<div
@@ -48,7 +48,7 @@ export default {
 	},
 	mounted() {
 		axios
-			.get("/api/products/")
+			.get("/api/adminproducts/")
 			.then(response => (this.products = response.data));
 		axios
 			.get("/api/admingroupbuys/")

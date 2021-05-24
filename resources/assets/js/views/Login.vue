@@ -73,6 +73,9 @@
 								this.$router.push((is_admin == 1 ? 'admin' : '/'))
 							}
 						}
+					})
+					.catch(error => {
+						alert(error.response.data.error);
 					});
 				}
 			}

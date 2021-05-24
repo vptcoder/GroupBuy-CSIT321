@@ -274,7 +274,6 @@ class OrderController extends Controller
         Log::info('OrderController::updateToNextStatus');
         Log::info($order);
 
-        error_log(print_r("OrderController::updateToNextStatus", TRUE));
         $status = $order->status;
 
         $status = (int)(ltrim($status, 'o'));

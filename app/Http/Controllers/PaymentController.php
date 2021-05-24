@@ -87,7 +87,6 @@ class PaymentController extends Controller
         Log::info('PaymentController::makeStripePayment');
         Log::info($request);
 
-		error_log(print_r("PaymentController::createPayment", TRUE));
 		date_default_timezone_set('Asia/Singapore');
 
 		$user = User::where('id', '=', $request->user["id"])->first();
