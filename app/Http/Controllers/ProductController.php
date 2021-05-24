@@ -89,7 +89,7 @@ class ProductController extends Controller
         //2. Organise data
         foreach ($products as $pkey => $p) {
             if (!empty($p->groupbuys)) {
-                error_log(print_r($p->groupbuys->count(), TRUE));
+                Log::info('$g->groupbuys->count(): ' . $p->groupbuys->count());
 
                 if ($p->groupbuys->count() > 1) {
                     throw new \Exception("Error: more than 1 active groupbuy is retrieved!");
@@ -132,7 +132,7 @@ class ProductController extends Controller
             }
             unset($p->groupbuys);
 
-            if(Carbon::now()->gt(Carbon::parse($p->groupbuy_date_end))){
+            if (Carbon::now()->gt(Carbon::parse($p->groupbuy_date_end))) {
                 unset($products[$pkey]);
             }
         }
@@ -189,11 +189,11 @@ class ProductController extends Controller
 
         $product = Product::create([
             'name' => $request->name,
-            'min' => $request->min, 
-            'max' => $request->max, 
+            'min' => $request->min,
+            'max' => $request->max,
             'status' => $request->status,
-            'price' => $request->price, 
-            'description' => $request->description, 
+            'price' => $request->price,
+            'description' => $request->description,
             'image' => $request->image
         ]);
 

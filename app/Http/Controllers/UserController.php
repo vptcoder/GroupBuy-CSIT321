@@ -69,9 +69,9 @@ class UserController extends Controller
             , 'password'
         ]);
         $data['password'] = bcrypt($data['password']);
+        $data['status'] = 'u11';
 
         $user = User::create($data);
-        $user->status = 'u11';
         $user->is_admin = 0;
 
         return response()->json([
