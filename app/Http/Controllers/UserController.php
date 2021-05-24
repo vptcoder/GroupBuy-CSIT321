@@ -15,7 +15,7 @@ class UserController extends Controller
         Log::info('UserController::index');
 
         $users = User::with(['orders'])->get();
-        foreach ($users as $u){
+        foreach ($users as $u) {
             $u->joined = $u->created_at->format('Y-m-d h:m:s');
         }
         return response()->json($users);
@@ -27,15 +27,22 @@ class UserController extends Controller
         Log::info($request);
 
         $status = 401;
-        $response = ['error' => 'Unauthorised'];
+        $response = ['error' => 'Unauthorised - Did you enter the correct account detail?'];
 
         if (Auth::attempt($request->only(['email', 'password']))) {
-            $status = 200;
-            $response = [
-                'user' => Auth::user(), 'token' => Auth::user()->createToken('bigStore')->accessToken
-            ];
+            $user = Auth::user();
+            if ($user->status == 'u11') {
+                $status = 200;
+                $response = [
+                    'user' => Auth::user(), 'token' => Auth::user()->createToken('bigStore')->accessToken
+                ];
+            } else {
+                $response = ['error' => 'Unauthorised - Account Deactivated, please contact admin!'];
+            }
+            Log::info($user);
         }
-
+        Log::info($status);
+        Log::info($response);
         return response()->json($response, $status);
     }
 
@@ -45,14 +52,7 @@ class UserController extends Controller
         Log::info($request);
 
         $validator = Validator::make($request->all(), [
-            'username' =>'required|max:50'
-            , 'name' => 'required|max:100'
-            , 'email' => 'required|email'
-            , 'shipping_streetaddress' => 'required|max:200'
-            , 'shipping_city' => 'required|max:50'
-            , 'shipping_postalcode' => 'required|min:6|max:15'
-            , 'password' => 'required|min:6'
-            , 'c_password' => 'required|same:password'
+            'username' => 'required|max:50', 'name' => 'required|max:100', 'email' => 'required|email', 'shipping_streetaddress' => 'required|max:200', 'shipping_city' => 'required|max:50', 'shipping_postalcode' => 'required|min:6|max:15', 'password' => 'required|min:6', 'c_password' => 'required|same:password'
         ]);
 
         if ($validator->fails()) {
@@ -60,18 +60,12 @@ class UserController extends Controller
         }
 
         $data = $request->only([
-            'username'
-            , 'name'
-            , 'email'
-            , 'shipping_streetaddress'
-            , 'shipping_city'
-            , 'shipping_postalcode'
-            , 'password'
+            'username', 'name', 'email', 'shipping_streetaddress', 'shipping_city', 'shipping_postalcode', 'password'
         ]);
         $data['password'] = bcrypt($data['password']);
+        $data['status'] = 'u11';
 
         $user = User::create($data);
-        $user->status = 'u11';
         $user->is_admin = 0;
 
         return response()->json([

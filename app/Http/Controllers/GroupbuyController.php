@@ -223,7 +223,6 @@ class GroupbuyController extends Controller
         $p = Product::where('id', '=', $request->productid)->get()->first();
 
         if (empty($request->groupbuyid)) {
-            error_log(print_r("checkpoint 1", TRUE));
 
             //check if there's enough stock for this Groupbuy
             if ($orders_count + $request->quantity > $p->max) {
@@ -237,7 +236,6 @@ class GroupbuyController extends Controller
             $g = Groupbuy::where('status', '=', "g11")->where('product_id', '=', $request->product_id)->first();
             if ($g === null) {
                 $period_join = Config::get('app.PERIOD_JOIN');
-                error_log(print_r("checkpoint PERIOD_JOIN - " . $period_join, TRUE));
                 $dateEnd = clone ($currentTime);
                 $dateEnd->modify('+' . $period_join . ' day');
 
@@ -255,7 +253,6 @@ class GroupbuyController extends Controller
         } else {
             $g = Groupbuy::where('id', $request->groupbuyid)->get()->first();
         }
-        error_log(print_r("checkpoint 2", TRUE));
 
         //Get the current orders for this Groupbuy
         $orders_count = $g->orders()->get()->sum('quantity');
@@ -269,13 +266,10 @@ class GroupbuyController extends Controller
             ]);
         }
 
-        error_log(print_r(gettype($g->date_end), TRUE));
         $dd = gettype($g->date_end) == 'object' ? $g->date_end : new DateTime($g->date_end);
 
         //Check if the Order is within valid time
         if ($currentTime >= $dd) {
-            error_log(print_r($currentTime, TRUE));
-            error_log(print_r($dd, TRUE));
             return response()->json([
                 'status' => false,
                 'data'   => null,
@@ -290,7 +284,7 @@ class GroupbuyController extends Controller
             ]);
 
             //Create noti for the order
-            error_log(print_r(("Create noti for the order"), TRUE));
+            Log::info("Create noti for the order");
             if ($order) {
                 NotificationController::storeForUser(
                     $request->userid,
@@ -303,14 +297,14 @@ class GroupbuyController extends Controller
             $orders_count = $g->orders()->get()->sum('quantity');
 
             if ($orders_count == $g->max_available) {
-                error_log(print_r($orders_count, TRUE));
-                error_log(print_r($g->max_available, TRUE));
+                Log::info('$orders_count: ' . $orders_count);
+                Log::info('$g->max_available: ' . $g->max_available);
                 $g->status = "g12";
                 $g->date_success = $currentTime;
                 $g->save();
 
                 //Create noti for groupbuy success
-                error_log(print_r(("Create noti for groupbuy success"), TRUE));
+                Log::info("Create noti for groupbuy success");
                 $p = $g->product()->first();
 
                 foreach ($g->orders()->get() as $o) {
@@ -353,9 +347,9 @@ class GroupbuyController extends Controller
                 break;
         }
         $log = "GroupbuyController@updateStatus: Groupbuy.id=" . ($request->id) . " - Groupbuy.statustext=" . ($request->status);
-        error_log(print_r($log, TRUE));
+        Log::info($log);
         $log = "GroupbuyController@updateStatus: Groupbuy.id=" . ($request->id) . " - Groupbuy.status=" . ($status);
-        error_log(print_r($log, TRUE));
+        Log::info($log);
 
         $querystatus = Groupbuy::where('id', $request->id)->update(['status' => $status]);
 

@@ -21,15 +21,9 @@ class WatchlistController extends Controller
         Log::info('WatchlistController::index');
         Log::info($request);
 
-        // return response()->json(Watchlist::with(['user'])->get(),200);
-        // return response()->json(Watchlist::whereHas('user', function($query) use($request){
-        //     $query->where('id', '=', $request->userid);
-        // })->get(),200);
-        // error_log(print_r($request, TRUE));
-
         $watchlist = Watchlist::where('user_id', $request->userid)
             ->join('products', 'products.id', '=', 'watchlists.product_id')->get();
-        return response()->json($watchlist,200);
+        return response()->json($watchlist, 200);
     }
 
     /**
@@ -57,30 +51,23 @@ class WatchlistController extends Controller
         $oldExist = Watchlist::onlyTrashed()->where('product_id', $request->productid)
             ->where('user_id', $request->userid)->first();
 
-        error_log(print_r($oldExist, TRUE));
+        Log::info("oldExist:" . $oldExist);
 
-        if(!is_null($oldExist) && !is_null($oldExist->id)){
+        if (!is_null($oldExist) && !is_null($oldExist->id)) {
             $oldExist->restore();
 
             return response()->json([
-                'status' => (bool) $oldExist
-                , 'data' => $oldExist
-                , 'message' => $oldExist ? 'User added to Watchlist!' : 'Error adding user to Watchlist'
+                'status' => (bool) $oldExist, 'data' => $oldExist, 'message' => $oldExist ? 'User added to Watchlist!' : 'Error adding user to Watchlist'
             ]);
-        }
-        else {
+        } else {
             $watchlist = Watchlist::create([
-                'product_id' => $request->productid
-                , 'user_id' => $request->userid
-            ]);    
+                'product_id' => $request->productid, 'user_id' => $request->userid
+            ]);
 
             return response()->json([
-                'status' => (bool) $watchlist
-                , 'data' => $watchlist
-                , 'message' => $watchlist ? 'User added to Watchlist!' : 'Error adding user to Watchlist'
+                'status' => (bool) $watchlist, 'data' => $watchlist, 'message' => $watchlist ? 'User added to Watchlist!' : 'Error adding user to Watchlist'
             ]);
         }
-
     }
 
     /**
@@ -138,8 +125,7 @@ class WatchlistController extends Controller
         $status = $watchlist->delete();
 
         return response()->json([
-            'status' => $status
-            , 'message' => $status ? 'User removed from Watchlist!' : 'Error removing User from Watchlist'
+            'status' => $status, 'message' => $status ? 'User removed from Watchlist!' : 'Error removing User from Watchlist'
         ]);
     }
 }

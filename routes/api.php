@@ -46,10 +46,6 @@ Route::get(
     '/products/{product}',
     'App\Http\Controllers\ProductController@show'
 );
-Route::get(
-    '/adminproducts',
-    'App\Http\Controllers\ProductController@adminIndex'
-);
 Route::post(
     '/upload-file',
     'App\Http\Controllers\ProductController@uploadFile'
@@ -115,6 +111,10 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::resource('/orders', 'App\Http\Controllers\OrderController');
     Route::resource('/products', 'App\Http\Controllers\ProductController')->except(['index', 'show']);
 
+    Route::get(
+        '/adminproducts',
+        'App\Http\Controllers\ProductController@indexAdmin'
+    );
     Route::get(
         '/admingroupbuys',
         'App\Http\Controllers\GroupbuyController@indexAdmin'
