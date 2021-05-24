@@ -118,7 +118,7 @@
 				</div>
 				<div class="neaitfyCarousel">
 					<div class="row g-3">
-						<div class="col-4 col-md-2 col-lg" v-for="(product,index) in popularProducts.slice(0,3)" :key="index">
+						<div class="col-4 col-md-2 col-lg" v-for="(product,index) in popularProducts.slice(3,6)" :key="index">
 							<div class="card top-product-card">
 								<router-link
 									:to="{ path: '/products/'+product.id}"

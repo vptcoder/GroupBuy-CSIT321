@@ -2036,7 +2036,10 @@ li.suha-dropdown-menu {
   .top-product-card .product-thumbnail {
     text-align: center; }
     .top-product-card .product-thumbnail img {
-      width: 100%; }
+      width: 100%; 
+      min-height: 150px;
+      max-height: 150px;
+    }
   .top-product-card .delete-btn {
     position: absolute;
     top: 1rem;

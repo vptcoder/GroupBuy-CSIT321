@@ -46,9 +46,14 @@
 						</div>
 						<div v-else>
 							<div class ="row" > <!-- color: rgb(169, 50, 38);-->
-								<p class="col-6 sale-price mb-0" style="font-size:21px; color: rgb(169, 50, 38);">${{parseFloat(product.price).toFixed(2)}}</p>
+								<p class="col-6 sale-price mb-0" style="font-size:21px; color: #463f3a; font-weight:500;">${{parseFloat(product.price).toFixed(2)}}</p>
 								<div class="col-6 quantity">
-									<input class="qty-text" type="text" v-model="quantity" required autofocus />
+								
+										<div class="value-button" id="decrease" @click="decreaseValue()" value="Decrease Value"><i class="lni lni-circle-minus"></i></div>
+										<input type="number" required autofocus id="number" value="1" />
+										<div class="value-button" id="increase" @click="increaseValue()" value="Increase Value"><i class="lni lni-circle-plus"></i></div>
+									
+									<!-- <input class="qty-text" type="text" v-model="quantity" required autofocus /> -->
 								</div>
 							</div>
 
@@ -89,7 +94,8 @@ export default {
 	},
 	computed: {
 		confirmedPrice: function() {
-			return this.quantity * this.product.price;
+ 
+			return  this.quantity * this.product.price;
 		}
 	},
 	beforeMount() {
@@ -119,7 +125,23 @@ export default {
 		carousel,
 		Modal
 	},
+ 
 	methods: {
+		increaseValue() {
+			var value = parseInt(document.getElementById('number').value, 10);
+			value = isNaN(value) ? 0 : value;
+			value++;
+			document.getElementById('number').value = value;
+			return this.quantity = value;
+		},
+		decreaseValue() {
+			var value = parseInt(document.getElementById('number').value, 10);
+			value = isNaN(value) ? 0 : value;
+			value < 1 ? value = 1 : '';
+			value--;
+			document.getElementById('number').value = value;
+			return this.quantity = value;
+		},
 		confirmOrder_Start() {
 			var groupbuyid =
 				this.product.groupbuy_id == null
@@ -186,8 +208,65 @@ export default {
 
 .total-price {
 	font-weight: 500;
-	color: #463f3a;
-	font-size: 18px;
+	color: rgb(169, 50, 38);
+ 	font-size: 22px;
 }
  
+
+ form {
+  width: 300px;
+  margin: 0 auto;
+  text-align: center;
+  padding-top: 50px;
+}
+
+.value-button {
+  display: inline-block;
+  margin: 0px;
+  width: 50px;
+  height: 20px;
+  text-align: center;
+  vertical-align: middle;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.value-button:hover {
+  cursor: pointer;
+}
+
+form #decrease {
+  margin-right: -4px;
+  border-radius: 8px 0 0 8px;
+}
+
+form #increase {
+  margin-left: -4px;
+  border-radius: 0 8px 8px 0;
+}
+
+form #input-wrap {
+  margin: 0px;
+  padding: 0px;
+}
+
+input#number {
+  text-align: center;
+  border: none;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  margin: 0px;
+  width: 40px;
+  height: 40px;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
 </style>
