@@ -53,7 +53,8 @@ html {
   font-family: "Roboto", sans-serif;
   color: #747794;
   overflow-x: hidden;
-  background-color: #fff; /*#e5e8ff*/ /* Background Color -XR dbd7ca*/
+  /* background-color: #fff; #e5e8ff Background Color -XR dbd7ca */
+  background-color: rgb(244, 243, 238);
  }
 
 h1,
@@ -1995,7 +1996,10 @@ li.suha-dropdown-menu {
 /* Top Product Card CSS */
 .top-product-card {
   position: relative;
-  z-index: 1; }
+  z-index: 1; 
+  min-height: 100%;
+  max-height: 100%;
+}
   .top-product-card .badge {
     /*position: absolute;*/ /*XR*/
     top: 1rem;
@@ -2312,7 +2316,7 @@ li.suha-dropdown-menu {
         background-color: #ffaf00; }
 
 .product-title-meta-data {
-  border-top-left-radius: 3rem;
+  /* border-top-left-radius: 3rem; */
   padding-top: 1.5rem !important; }
   .product-title-meta-data::after {
     position: absolute;

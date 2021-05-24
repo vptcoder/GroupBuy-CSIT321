@@ -27,7 +27,7 @@
 					<div class="container d-flex justify-content-between" style="display:block!important;">
 						<div class="p-title-price">
 							<h6 class="mb-1 mx-4" style="text-align:center;">{{product.name}}</h6>
-							<hr>
+							<hr style= "color:grey">
 							<p class="sale-price mb-0">${{parseFloat(product.price).toFixed(2)}}</p>
 							<div>
 								<label v-if="product.groupbuy_id == null" style="color:red;  font-size:12px;">{{product.max}} slots left</label>
@@ -42,7 +42,7 @@
 						<h5>Description</h5>
 						<p>{{product.description}}</p>
 						<!-- Button -->
-						<div class="container d-flex align-items-center justify-content-between"  style="width: 100%;position: fixed; bottom:3.6rem; background-color:#fff; display:block; height:50px;"> 
+						<div class="container d-flex align-items-center justify-content-between"  style="width: 100%;position: fixed; bottom:3.6rem; left:-0rem; background-color:#fff; display:block; height:50px;"> 
 							<router-link :to="{ path: '/join?pid='+product.id }"  
 								v-if="product.user_ordered"
 								class="col-10 btn btn-sm btn-primary">Joined (Click to view)

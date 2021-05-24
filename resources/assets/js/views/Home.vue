@@ -4,7 +4,7 @@
 		<div class="product-catagories-wrapper py-3">
 			<div class="container">
 				<div class="section-heading">
-					<h6>Product Categories</h6>
+					<h6>Categories</h6>
 				</div>
 
 				<div class="product-catagory-wrap">
@@ -81,55 +81,89 @@
 			</div>
 		</div>
 
-		<!-- Popular Products-->
+		<!-- XR POP Product Slides-->
 		<div class="flash-sale-wrapper">
 			<div class="container">
 				<div class="section-heading d-flex align-items-center justify-content-between">
 					<h6 class="me-1 d-flex align-items-center">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							width="18"
-							height="18"
-							fill="currentColor"
-							class="bi bi-lightning me-1"
-							viewBox="0 0 16 16"
-						>
-							<path
-								fill-rule="evenodd"
-								d="M11.251.068a.5.5 0 0 1 .227.58L9.677 6.5H13a.5.5 0 0 1 .364.843l-8 8.5a.5.5 0 0 1-.842-.49L6.323 9.5H3a.5.5 0 0 1-.364-.843l8-8.5a.5.5 0 0 1 .615-.09zM4.157 8.5H7a.5.5 0 0 1 .478.647L6.11 13.59l5.732-6.09H9a.5.5 0 0 1-.478-.647L9.89 2.41 4.157 8.5z"
-							/>
-						</svg>
+ 
 						Popular Products
 					</h6>
 				</div>
-				<div class="row g-3">
-					<!-- Single Card-->
-					<div class="col-12 col-md-6" v-for="(product,index) in popularProducts" :key="index">
-						<div class="card weekly-product-card">
-							<router-link
-								:to="{ path: '/products/'+product.id}"
-								class="card-body d-flex align-items-center"
-							>
-								<div class="product-thumbnail-side">
+			</div>
+		</div>
+			<carousel :items="1" :autoplay="false" :nav="false" :dots="true" >
+				<div class = "neatifyCarousel">
+					<div class="row g-3">
+						<div class="col-4 col-md-2 col-lg" v-for="(product,index) in popularProducts.slice(0,3)" :key="index">
+							<div class="card top-product-card">
+								<router-link
+									:to="{ path: '/products/'+product.id}"
+									class="card-body align-items-center"
+								>
+									<span class="badge badge-pending">HOT</span>
+
 									<a class="product-thumbnail d-block">
-										<img class="mb-2" :src="product.product_image" :alt="product.product_name" />
+											<img class="mb-2" :src="product.product_image" :alt="product.product_name" />
 									</a>
-								</div>
-								<div class="product-description">
-									<a class="product-title d-block">{{product.product_name}}</a>
-									<p class="sale-price">
-										<i class="lni lni-dollar"></i>
-										${{parseFloat(product.product_price).toFixed(2)}}
+									<a class="product-title d-block" style="font-size:12px;">{{product.product_name}}</a>
+									<p class="sale-price" style="font-size:16px;">
+											${{parseFloat(product.product_price).toFixed(2)}}
 									</p>
-									<span class="progress-title">{{product.watchlists.length}} Interested</span>
-								</div>
-							</router-link>
+									<span class="progress-title" style="font-size:14px; color:#8a817c;">{{product.watchlists.length}} sold</span>
+								</router-link>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-		</div>
+				<div class="neaitfyCarousel">
+					<div class="row g-3">
+						<div class="col-4 col-md-2 col-lg" v-for="(product,index) in popularProducts.slice(0,3)" :key="index">
+							<div class="card top-product-card">
+								<router-link
+									:to="{ path: '/products/'+product.id}"
+									class="card-body align-items-center"
+								>
+									<span class="badge badge-pending">HOT</span>
 
+									<a class="product-thumbnail d-block">
+											<img class="mb-2" :src="product.product_image" :alt="product.product_name" />
+									</a>
+									<a class="product-title d-block">{{product.product_name}}</a>
+									<p class="sale-price">
+											${{parseFloat(product.product_price).toFixed(2)}}
+									</p>
+									<span class="progress-title" style="font-size:14px; color:#8a817c;">{{product.watchlists.length}} sold</span>
+								</router-link>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="neaitfyCarousel">
+					<div class="row g-3">
+						<div class="col-4 col-md-2 col-lg" v-for="(product,index) in popularProducts.slice(6,9)" :key="index">
+							<div class="card top-product-card">
+								<router-link
+									:to="{ path: '/products/'+product.id}"
+									class="card-body align-items-center"
+								>
+									<span class="badge badge-pending">HOT</span>
+
+									<a class="product-thumbnail d-block">
+											<img class="mb-2" :src="product.product_image" :alt="product.product_name" />
+									</a>
+									<a class="product-title d-block">{{product.product_name}}</a>
+									<p class="sale-price">
+											${{parseFloat(product.product_price).toFixed(2)}}
+									</p>
+									<span class="progress-title" style="font-size:14px; color:#8a817c;">{{product.watchlists.length}} sold</span>
+								</router-link>
+							</div>
+						</div>
+					</div>
+				</div>
+			</carousel>
+ 
 		<!-- All Products-->
 		<div class="top-products-area clearfix py-3">
 			<div class="container">
@@ -231,6 +265,8 @@
 </template>
 
 <script>
+import carousel from "vue-owl-carousel";
+
 export default {
 	data() {
 		return {
@@ -239,6 +275,7 @@ export default {
 			popularProducts: [],
 			countPopularLimit: 3,
 			products2: [],
+			limitationList:2,
 			timestamp: ""
 		};
 	},
@@ -286,6 +323,9 @@ export default {
 			.catch(error => {
 				alert(error);
 			});
+	},
+	components: {
+		carousel
 	},
 	methods: {
 		getNow: function() {
@@ -503,4 +543,15 @@ export default {
 .notwatching-btn {
 	color: grey;
 }
+
+.owl-carousel .owl-item img {
+	min-height:100px;
+	max-height:100px;
+}
+
+.neatifyCarousel {
+	padding-left: var(--bs-gutter-x, .75rem);
+    padding-right: var(--bs-gutter-x, .75rem);
+}
+
 </style>

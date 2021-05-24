@@ -31,61 +31,48 @@
 			</carousel>
 			<!-- Product Title & Meta Data-->
 			<div class="product-title-meta-data bg-white mb-3 py-3">
-				<div class="container d-flex justify-content-between">
+				<div class="container d-flex justify-content-between"  style="margin-left: 10%!important;">
 					<div class="p-title-price">
-						<h5 class="mb-1">You are placing an order for:</h5>
-						<h6 class="mb-1">{{product.name}}</h6>
+						<!-- <h5 class="mb-1">You are placing an order for:</h5> -->
+						<h6 class="mb-3">{{product.name}}</h6>
 						<div v-if="product.user_ordered" class="align-items-center">
 							<br />
 							<h6 class="mb-1">You have joined this groupbuy!</h6>
+ 
 						</div>
 						<div v-else>
-							<p class="sale-price mb-0">${{parseFloat(product.price).toFixed(2)}}</p>
-							<table class="table mb-0">
-								<tbody>
-									<tr>
-										<td>
-											<img src="img/product/11.png" alt />
-										</td>
-										<td>
-											<p>Amount</p>
-										</td>
-										<td>
-											<div class="quantity">
-												<input class="qty-text" type="text" v-model="quantity" required autofocus />
-											</div>
-										</td>
-									</tr>
-								</tbody>
-							</table>
+							<div class ="row" > <!-- color: rgb(169, 50, 38);-->
+								<p class="col-6 sale-price mb-0" style="font-size:21px; color: rgb(169, 50, 38);">${{parseFloat(product.price).toFixed(2)}}</p>
+								<div class="col-6 quantity">
+									<input class="qty-text" type="text" v-model="quantity" required autofocus />
+								</div>
+							</div>
+						</div>
+						<div v-show="!product.user_ordered">
+							<div class="container d-flex align-items-center justify-content-between"  style="width: 100%;position: fixed; bottom:3.6rem; left:-0rem; background-color:#fff; display:block; height:50px;"> 
+								<h5 class="col-8 total-price mb-0">
+									Total Price : $
+									<span>{{confirmedPrice}}</span>
+								</h5>
+								<a class="col-4 btn btn-sm btn-primary" @click="confirmOrder_Start">Confirm</a>
+							</div>
+						</div>
+
+						 
+						<div class="container d-flex align-items-center justify-content-between" 
+							v-show="product.user_ordered & product.groupbuy_status == 'Active'"
+							 style="width: 100%;position: fixed; bottom:3.6rem; left:-0rem; background-color:#fff; display:block; height:50px;"> 
+ 
+								<a class="col-12 btn btn-sm " style="background-color: #a93226; color:#fff;" @click="deleteOrder">Leave</a>
+ 
 						</div>
 					</div>
 				</div>
 			</div>
-			<!-- Cart Amount Area-->
-			<div v-show="!product.user_ordered" class="card cart-amount-area">
-				<div class="container d-flex align-items-center justify-content-between">
-					<h5 class="total-price mb-0">
-						Total Price : $
-						<span>{{confirmedPrice}}</span>
-					</h5>
-					<a class="btn btn-warning" @click="confirmOrder_Start">Confirm Order</a>
-				</div>
-			</div>
-			<div
-				v-show="product.user_ordered & product.groupbuy_status == 'Active'"
-				class="card cart-amount-area"
-			>
-				<div class="container d-flex justify-content-between">
-					<h5 class="total-price mb-0">
-						<p>Are you sure? This will remove your existing order!</p>
-					</h5>
-					<a class="btn btn-warning" @click="deleteOrder">Leave Groupbuy</a>
-				</div>
-			</div>
 		</div>
 		<modal @close="goHome" v-show="joinSuccess == true"></modal>
-	</div>
+
+  	</div>
 </template>
 
 <script>
@@ -203,7 +190,7 @@ export default {
 
 .total-price {
 	font-weight: 500;
-	color: red;
+	color: #463f3a;
 	font-size: 18px;
 }
 </style>
