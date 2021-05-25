@@ -177,32 +177,38 @@
 						<div v-if="product.groupbuy_id == null" class="card top-product-card">
 							<router-link class="card-body" :to="{ path: '/products/'+product.id}">
 								<span class="badge badge-pending">{{product.groupbuy_status}}</span>
-								<a
-									class="wishlist-btn notwatching-btn"
+								 
+								<a class="product-thumbnail d-block">
+									<img class="mb-2" :src="product.product_image" :alt="product.product_name" />
+								</a>
+								<a class="product-title d-block" v-html="product.product_name"></a>
+								<div class="row g-3">
+
+									<p class="col-8 sale-price">${{parseFloat(product.product_price).toFixed(2)}}</p>
+
+									<a
+									class="col-4 notwatching-btn"
 									v-if="!user"
 									v-on:click.prevent
 									@click="promptlogin()"
 								>
 									<i class="lni lni-heart"></i>
-								</a>
-								<a
-									class="wishlist-btn"
-									v-else
-									v-bind:class="!product.watchlists.some(w => w.user_id == user.id) ? 'notwatching-btn' : 'watching-btn'"
-									v-on:click.prevent
-									@click="watch(product, user.id)"
-								>
-									<i
-										class="lni"
-										v-bind:class="!product.watchlists.some(w => w.user_id == user.id) ? 'lni-heart' : 'lni-heart-filled'"
-									></i>
-									<!-- <span class="wishlist-btn wishlist-likes">{{product.watchlists.length}} watches</span> -->
-								</a>
-								<a class="product-thumbnail d-block">
-									<img class="mb-2" :src="product.product_image" :alt="product.product_name" />
-								</a>
-								<a class="product-title d-block" v-html="product.product_name"></a>
-								<p class="sale-price">${{parseFloat(product.product_price).toFixed(2)}}</p>
+									</a>
+									<a
+										class="col-4"
+										v-else
+										v-bind:class="!product.watchlists.some(w => w.user_id == user.id) ? 'notwatching-btn' : 'watching-btn'"
+										v-on:click.prevent
+										@click="watch(product, user.id)"
+									>
+										<i
+											class="lni"
+											v-bind:class="!product.watchlists.some(w => w.user_id == user.id) ? 'lni-heart' : 'lni-heart-filled'"
+										></i>
+										<!-- <span class="wishlist-btn wishlist-likes">{{product.watchlists.length}} watches</span> -->
+									</a>
+
+								</div>
 								<!--<span class="badge bottom-badge badge-watch-pending">{{product.watchlists.length}} watchers</span>
 								-->
 								<span class="badge badge-pending bottom-badge">Min required: {{product.product_min}}</span>
@@ -214,32 +220,34 @@
 
 								<span class="badge badge-success">{{timediff(timestamp, product.groupbuy_date_end)}}</span>
 
-								<a
-									class="wishlist-btn notwatching-btn"
-									v-if="!user"
-									v-on:click.prevent
-									@click="promptlogin()"
-								>
-									<i class="lni lni-heart"></i>
-								</a>
-								<a
-									class="wishlist-btn"
-									v-else
-									v-bind:class="!product.watchlists.some(w => w.user_id == user.id) ? 'notwatching-btn' : 'watching-btn'"
-									v-on:click.prevent
-									@click="watch(product, user.id)"
-								>
-									<i
-										class="lni"
-										v-bind:class="!product.watchlists.some(w => w.user_id == user.id) ? 'lni-heart' : 'lni-heart-filled'"
-									></i>
-								</a>
+								 
 								<a class="product-thumbnail d-block">
 									<img class="mb-2" :src="product.product_image" :alt="product.product_name" />
 								</a>
 								<a class="product-title d-block" v-html="product.product_name"></a>
-								<p class="sale-price">${{parseFloat(product.product_price).toFixed(2)}}</p>
-
+								<div class="row g-3">
+									<p class="col-8 sale-price">${{parseFloat(product.product_price).toFixed(2)}}</p>
+									<a
+										class="col-4 notwatching-btn"
+										v-if="!user"
+										v-on:click.prevent
+										@click="promptlogin()"
+									>
+										<i class="lni lni-heart"></i>
+									</a>
+									<a
+										class="col-4"
+										v-else
+										v-bind:class="!product.watchlists.some(w => w.user_id == user.id) ? 'notwatching-btn' : 'watching-btn'"
+										v-on:click.prevent
+										@click="watch(product, user.id)"
+									>
+										<i
+											class="lni"
+											v-bind:class="!product.watchlists.some(w => w.user_id == user.id) ? 'lni-heart' : 'lni-heart-filled'"
+										></i>
+									</a>
+								</div>
 								<!--<span class="badge bottom-badge badge-success">{{product.groupbuy_orders}}/{{product.groupbuy_max}} purchased</span>
 								-->
 								<span
@@ -538,10 +546,12 @@ export default {
 
 .watching-btn {
 	color: #a93226;
+	font-size: 1.25rem;
 }
 
 .notwatching-btn {
 	color: grey;
+	font-size: 1.25rem;
 }
 
 .owl-carousel .owl-item img {
