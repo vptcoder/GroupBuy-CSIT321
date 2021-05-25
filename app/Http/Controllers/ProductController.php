@@ -135,7 +135,6 @@ class ProductController extends Controller
         //2. Organise data
         foreach ($products as $pkey => $p) {
             if (!empty($p->groupbuys)) {
-                Log::info('$g->groupbuys->count(): ' . $p->groupbuys->count());
 
                 if ($p->groupbuys->count() > 1) {
                     throw new \Exception("Error: more than 1 active groupbuy is retrieved!");

@@ -377,8 +377,6 @@ export default {
 			return remaining;
 		},
 		search() {
-			console.log("just clicked search");
-			console.log("searchterm: " + this.searchterm);
 			axios
 				.get("api/availableProducts/", {
 					params: { searchterm: this.searchterm }
@@ -605,8 +603,8 @@ export default {
 }
 
 .owl-carousel .owl-item img {
-	min-height:150px;
-	max-height:150px;
+	min-height: 150px;
+	max-height: 150px;
 }
 
 .neatifyCarousel {
