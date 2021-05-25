@@ -1718,7 +1718,8 @@ progress {
 	margin-bottom: 1rem;
 	color: #212529;
 	vertical-align: top;
-	border-color: #dee2e6
+	border-color: #dee2e6;
+	font-size: large;
 }
 .table>:not(caption)>*>* {
 	padding: .5rem .5rem;
@@ -1731,7 +1732,15 @@ progress {
 	vertical-align: inherit
 }
 .table>thead {
-	vertical-align: bottom
+	/*vertical-align: bottom*/
+	color: #fff;
+    /*background-color: #343a40;*/
+	background-color: rgb(54, 69, 59);
+    border-color: #454d55;
+}
+
+.table>tr:hover {
+	background-color: #ede0d4;
 }
 .table>:not(:last-child)>:last-child>* {
 	border-bottom-color: currentColor
@@ -1855,6 +1864,9 @@ progress {
 	overflow-x: auto;
 	-webkit-overflow-scrolling: touch
 }
+
+ 
+
 @media (max-width:575.98px) {
 	.table-responsive-sm {
 		overflow-x: auto;
@@ -2716,8 +2728,7 @@ textarea.form-control-lg {
 }
 .btn-primary.disabled, .btn-primary:disabled {
 	color: #fff;
-	background-color: #0d6efd;
-	border-color: #0d6efd
+	background-color: rgb(169, 50, 38);
 }
 .btn-secondary {
 	color: #fff;
@@ -9886,4 +9897,8 @@ textarea.form-control-lg {
 	.d-print-none {
 		display: none!important
 	}
+
+ 
+
+	 
 }

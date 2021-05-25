@@ -31,61 +31,49 @@
 			</carousel>
 			<!-- Product Title & Meta Data-->
 			<div class="product-title-meta-data bg-white mb-3 py-3">
-				<div class="container d-flex justify-content-between">
+				<div class="container justify-content-between"  style="margin-left: 10%!important;">
 					<div class="p-title-price">
-						<h5 class="mb-1">You are placing an order for:</h5>
-						<h6 class="mb-1">{{product.name}}</h6>
+						<!-- <h5 class="mb-1">You are placing an order for:</h5> -->
+						<h6 class="mb-3">{{product.name}}</h6>
 						<div v-if="product.user_ordered" class="align-items-center">
 							<br />
 							<h6 class="mb-1">You have joined this groupbuy!</h6>
+							<div class="container d-flex align-items-center justify-content-between"  style="width: 100%;position: fixed; bottom:3.6rem; left:-0rem; background-color:#fff; display:block; height:50px;"> 
+ 
+								<a class="col-12 btn btn-sm " style="background-color: #a93226; color:#fff;" @click="deleteOrder">Leave</a>
+ 
+							</div>
 						</div>
 						<div v-else>
-							<p class="sale-price mb-0">${{parseFloat(product.price).toFixed(2)}}</p>
-							<table class="table mb-0">
-								<tbody>
-									<tr>
-										<td>
-											<img src="img/product/11.png" alt />
-										</td>
-										<td>
-											<p>Amount</p>
-										</td>
-										<td>
-											<div class="quantity">
-												<input class="qty-text" type="text" v-model="quantity" required autofocus />
-											</div>
-										</td>
-									</tr>
-								</tbody>
-							</table>
+							<div class ="row" > <!-- color: rgb(169, 50, 38);-->
+								<p class="col-6 sale-price mb-0" style="font-size:21px; color: #463f3a; font-weight:500;">${{parseFloat(product.price).toFixed(2)}}</p>
+								<div class="col-6">
+								
+										<div class="value-button" id="decrease" @click="decreaseValue()" value="Decrease Value"><i class="lni lni-circle-minus"></i></div>
+										<input type="number" required autofocus id="number" value="1" />
+										<div class="value-button" id="increase" @click="increaseValue()" value="Increase Value"><i class="lni lni-circle-plus"></i></div>
+									
+									<!-- <input class="qty-text" type="text" v-model="quantity" required autofocus /> -->
+								</div>
+							</div>
+
+							<div class="container d-flex align-items-center justify-content-between"  style="width: 100%;position: fixed; bottom:3.6rem; left:-0rem; background-color:#fff; display:block; height:50px;"> 
+								<h5 class="col-8 total-price mb-0">
+									Total Price : $
+									<span>{{confirmedPrice}}</span>
+								</h5>
+								<a class="col-4 btn btn-sm btn-primary" @click="confirmOrder_Start">Confirm</a>
+							</div>
+ 
 						</div>
+						<modal @close="goHome" v-show="joinSuccess == true"></modal>
 					</div>
 				</div>
 			</div>
-			<!-- Cart Amount Area-->
-			<div v-show="!product.user_ordered" class="card cart-amount-area">
-				<div class="container d-flex align-items-center justify-content-between">
-					<h5 class="total-price mb-0">
-						Total Price : $
-						<span>{{confirmedPrice}}</span>
-					</h5>
-					<a class="btn btn-warning" @click="confirmOrder_Start">Confirm Order</a>
-				</div>
-			</div>
-			<div
-				v-show="product.user_ordered & product.groupbuy_status == 'Active'"
-				class="card cart-amount-area"
-			>
-				<div class="container d-flex justify-content-between">
-					<h5 class="total-price mb-0">
-						<p>Are you sure? This will remove your existing order!</p>
-					</h5>
-					<a class="btn btn-warning" @click="deleteOrder">Leave Groupbuy</a>
-				</div>
-			</div>
-		</div>
-		<modal @close="goHome" v-show="joinSuccess == true"></modal>
+ 
+ 
 	</div>
+  </div>
 </template>
 
 <script>
@@ -106,7 +94,8 @@ export default {
 	},
 	computed: {
 		confirmedPrice: function() {
-			return this.quantity * this.product.price;
+ 
+			return  this.quantity * this.product.price;
 		}
 	},
 	beforeMount() {
@@ -136,7 +125,23 @@ export default {
 		carousel,
 		Modal
 	},
+ 
 	methods: {
+		increaseValue() {
+			var value = parseInt(document.getElementById('number').value, 10);
+			value = isNaN(value) ? 0 : value;
+			value++;
+			document.getElementById('number').value = value;
+			return this.quantity = value;
+		},
+		decreaseValue() {
+			var value = parseInt(document.getElementById('number').value, 10);
+			value = isNaN(value) ? 0 : value;
+			value < 1 ? value = 1 : '';
+			value--;
+			document.getElementById('number').value = value;
+			return this.quantity = value;
+		},
 		confirmOrder_Start() {
 			var groupbuyid =
 				this.product.groupbuy_id == null
@@ -203,7 +208,65 @@ export default {
 
 .total-price {
 	font-weight: 500;
-	color: red;
-	font-size: 18px;
+	color: rgb(169, 50, 38);
+ 	font-size: 22px;
+}
+ 
+
+ form {
+  width: 300px;
+  margin: 0 auto;
+  text-align: center;
+  padding-top: 50px;
+}
+
+.value-button {
+  display: inline-block;
+  margin: 0px;
+  width: 50px;
+  height: 20px;
+  text-align: center;
+  vertical-align: middle;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.value-button:hover {
+  cursor: pointer;
+}
+
+form #decrease {
+  margin-right: -4px;
+  border-radius: 8px 0 0 8px;
+}
+
+form #increase {
+  margin-left: -4px;
+  border-radius: 0 8px 8px 0;
+}
+
+form #input-wrap {
+  margin: 0px;
+  padding: 0px;
+}
+
+input#number {
+  text-align: center;
+  border: none;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  margin: 0px;
+  width: 40px;
+  height: 40px;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 </style>

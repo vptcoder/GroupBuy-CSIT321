@@ -1,10 +1,30 @@
 <template>
 	<div class="page-content-wrapper" style="background-color: #f4f3ee;">
+		<!-- Search Form-->
+		<div class="top-search-form" style="width:100%;">
+			<form id="searchbox" @submit.prevent="search">
+				<div class="grid-search">
+					<div>
+						<input
+							class="form-control input-search"
+							type="search"
+							placeholder="Search"
+							v-model="searchterm"
+						/>
+					</div>
+					<div>
+						<button class="btn-search" type="submit">
+							<i class="fa fa-search"></i>
+						</button>
+					</div>
+				</div>
+			</form>
+		</div>
 		<!-- Product Catagories-->
 		<div class="product-catagories-wrapper py-3">
 			<div class="container">
 				<div class="section-heading">
-					<h6>Product Categories</h6>
+					<h6>Categories</h6>
 				</div>
 
 				<div class="product-catagory-wrap">
@@ -76,82 +96,99 @@
 								</div>
 							</div>
 						</div>
-
-						<!-- Single Catagory Card-->
-						<div class="col-4">
-							<div class="card catagory-card">
-								<div class="card-body">
-									<a class="text-info" href="catagory.html">
-										<img src="https://img.icons8.com/windows/32/000000/womens-watch.png" />
-										<span>Accessories</span>
-									</a>
-								</div>
-							</div>
-						</div>
-						<!-- Single Catagory Card-->
-						<div class="col-4">
-							<div class="card catagory-card">
-								<div class="card-body">
-									<a class="text-info" href="catagory.html">
-										<img src="https://img.icons8.com/windows/32/000000/potted-plant.png" />
-										<span>Garden</span>
-									</a>
-								</div>
-							</div>
-						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 
-		<!-- Popular Products-->
+		<!-- XR POP Product Slides-->
 		<div class="flash-sale-wrapper">
 			<div class="container">
 				<div class="section-heading d-flex align-items-center justify-content-between">
-					<h6 class="me-1 d-flex align-items-center">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							width="18"
-							height="18"
-							fill="currentColor"
-							class="bi bi-lightning me-1"
-							viewBox="0 0 16 16"
-						>
-							<path
-								fill-rule="evenodd"
-								d="M11.251.068a.5.5 0 0 1 .227.58L9.677 6.5H13a.5.5 0 0 1 .364.843l-8 8.5a.5.5 0 0 1-.842-.49L6.323 9.5H3a.5.5 0 0 1-.364-.843l8-8.5a.5.5 0 0 1 .615-.09zM4.157 8.5H7a.5.5 0 0 1 .478.647L6.11 13.59l5.732-6.09H9a.5.5 0 0 1-.478-.647L9.89 2.41 4.157 8.5z"
-							/>
-						</svg>
-						Popular Products
-					</h6>
+					<h6 class="me-1 d-flex align-items-center">Popular Products</h6>
 				</div>
+			</div>
+		</div>
+		<carousel :items="1" :autoplay="false" :nav="false" :dots="true">
+			<div class="neatifyCarousel">
 				<div class="row g-3">
-					<!-- Single Card-->
-					<div class="col-12 col-md-6" v-for="(product,index) in popularProducts" :key="index">
-						<div class="card weekly-product-card">
-							<router-link
-								:to="{ path: '/products/'+product.id}"
-								class="card-body d-flex align-items-center"
-							>
-								<div class="product-thumbnail-side">
-									<a class="product-thumbnail d-block">
-										<img class="mb-2" :src="product.product_image" :alt="product.product_name" />
-									</a>
-								</div>
-								<div class="product-description">
-									<a class="product-title d-block">{{product.product_name}}</a>
-									<p class="sale-price">
-										<i class="lni lni-dollar"></i>
-										${{parseFloat(product.product_price).toFixed(2)}}
-									</p>
-									<span class="progress-title">{{product.watchlists.length}} Interested</span>
-								</div>
+					<div
+						class="col-4 col-md-2 col-lg"
+						v-for="(product,index) in popularProducts.slice(0,3)"
+						:key="index"
+					>
+						<div class="card top-product-card">
+							<router-link :to="{ path: '/products/'+product.id}" class="card-body align-items-center">
+								<span class="badge badge-pending">HOT</span>
+
+								<a class="product-thumbnail d-block">
+									<img class="mb-2" :src="product.product_image" :alt="product.product_name" />
+								</a>
+								<a class="product-title d-block" style="font-size:12px;">{{product.product_name}}</a>
+								<p
+									class="sale-price"
+									style="font-size:16px;"
+								>${{parseFloat(product.product_price).toFixed(2)}}</p>
+								<span
+									class="progress-title"
+									style="font-size:14px; color:#8a817c;"
+								>{{product.watchlists.length}} sold</span>
 							</router-link>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+			<div class="neaitfyCarousel">
+				<div class="row g-3">
+					<div
+						class="col-4 col-md-2 col-lg"
+						v-for="(product,index) in popularProducts.slice(3,6)"
+						:key="index"
+					>
+						<div class="card top-product-card">
+							<router-link :to="{ path: '/products/'+product.id}" class="card-body align-items-center">
+								<span class="badge badge-pending">HOT</span>
+
+								<a class="product-thumbnail d-block">
+									<img class="mb-2" :src="product.product_image" :alt="product.product_name" />
+								</a>
+								<a class="product-title d-block">{{product.product_name}}</a>
+								<p class="sale-price">${{parseFloat(product.product_price).toFixed(2)}}</p>
+								<span
+									class="progress-title"
+									style="font-size:14px; color:#8a817c;"
+								>{{product.watchlists.length}} sold</span>
+							</router-link>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="neaitfyCarousel">
+				<div class="row g-3">
+					<div
+						class="col-4 col-md-2 col-lg"
+						v-for="(product,index) in popularProducts.slice(6,9)"
+						:key="index"
+					>
+						<div class="card top-product-card">
+							<router-link :to="{ path: '/products/'+product.id}" class="card-body align-items-center">
+								<span class="badge badge-pending">HOT</span>
+
+								<a class="product-thumbnail d-block">
+									<img class="mb-2" :src="product.product_image" :alt="product.product_name" />
+								</a>
+								<a class="product-title d-block">{{product.product_name}}</a>
+								<p class="sale-price">${{parseFloat(product.product_price).toFixed(2)}}</p>
+								<span
+									class="progress-title"
+									style="font-size:14px; color:#8a817c;"
+								>{{product.watchlists.length}} sold</span>
+							</router-link>
+						</div>
+					</div>
+				</div>
+			</div>
+		</carousel>
 
 		<!-- All Products-->
 		<div class="top-products-area clearfix py-3">
@@ -254,6 +291,8 @@
 </template>
 
 <script>
+import carousel from "vue-owl-carousel";
+
 export default {
 	data() {
 		return {
@@ -262,7 +301,9 @@ export default {
 			popularProducts: [],
 			countPopularLimit: 3,
 			products2: [],
-			timestamp: ""
+			limitationList: 2,
+			timestamp: "",
+			searchterm: ""
 		};
 	},
 
@@ -277,38 +318,10 @@ export default {
 			.get("api/products/")
 			.then(response => (this.products2 = response.data));
 
-		axios
-			.get("api/availableProducts/")
-			.then(response => {
-				this.products = response.data;
-
-				let countPopularLimit = this.countPopularLimit;
-				for (var key in this.products) {
-					if (this.products.hasOwnProperty(key)) {
-						let p = this.products[key];
-						if (p.watchlists.length > 0) {
-							if (p.groupbuy_orders == null) {
-								p.groupbuy_orders = 0;
-							}
-							this.popularProducts.push(p);
-						}
-					}
-				}
-
-				this.popularProducts.sort((a, b) =>
-					a.watchlists.length < b.watchlists.length ? 1 : -1
-				);
-
-				this.popularProducts.forEach((element, index) => {
-					countPopularLimit--;
-					if (countPopularLimit == 0) {
-						this.popularProducts.splice(index, 1);
-					}
-				});
-			})
-			.catch(error => {
-				alert(error);
-			});
+		this.search();
+	},
+	components: {
+		carousel
 	},
 	methods: {
 		getNow: function() {
@@ -327,6 +340,79 @@ export default {
 				today.getSeconds();
 			const dateTime = date + " " + time;
 			this.timestamp = dateTime;
+		},
+		timediff(currentTime, productTime) {
+			var bucketMili = new Date(productTime) - new Date(currentTime);
+			var mili_per_day = 1000 * 60 * 60 * 24;
+			var mili_per_hour = 1000 * 60 * 60;
+			var mili_per_min = 1000 * 60;
+			var mili_per_sec = 1000;
+
+			var remainingDays = Math.floor(bucketMili / mili_per_day);
+			var bucketMili = bucketMili - mili_per_day * remainingDays;
+
+			var remainintHours = Math.floor(bucketMili / mili_per_hour);
+			var bucketMili = bucketMili - mili_per_hour * remainintHours;
+
+			var remainingMins = Math.floor(bucketMili / mili_per_min);
+			var bucketMili = bucketMili - mili_per_min * remainingMins;
+
+			var remainingSecs = Math.floor(bucketMili / mili_per_sec);
+
+			var remaining = "";
+			if (
+				!isNaN(remainingDays) &&
+				!isNaN(remainintHours) &&
+				!isNaN(remainingMins) &&
+				!isNaN(remainingSecs)
+			) {
+				remaining =
+					remainingDays +
+					"d " +
+					remainintHours +
+					"h " +
+					remainingMins +
+					"m";
+			}
+			return remaining;
+		},
+		search() {
+			axios
+				.get("api/availableProducts/", {
+					params: { searchterm: this.searchterm }
+				})
+				.then(response => {
+					this.searchterm = "";
+					this.products = response.data;
+					this.popularProducts = [];
+
+					let countPopularLimit = this.countPopularLimit;
+					for (var key in this.products) {
+						if (this.products.hasOwnProperty(key)) {
+							let p = this.products[key];
+							if (p.watchlists.length > 0) {
+								if (p.groupbuy_orders == null) {
+									p.groupbuy_orders = 0;
+								}
+								this.popularProducts.push(p);
+							}
+						}
+					}
+
+					this.popularProducts.sort((a, b) =>
+						a.watchlists.length < b.watchlists.length ? 1 : -1
+					);
+
+					this.popularProducts.forEach((element, index) => {
+						countPopularLimit--;
+						if (countPopularLimit == 0) {
+							this.popularProducts.splice(index, 1);
+						}
+					});
+				})
+				.catch(error => {
+					alert(error);
+				});
 		},
 		watch(product, userid) {
 			var found = false;
@@ -376,41 +462,6 @@ export default {
 		},
 		promptlogin() {
 			alert("Please login or create account to continue :)");
-		},
-		timediff(currentTime, productTime) {
-			var bucketMili = new Date(productTime) - new Date(currentTime);
-			var mili_per_day = 1000 * 60 * 60 * 24;
-			var mili_per_hour = 1000 * 60 * 60;
-			var mili_per_min = 1000 * 60;
-			var mili_per_sec = 1000;
-
-			var remainingDays = Math.floor(bucketMili / mili_per_day);
-			var bucketMili = bucketMili - mili_per_day * remainingDays;
-
-			var remainintHours = Math.floor(bucketMili / mili_per_hour);
-			var bucketMili = bucketMili - mili_per_hour * remainintHours;
-
-			var remainingMins = Math.floor(bucketMili / mili_per_min);
-			var bucketMili = bucketMili - mili_per_min * remainingMins;
-
-			var remainingSecs = Math.floor(bucketMili / mili_per_sec);
-
-			var remaining = "";
-			if (
-				!isNaN(remainingDays) &&
-				!isNaN(remainintHours) &&
-				!isNaN(remainingMins) &&
-				!isNaN(remainingSecs)
-			) {
-				remaining =
-					remainingDays +
-					"d " +
-					remainintHours +
-					"h " +
-					remainingMins +
-					"m";
-			}
-			return remaining;
 		}
 	},
 	computed: {}
@@ -419,7 +470,31 @@ export default {
 
 <style scoped>
 /* external css: flickity.css */
-
+.top-search-form {
+	width: 100%;
+	height: 60px;
+}
+#searchbox {
+	position: absolute;
+	max-width: 400px;
+	width: 380px;
+	left: 50%;
+	margin-left: -190px;
+}
+.input-search {
+	width: 100%;
+}
+.grid-search {
+	display: grid;
+	grid-template-columns: 6fr 1fr;
+	padding: 3%;
+}
+.btn-search {
+	position: initial;
+	width: 100%;
+	padding-right: 10%;
+	background: lightblue;
+}
 * {
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
@@ -525,5 +600,15 @@ export default {
 
 .notwatching-btn {
 	color: grey;
+}
+
+.owl-carousel .owl-item img {
+	min-height: 150px;
+	max-height: 150px;
+}
+
+.neatifyCarousel {
+	padding-left: var(--bs-gutter-x, 0.75rem);
+	padding-right: var(--bs-gutter-x, 0.75rem);
 }
 </style>

@@ -240,6 +240,22 @@ export default {
 </script>
 
 <style scoped>
+.notif { 
+		border-radius: 50%;
+		width: 15%;
+		height: 25%;
+		position: absolute;
+		float: right;
+		align-content: right;
+		left: 55%;
+		top: 1%;
+		background-color: red;
+		font-size: 10px;
+		text-align: center;
+		color: white;
+		font-weight: 400;
+		padding: 1px 1px;
+	}
 /* .admin-page-margin {
 	padding-top: 0px !important;
 } */

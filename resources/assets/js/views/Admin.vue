@@ -2,13 +2,13 @@
 	<div class="page-content-wrapper">
 		
 		<div class="subheader-area">
-			<button class="btn" @click="setComponent('main')">Dashboard</button>
-			<div></div>
-			<button class="btn" @click="setComponent('products')">Products</button>
-			<button class="btn" @click="setComponent('groupbuys')">Groupbuys</button>
-			<button class="btn" @click="setComponent('orders')">Orders</button>
-			<button class="btn" @click="setComponent('payments')">Payments</button>
-			<button class="btn" @click="setComponent('users')">Users</button>
+			<!-- <div style="background-color:#fff; float:center; width:auto;"> <img data-v-50e73d1e="" style="top:-100px; position: absolute; min-width:150px; min-height:150px; float:center;" src="/assets/img/core-img/brand-logo.png" alt="" class="brand-logo"> </div> -->
+			<!-- <button class="btn nav-menu" @click="setComponent('main')">Dashboard</button> -->
+			<button class="btn nav-menu" @click="setComponent('products')">Products</button>
+			<button class="btn nav-menu" @click="setComponent('groupbuys')">Groupbuys</button>
+			<button class="btn nav-menu" @click="setComponent('orders')">Orders</button>
+			<button class="btn nav-menu" @click="setComponent('payments')">Payments</button>
+			<button class="btn nav-menu" @click="setComponent('users')">Users</button>
 		</div>
 		<div class="container">
 			<div class="row">
@@ -72,13 +72,13 @@ export default {
 					this.$router.push({name: 'admin'})
 					break;
 			}
-		}
-	},
-
-}
+		},
+	}
+};
 </script>
 
 <style scoped>
+ 
 .container {
 	max-width: 95%;
 }
@@ -87,11 +87,11 @@ export default {
 	width: 100%;
 	align-items: center;
 	justify-content: right;
-	grid-template-columns: 1fr 3fr 1fr 1fr 1fr 1fr 1fr;
+	grid-template-columns: 2.5fr 2.5fr 2.5fr 2.5fr 2.5fr;
 }
 .subheader-area {
     transition-duration: 500ms;
-    background-color:rgb(255, 229, 157);
+    background-color:rgb(54, 69, 59);
     width: 100%;
     height: 50px;
     top: 0;
@@ -100,14 +100,22 @@ export default {
     z-index: 1000;
     box-shadow: 0 0 8px rgba(15, 15, 15, 0.15);
 	display: grid;
-	grid-template-columns: 1fr 3fr 1fr 1fr 1fr 1fr 1fr;
+	grid-template-columns: 2fr 2fr 2fr 2fr 2fr 2fr 2fr;
 }
 .subheader-area .btn:hover,.subheader-area .btn:active, .subheader-area .btn:focus {
-	color: #100DD1;
+	border-bottom-style: solid;
+  	border-bottom-color: rgb(245, 249, 233);
+	border-bottom-width: thick;
 }
 .admin-ul{
 	float:left;
 }
 .hero-section { height: 20vh; background: #ababab; align-items: center; margin-bottom: 20px; margin-top: -20px; }
 .title { font-size: 60px; color: #ffffff; }
+
+.nav-menu {
+	color:white;
+	font-size: large;
+}
+ 
 </style>
