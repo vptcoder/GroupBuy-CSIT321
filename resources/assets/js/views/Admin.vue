@@ -100,7 +100,7 @@ export default {
     z-index: 1000;
     box-shadow: 0 0 8px rgba(15, 15, 15, 0.15);
 	display: grid;
-	grid-template-columns: 2fr 2fr 2fr 2fr 2fr 2fr 2fr;
+	grid-template-columns: 2fr 2fr 2fr 2fr 2fr ;
 }
 .subheader-area .btn:hover,.subheader-area .btn:active, .subheader-area .btn:focus {
 	border-bottom-style: solid;

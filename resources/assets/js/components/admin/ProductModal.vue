@@ -7,7 +7,7 @@
 				<div class="modal-header border-bottom-0">
 					<h5 class="modal-title" id="exampleModalLabel">Add New Product</h5>
 					<button type="button" class="close" data-dismiss="modal"  @click="cancelFile" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
+					<span aria-hidden="true">X</span>
 					</button>
 				</div>
 				<form>
