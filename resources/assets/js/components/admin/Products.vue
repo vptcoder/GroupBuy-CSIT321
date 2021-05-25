@@ -51,7 +51,6 @@
 import Modal from "./ProductModal";
 
 import { mdbDatatable2,mdbIcon    } from 'mdbvue';
-import { FontAwesomeModule } from '@fortawesome/fontawesome-free';
 
 export default {
 	data() {
