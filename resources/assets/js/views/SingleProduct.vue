@@ -17,8 +17,7 @@
 					<img :src="product.image" :alt="product.name" >
 				</div>
 				<div >
-					<h5>Description</h5>
-					<p>{{product.description}}</p>
+					<img :src="product.image" :alt="product.name" >
 				</div>
 			</carousel>
 			<div class="product-description pb-3">
@@ -30,8 +29,14 @@
 							<hr style= "color:grey">
 							<p class="sale-price mb-0">${{parseFloat(product.price).toFixed(2)}}</p>
 							<div>
-								<label v-if="product.groupbuy_id == null" style="color:red;  font-size:12px;">{{product.max}} slots left</label>
-								<label v-else style="color:red;  font-size:12px;">{{product.groupbuy_max-product.groupbuy_orders_qty}} slots left</label>
+								<label v-if="product.groupbuy_status === 'Processing' || product.groupbuy_status === 'Active' && product.groupbuy_id == null" style="color:red; ">Sold Out!</label>
+								<label v-else-if="product.groupbuy_status === 'Pending'" style="color:red;">{{product.max}}  slots left</label>
+								<label v-else style="color:red;">{{product.groupbuy_max-product.groupbuy_orders_qty}} slots left</label>
+							</div>
+							<div v-if="product.groupbuy_status == 'Active'">
+								<span style=" font-size:14px;">
+									<img style ="width:14px;" src="https://img.icons8.com/android/50/000000/timer.png"/>
+									{{timediff(timestamp, product.groupbuy_date_end)}} left</span>
 							</div>
 						</div>
 					</div>
@@ -47,13 +52,16 @@
 								v-if="product.user_ordered"
 								class="col-10 btn btn-sm btn-primary">Joined (Click to view)
 							</router-link>
-							<router-link :to="{ path: '/join?pid='+product.id }" 
-								v-else
+				
+							<button v-else-if="product.groupbuy_orders >= product.groupbuy_max"
+									class="col-10 btn btn-sm btn-primary"
+								disabled >Full</button>
+							<router-link :to="{ path: '/join?pid='+product.id }" v-else 
 								class="col-10 btn btn-sm btn-primary">Join
 							</router-link>
 
 							<a
-									class="col-2 btn btn-sm btn-primary wishlist-btn notwatching-btn"
+									class="col-2 mx-4 wishlist-btn notwatching-btn"
 									style="border:0px;" v-if="!user"
 									v-on:click.prevent
 									@click="promptlogin()"
@@ -61,11 +69,11 @@
 									<i class="lni lni-heart"></i>
 							</a>
 							<a
-									class="col-2 btn btn-sm btn-primary wishlist-btn"
+									class="col-2 mx-4 wishlist-btn"
 									style="border:0px;" v-else
 									v-bind:class="!product.watchlists.some(w => w.user_id == user.id) ? 'notwatching-btn' : 'watching-btn'"
 									v-on:click.prevent
-									@click="watch(product, user.id)"
+									@click="watch(product.id, user.id)"
 								>
 									<i
 										class="lni"
@@ -100,8 +108,13 @@ export default {
 		return {
 			user: null,
 			product : null,
-			is_data_fetched: false
+			is_data_fetched: false,
+			timestamp: ""
+
 		}
+	},
+	created() {
+		setInterval(this.getNow, 1000);
 	},
 	beforeMount(){
 		this.user = JSON.parse(localStorage.getItem('bigStore.user'));
@@ -174,8 +187,61 @@ export default {
 					console.log("userid not removed.", error);
 				})
 			}
-		}
+		},
+		getNow: function() {
+			const today = new Date();
+			const date =
+				today.getFullYear() +
+				"-" +
+				(today.getMonth() + 1) +
+				"-" +
+				today.getDate();
+			const time =
+				today.getHours() +
+				":" +
+				today.getMinutes() +
+				":" +
+				today.getSeconds();
+			const dateTime = date + " " + time;
+			this.timestamp = dateTime;
+		},
+		timediff(currentTime, productTime) {
+			var bucketMili = new Date(productTime) - new Date(currentTime);
+			var mili_per_day = 1000 * 60 * 60 * 24;
+			var mili_per_hour = 1000 * 60 * 60;
+			var mili_per_min = 1000 * 60;
+			var mili_per_sec = 1000;
 
+			var remainingDays = Math.floor(bucketMili / mili_per_day);
+			var bucketMili = bucketMili - mili_per_day * remainingDays;
+
+			var remainintHours = Math.floor(bucketMili / mili_per_hour);
+			var bucketMili = bucketMili - mili_per_hour * remainintHours;
+
+			var remainingMins = Math.floor(bucketMili / mili_per_min);
+			var bucketMili = bucketMili - mili_per_min * remainingMins;
+
+			var remainingSecs = Math.floor(bucketMili / mili_per_sec);
+
+			var remaining = "";
+			if (
+				!isNaN(remainingDays) &&
+				!isNaN(remainintHours) &&
+				!isNaN(remainingMins) &&
+				!isNaN(remainingSecs)
+			) {
+				remaining =
+					remainingDays +
+					"d " +
+					remainintHours +
+					"h " +
+					remainingMins +
+					"m " +
+					remainingSecs +
+					"s";
+			}
+			return remaining;
+		}
 	}
 }
 </script>

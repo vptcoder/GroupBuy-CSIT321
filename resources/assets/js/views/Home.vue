@@ -545,8 +545,8 @@ export default {
 }
 
 .owl-carousel .owl-item img {
-	min-height:100px;
-	max-height:100px;
+	min-height:150px;
+	max-height:150px;
 }
 
 .neatifyCarousel {

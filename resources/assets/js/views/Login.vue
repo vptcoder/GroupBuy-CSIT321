@@ -21,9 +21,11 @@
 								</div>
 								<div class="form-group row">
 									<div class="col-4">
-										<div class="my-4" style="font-size:14px; color:black; text-decoration: underline;">
+										<div class="my-3" style="font-size:14px; color:black; text-decoration: underline;">
 											<router-link :to="{ name: 'register' }" >
-												Register
+												<button type="submit" class="btn btn-primary">
+													Register
+												</button>
 											</router-link>
 										</div>
 									</div>

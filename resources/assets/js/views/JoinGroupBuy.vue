@@ -31,7 +31,7 @@
 			</carousel>
 			<!-- Product Title & Meta Data-->
 			<div class="product-title-meta-data bg-white mb-3 py-3">
-				<div class="container d-flex justify-content-between"  style="margin-left: 10%!important;">
+				<div class="container justify-content-between"  style="margin-left: 10%!important;">
 					<div class="p-title-price">
 						<!-- <h5 class="mb-1">You are placing an order for:</h5> -->
 						<h6 class="mb-3">{{product.name}}</h6>
@@ -47,7 +47,7 @@
 						<div v-else>
 							<div class ="row" > <!-- color: rgb(169, 50, 38);-->
 								<p class="col-6 sale-price mb-0" style="font-size:21px; color: #463f3a; font-weight:500;">${{parseFloat(product.price).toFixed(2)}}</p>
-								<div class="col-6 quantity">
+								<div class="col-6">
 								
 										<div class="value-button" id="decrease" @click="decreaseValue()" value="Decrease Value"><i class="lni lni-circle-minus"></i></div>
 										<input type="number" required autofocus id="number" value="1" />
