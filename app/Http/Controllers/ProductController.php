@@ -52,11 +52,9 @@ class ProductController extends Controller
         return response()->json($products, 200);
     }
 
-    public function userIndex()
+    private function indexRetrieveUserDefault()
     {
-        Log::info('ProductController::userIndex');
-
-        date_default_timezone_set('Asia/Singapore');
+        Log::info('ProductController::indexRetrieveUserDefault');
         //1. Retrieve data
         $products = Product::select(
             'products.id',
@@ -85,6 +83,54 @@ class ProductController extends Controller
             ])
             ->where('products.status', '=', 'p11')
             ->get();
+
+        return $products;
+    }
+
+    private function indexRetrieveUserSearch($searchTerm)
+    {
+        Log::info('ProductController::indexRetrieveUserSearch');
+        Log::info($searchTerm);
+
+        //1. Retrieve data
+        $products = Product::select(
+            'products.id',
+            'products.status as product_status',
+            'products.description as product_description',
+            'products.name as product_name',
+            'products.image as product_image',
+            'products.min as product_min',
+            'products.max as product_max',
+            'products.price as product_price'
+        )
+            ->with([
+                'watchlists:product_id,id,user_id', 'groupbuys' => function ($q) {
+                    $q
+                        ->where('groupbuys.status', '<>', 'g01')
+                        ->select(
+                            'groupbuys.id',
+                            'groupbuys.product_id',
+                            'groupbuys.status',
+                            'groupbuys.min_required',
+                            'groupbuys.max_available',
+                            'groupbuys.date_end'
+                        )
+                        ->with('orders');
+                }
+            ])
+            ->where('products.status', '=', 'p11')
+            ->where('products.name', 'like', '%' . $searchTerm . '%')
+            ->get();
+
+        return $products;
+    }
+
+    private function indexOrganiseUserDefault($products)
+    {
+        Log::info('ProductController::indexOrganiseUserDefault');
+        Log::info($products);
+
+        date_default_timezone_set('Asia/Singapore');
 
         //2. Organise data
         foreach ($products as $pkey => $p) {
@@ -136,6 +182,25 @@ class ProductController extends Controller
                 unset($products[$pkey]);
             }
         }
+
+        return $products;
+    }
+
+    public function userIndex(Request $request)
+    {
+        Log::info('ProductController::userIndex');
+        Log::info($request);
+        $searchTerm = $request->searchterm;
+
+        if (empty($searchTerm)) {
+            Log::info('search term is empty');
+            $products = $this->indexRetrieveUserDefault();
+        } else {
+            Log::info('search term: ' . $searchTerm);
+            $products = $this->indexRetrieveUserSearch($searchTerm);
+        }
+
+        $products = $this->indexOrganiseUserDefault($products);
 
         return response()->json($products, 200);
     }
