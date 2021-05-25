@@ -23,9 +23,9 @@
 									<div class="col-4">
 										<div class="my-3" style="font-size:14px; color:black; text-decoration: underline;">
 											<router-link :to="{ name: 'register' }" >
-												<button type="submit" class="btn btn-primary">
+												<div class="btn btn-primary">
 													Register
-												</button>
+												</div>
 											</router-link>
 										</div>
 									</div>
