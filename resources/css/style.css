@@ -3405,7 +3405,9 @@ li.suha-dropdown-menu {
     max-width: 50%;
     font-size: 13px;
     text-align: right;
-    color: #747794; }
+    color: #747794;
+    word-wrap: break-word;
+ }
 
 .user-data-card {
   position: relative;
