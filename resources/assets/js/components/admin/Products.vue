@@ -1,6 +1,11 @@
 <template>
+
 	<div class="page-content-wrapper">
 		<p>Double-click on item to open</p>
+		<mdb-datatable-2 v-model="data"       striped
+      bordered
+      arrows
+      :display="3"/>
 		<table class="table table-responsive table-hover">
 			<thead>
 				<tr>
@@ -45,21 +50,117 @@
 <script>
 import Modal from "./ProductModal";
 
+import { mdbDatatable2,mdbIcon    } from 'mdbvue';
+import { FontAwesomeModule } from '@fortawesome/fontawesome-free';
+
 export default {
 	data() {
 		return {
+		data: {
+          rows: [],
+          columns: []
+		},
+       
 			products: [],
 			editingItem: null,
 			addingProduct: null
 		};
 	},
-	components: { Modal },
+ 
+	components: { 
+		Modal,
+	mdbDatatable2, mdbIcon  
+	},
 	beforeMount() {
 		axios
 			.get("/api/adminproducts/")
 			.then(response => (this.products = response.data));
 	},
+	mounted(){
+    		axios.get(`/api/adminproducts/`).then(response => {
+			this.products = response.data;
+        let keys = ["name", "status", "min","max","description","price","watchlists_count","groupbuys_closed_count"];
+
+        let entries = this.filterData(this.products, keys);
+ 
+			//columns
+			this.data = {
+			columns: [
+			{
+              label: '',
+              field: 'index',
+              sort: true
+            },
+            {
+              label: 'Product',
+              field: 'name',
+              sort: true
+            },
+            {
+              label: 'Status',
+              field: 'status',
+              sort: true
+            },
+            {
+              label: 'Price',
+              field: 'price',
+              sort: false,
+              format: value => '$' + value
+            },
+            {
+              label: 'Description',
+              field: 'description',
+              sort: true
+            },
+            {
+              label: 'Minimum Orders',
+              field: 'min',
+              sort: true
+            },
+            {
+              label: 'Maximum Orders',
+              field: 'max',
+ 			  sort: true
+            },
+			{
+              label: 'Popularity',
+              field: 'watchlists_count',
+              sort: true
+            },
+			{
+              label: 'Closed Groupbuys',
+              field: 'groupbuys_closed_count',
+              sort: true
+            }
+          ],
+		// rows
+			rows: entries
+			}
+		})
+			.catch(error => {
+				alert(error);
+			})
+	},
+
 	methods: {
+		filterData(dataArr, keys) {
+			let data = dataArr.map(entry => {
+			let filteredEntry = {};
+			keys.forEach(key => {
+				if (key in entry) {
+				filteredEntry[key] = entry[key];
+					if(key === 'status'){
+						if (filteredEntry[key] == 'p11') {
+							filteredEntry[key] == 'Available';
+						}
+					}
+				}
+			});
+			return filteredEntry;
+			});
+			return data;
+		},
+		
 		newProduct() {
 			this.addingProduct = {
 				name: null,
