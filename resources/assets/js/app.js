@@ -170,7 +170,23 @@ router.beforeEach((to, from, next) => {
         store.commit("SHOWNAV");
     }
 
-    if (to.matched.some(record => record.meta.requiresAuth)) {
+    var pathsRequireLogin = [
+        "/watchlist",
+        "/notifications",
+        "/join",
+        "/confirmation",
+        "/checkout",
+        "/payment",
+        "/userpay",
+        "/userorderprocessing",
+        "/userordershipping",
+        "/userordercancelled",
+    ]
+    
+    var check = to.matched.some(record => record.meta.requiresAuth)
+    || pathsRequireLogin.includes(to.path);
+
+    if (check) {
         if (localStorage.getItem("bigStore.jwt") == null) {
             next({
                 path: "/login",
