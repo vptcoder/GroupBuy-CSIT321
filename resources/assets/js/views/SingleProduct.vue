@@ -57,20 +57,20 @@
 									class="col-10 btn btn-sm btn-primary"
 								disabled >Full</button>
 							<router-link :to="{ path: '/join?pid='+product.id }" v-else 
-								class="col-10 btn btn-sm btn-primary">Join
+								class="col-8 btn btn-sm btn-primary">Join
 							</router-link>
 
 							<a
-									class="col-2 mx-4 wishlist-btn notwatching-btn"
-									style="border:0px;" v-if="!user"
+									class="col-2 mx-3 wishlist-btn notwatching-btn"
+									style="border:0px; text-align:center; margin-right: 0" v-if="!user"
 									v-on:click.prevent
 									@click="promptlogin()"
 								>
 									<i class="lni lni-heart"></i>
 							</a>
 							<a
-									class="col-2 mx-4 wishlist-btn"
-									style="border:0px;" v-else
+									class="col-2 mx-3 wishlist-btn"
+									style="border:0px; text-align:center; margin-right: 0"  v-else
 									v-bind:class="!product.watchlists.some(w => w.user_id == user.id) ? 'notwatching-btn' : 'watching-btn'"
 									v-on:click.prevent
 									@click="watch(product.id, user.id)"
@@ -80,7 +80,10 @@
 										v-bind:class="!product.watchlists.some(w => w.user_id == user.id) ? 'lni-heart' : 'lni-heart-filled'"
 									></i>
 							</a>
-								
+							<a class="col-2 " style="text-align:center;"> 
+								<i class="lni lni-coin"
+									></i>
+							</a>
 								<!-- <a class="col-2 btn btn-sm btn-primary wishlist-btn notwatching-btn" style="border:0px;" v-if="!user" v-on:click.prevent @click="promptlogin()">
 									<i class="lni lni-heart"></i>
 								</a>

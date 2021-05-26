@@ -3,13 +3,13 @@
 		<!-- Search Form-->
 		<div class="top-search-form" style="width:100%;">
 			<form id="searchbox" @submit.prevent="search">
-				<div class="grid-search">
+				<div class="container grid-search">
 					<div>
 						<input
 							class="form-control input-search"
 							type="search"
 							placeholder="Search"
-							v-model="searchterm"
+							v-model="searchterm" style="padding-left: 10px;"
 						/>
 					</div>
 					<div>
@@ -110,11 +110,11 @@
 			</div>
 		</div>
 		<carousel :items="1" :autoplay="false" :nav="false" :dots="true">
-			<div class="neatifyCarousel">
+			<div class="container neatifyCarousel">
 				<div class="row g-3">
 					<div
-						class="col-4 col-md-2 col-lg"
-						v-for="(product,index) in popularProducts.slice(0,3)"
+						class="col-6 col-md-2 col-lg"
+						v-for="(product,index) in popularProducts.slice(0,2)"
 						:key="index"
 					>
 						<div class="card top-product-card">
@@ -132,17 +132,17 @@
 								<span
 									class="progress-title"
 									style="font-size:14px; color:#8a817c;"
-								>{{product.watchlists.length}} sold</span>
+								>{{product.watchlists.length}} interested</span>
 							</router-link>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="neaitfyCarousel">
+			<div class="container neaitfyCarousel">
 				<div class="row g-3">
 					<div
-						class="col-4 col-md-2 col-lg"
-						v-for="(product,index) in popularProducts.slice(3,6)"
+						class="col-6 col-md-2 col-lg"
+						v-for="(product,index) in popularProducts.slice(2,5)"
 						:key="index"
 					>
 						<div class="card top-product-card">
@@ -157,17 +157,17 @@
 								<span
 									class="progress-title"
 									style="font-size:14px; color:#8a817c;"
-								>{{product.watchlists.length}} sold</span>
+								>{{product.watchlists.length}} interested</span>
 							</router-link>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="neaitfyCarousel">
+			<div class="container neaitfyCarousel">
 				<div class="row g-3">
 					<div
-						class="col-4 col-md-2 col-lg"
-						v-for="(product,index) in popularProducts.slice(6,9)"
+						class="col-6 col-md-2 col-lg"
+						v-for="(product,index) in popularProducts.slice(5,8)"
 						:key="index"
 					>
 						<div class="card top-product-card">
