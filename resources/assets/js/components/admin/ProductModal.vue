@@ -7,7 +7,7 @@
 				<div class="modal-header border-bottom-0">
 					<h5 class="modal-title" id="exampleModalLabel">Add New Product</h5>
 					<button type="button" class="close" data-dismiss="modal"  @click="cancelFile" aria-label="Close">
-					<span aria-hidden="true">X</span>
+					<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
 				<form>
@@ -36,7 +36,7 @@
 						</div>
 						<div class="form-group">
 							<label for="password1">Description </label>
-							<textarea v-model="data.description" class="form-control" rows="7" placeholder="Please enter Product Details"></textarea>
+							<textarea v-model="data.description" class="form-control" rows="4" placeholder="Please enter Product Details"></textarea>
 						</div>
 						<div class="form-group">
 							<label for="password1">Image </label>
@@ -132,9 +132,28 @@
 </template>
 
 <style scoped>
+
+button.close {
+    padding: 0;
+    background-color: transparent;
+    border: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+.close {
+    float: right;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1;
+    color: #000;
+    text-shadow: 0 1px 0 #fff;
+    opacity: .5;
+}
 label {
 	margin-top: 20px;
 	margin-bottom: 5px;
+	font-weight:500;
 }
 .container {
   padding: 2rem 0rem;

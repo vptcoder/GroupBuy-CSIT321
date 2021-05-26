@@ -3274,7 +3274,6 @@ li.suha-dropdown-menu {
   -webkit-transition-duration: 500ms;
           transition-duration: 500ms;
   border-color: #ebebeb;
-  height: 50px;
   padding: 0.375rem 1rem;
   font-size: 14px; }
   .form-control:focus {

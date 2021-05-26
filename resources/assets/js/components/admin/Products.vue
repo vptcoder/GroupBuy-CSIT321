@@ -6,8 +6,8 @@
 		<button class="btn btn-primary" @click="newProduct">Add New Product</button>
 
 		 <mdb-input class="mt-0" v-model="search" label="Search by product name" />
-		<mdb-datatable-2 v-model="data" :searching="{value: search, field: 'name'}" striped 
-		bordered @selected="startEditing(data.product)"
+		<mdb-datatable-2 v-model="data" :searching="{value: search, field: 'name'}"  striped 
+		bordered @selected="startEditing(prod)"
 
 				 
        />
@@ -65,7 +65,7 @@ export default {
 	data() {
 		return {
 		search: '',
-	 
+	 	prod: '',
 		data: {
           rows: [],
          columns: [] 
@@ -167,6 +167,7 @@ export default {
 			keys.forEach(key => {
 				if (key in entry) {
 				filteredEntry[key] = entry[key];
+				prod = entry[key];
  				}
 			});
 			
@@ -187,8 +188,16 @@ export default {
 				description: null
 			};
 		},
-		startEditing(product) {
-			this.editingItem = Object.assign({}, product);
+		activate(index) {
+			let user = this.users[index];
+			let userid = user.id;
+			axios.post("/api/users/activate", { userid }).then(response => {
+				this.users[index].status = "u11";
+				this.$forceUpdate();
+			});
+		},
+		startEditing(prod) {
+			this.editingItem = Object.assign({}, prod);
 		},
 		endEditing(editstatus) {
 			if (editstatus != true) {
