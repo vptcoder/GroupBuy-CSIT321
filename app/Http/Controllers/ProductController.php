@@ -78,7 +78,8 @@ class ProductController extends Controller
                             'groupbuys.max_available',
                             'groupbuys.date_end'
                         )
-                        ->with('orders');
+                        ->with('orders')
+                        ->with('shoptokens');
                 }
             ])
             ->where('products.status', '=', 'p11')
@@ -115,7 +116,8 @@ class ProductController extends Controller
                             'groupbuys.max_available',
                             'groupbuys.date_end'
                         )
-                        ->with('orders');
+                        ->with('orders')
+                        ->with('shoptokens');
                 }
             ])
             ->where('products.status', '=', 'p11')
@@ -143,6 +145,7 @@ class ProductController extends Controller
                 if ($p->groupbuys->count() == 0) {
                     $p->groupbuy_id = null;
                     $p->groupbuy_status = "Pending";
+                    $p->groupbuy_tokens = [];
                 } else {
                     $p->groupbuy_id = $p->groupbuys[0]->id;
                     $p->groupbuy_min = $p->groupbuys[0]->min_required;
@@ -156,6 +159,8 @@ class ProductController extends Controller
                         }
                     }
                     $p->groupbuy_orders = $sumQuantity;
+
+                    $p->groupbuy_tokens = $p->groupbuys[0]->shoptokens;
 
                     $status = null;
                     switch ($p->groupbuys[0]->status) {
@@ -291,7 +296,8 @@ class ProductController extends Controller
                             'groupbuys.max_available',
                             'groupbuys.date_end'
                         )
-                        ->with('orders');
+                        ->with('orders')
+                        ->with('shoptokens');
                 }
             ])
             ->get()->first();
@@ -304,12 +310,15 @@ class ProductController extends Controller
             if ($product->groupbuys->count() == 0) {
                 $product->groupbuy_id = null;
                 $product->groupbuy_status = "Pending";
+                $product->groupbuy_tokens = null;
+                $product->groupbuy_orders_qty = 0;
             } else {
                 $product->groupbuy_id = $product->groupbuys[0]->id;
                 $product->groupbuy_min = $product->groupbuys[0]->min_required;
                 $product->groupbuy_max = $product->groupbuys[0]->max_available;
                 $product->groupbuy_date_end = $product->groupbuys[0]->date_end;
 
+                //extract orders from groupbuy to product
                 $sumQuantity = 0;
                 $product->groupbuy_orders = $product->groupbuys[0]->orders;
                 if (!empty($product->groupbuy_orders) && $product->groupbuy_orders->count() > 0) {
@@ -318,6 +327,8 @@ class ProductController extends Controller
                     }
                 }
                 $product->groupbuy_orders_qty = $sumQuantity;
+
+                $product->groupbuy_tokens = $product->groupbuys[0]->shoptokens;
 
                 $status = null;
                 switch ($product->groupbuys[0]->status) {

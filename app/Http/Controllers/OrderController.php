@@ -183,6 +183,8 @@ class OrderController extends Controller
         $order->is_delivered = true;
         $status = $order->save();
 
+        ShoptokenController::rewardToken($order->user_id);
+
         $p = $order->product()->first();
         $title = "Order delivered!";
         $message = "Your order for '" . ($p->name) . "' has been delivered!";
