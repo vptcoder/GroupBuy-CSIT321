@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ShoptokenController;    
 use App\Models\Order;
 use App\Models\Watchlist;
 use Illuminate\Http\Request;
@@ -56,6 +57,10 @@ Route::resource(
     '/watchlists',
     'App\Http\Controllers\WatchlistController'
 );
+
+//ShoptokenController
+Route::get('tokens/avail/{user}', [ShoptokenController::class, 'indexAvailable']);
+Route::post('tokens/use', [ShoptokenController::class, 'useToken']);
 
 //GroupbuyController
 Route::get(

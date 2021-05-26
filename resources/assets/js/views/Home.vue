@@ -3,13 +3,13 @@
 		<!-- Search Form-->
 		<div class="top-search-form" style="width:100%;">
 			<form id="searchbox" @submit.prevent="search">
-				<div class="grid-search">
+				<div class="container grid-search">
 					<div>
 						<input
 							class="form-control input-search"
 							type="search"
 							placeholder="Search"
-							v-model="searchterm"
+							v-model="searchterm" style="padding-left: 10px;"
 						/>
 					</div>
 					<div>
@@ -110,11 +110,11 @@
 			</div>
 		</div>
 		<carousel :items="1" :autoplay="false" :nav="false" :dots="true">
-			<div class="neatifyCarousel">
+			<div class="container neatifyCarousel">
 				<div class="row g-3">
 					<div
-						class="col-4 col-md-2 col-lg"
-						v-for="(product,index) in popularProducts.slice(0,3)"
+						class="col-6 col-md-2 col-lg"
+						v-for="(product,index) in popularProducts.slice(0,2)"
 						:key="index"
 					>
 						<div class="card top-product-card">
@@ -132,17 +132,17 @@
 								<span
 									class="progress-title"
 									style="font-size:14px; color:#8a817c;"
-								>{{product.watchlists.length}} sold</span>
+								>{{product.watchlists.length + product.groupbuy_tokens.length}} interested</span>
 							</router-link>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="neaitfyCarousel">
+			<div class="container neaitfyCarousel">
 				<div class="row g-3">
 					<div
-						class="col-4 col-md-2 col-lg"
-						v-for="(product,index) in popularProducts.slice(3,6)"
+						class="col-6 col-md-2 col-lg"
+						v-for="(product,index) in popularProducts.slice(2,5)"
 						:key="index"
 					>
 						<div class="card top-product-card">
@@ -157,17 +157,17 @@
 								<span
 									class="progress-title"
 									style="font-size:14px; color:#8a817c;"
-								>{{product.watchlists.length}} sold</span>
+								>{{product.watchlists.length + product.groupbuy_tokens.length}} interested</span>
 							</router-link>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="neaitfyCarousel">
+			<div class="container neaitfyCarousel">
 				<div class="row g-3">
 					<div
-						class="col-4 col-md-2 col-lg"
-						v-for="(product,index) in popularProducts.slice(6,9)"
+						class="col-6 col-md-2 col-lg"
+						v-for="(product,index) in popularProducts.slice(5,8)"
 						:key="index"
 					>
 						<div class="card top-product-card">
@@ -182,7 +182,7 @@
 								<span
 									class="progress-title"
 									style="font-size:14px; color:#8a817c;"
-								>{{product.watchlists.length}} sold</span>
+								>{{product.watchlists.length + product.groupbuy_tokens.length}} interested</span>
 							</router-link>
 						</div>
 					</div>
@@ -203,32 +203,38 @@
 						<div v-if="product.groupbuy_id == null" class="card top-product-card">
 							<router-link class="card-body" :to="{ path: '/products/'+product.id}">
 								<span class="badge badge-pending">{{product.groupbuy_status}}</span>
-								<a
-									class="wishlist-btn notwatching-btn"
+								 
+								<a class="product-thumbnail d-block">
+									<img class="mb-2" :src="product.product_image" :alt="product.product_name" />
+								</a>
+								<a class="product-title d-block" v-html="product.product_name"></a>
+								<div class="row g-3">
+
+									<p class="col-8 sale-price">${{parseFloat(product.product_price).toFixed(2)}}</p>
+
+									<a
+									class="col-4 notwatching-btn"
 									v-if="!user"
 									v-on:click.prevent
 									@click="promptlogin()"
 								>
 									<i class="lni lni-heart"></i>
-								</a>
-								<a
-									class="wishlist-btn"
-									v-else
-									v-bind:class="!product.watchlists.some(w => w.user_id == user.id) ? 'notwatching-btn' : 'watching-btn'"
-									v-on:click.prevent
-									@click="watch(product, user.id)"
-								>
-									<i
-										class="lni"
-										v-bind:class="!product.watchlists.some(w => w.user_id == user.id) ? 'lni-heart' : 'lni-heart-filled'"
-									></i>
-									<!-- <span class="wishlist-btn wishlist-likes">{{product.watchlists.length}} watches</span> -->
-								</a>
-								<a class="product-thumbnail d-block">
-									<img class="mb-2" :src="product.product_image" :alt="product.product_name" />
-								</a>
-								<a class="product-title d-block" v-html="product.product_name"></a>
-								<p class="sale-price">${{parseFloat(product.product_price).toFixed(2)}}</p>
+									</a>
+									<a
+										class="col-4"
+										v-else
+										v-bind:class="!product.watchlists.some(w => w.user_id == user.id) ? 'notwatching-btn' : 'watching-btn'"
+										v-on:click.prevent
+										@click="watch(product, user.id)"
+									>
+										<i
+											class="lni"
+											v-bind:class="!product.watchlists.some(w => w.user_id == user.id) ? 'lni-heart' : 'lni-heart-filled'"
+										></i>
+										<!-- <span class="wishlist-btn wishlist-likes">{{product.watchlists.length}} watches</span> -->
+									</a>
+
+								</div>
 								<!--<span class="badge bottom-badge badge-watch-pending">{{product.watchlists.length}} watchers</span>
 								-->
 								<span class="badge badge-pending bottom-badge">Min required: {{product.product_min}}</span>
@@ -240,32 +246,34 @@
 
 								<span class="badge badge-success">{{timediff(timestamp, product.groupbuy_date_end)}}</span>
 
-								<a
-									class="wishlist-btn notwatching-btn"
-									v-if="!user"
-									v-on:click.prevent
-									@click="promptlogin()"
-								>
-									<i class="lni lni-heart"></i>
-								</a>
-								<a
-									class="wishlist-btn"
-									v-else
-									v-bind:class="!product.watchlists.some(w => w.user_id == user.id) ? 'notwatching-btn' : 'watching-btn'"
-									v-on:click.prevent
-									@click="watch(product, user.id)"
-								>
-									<i
-										class="lni"
-										v-bind:class="!product.watchlists.some(w => w.user_id == user.id) ? 'lni-heart' : 'lni-heart-filled'"
-									></i>
-								</a>
+								 
 								<a class="product-thumbnail d-block">
 									<img class="mb-2" :src="product.product_image" :alt="product.product_name" />
 								</a>
 								<a class="product-title d-block" v-html="product.product_name"></a>
-								<p class="sale-price">${{parseFloat(product.product_price).toFixed(2)}}</p>
-
+								<div class="row g-3">
+									<p class="col-8 sale-price">${{parseFloat(product.product_price).toFixed(2)}}</p>
+									<a
+										class="col-4 notwatching-btn"
+										v-if="!user"
+										v-on:click.prevent
+										@click="promptlogin()"
+									>
+										<i class="lni lni-heart"></i>
+									</a>
+									<a
+										class="col-4"
+										v-else
+										v-bind:class="!product.watchlists.some(w => w.user_id == user.id) ? 'notwatching-btn' : 'watching-btn'"
+										v-on:click.prevent
+										@click="watch(product, user.id)"
+									>
+										<i
+											class="lni"
+											v-bind:class="!product.watchlists.some(w => w.user_id == user.id) ? 'lni-heart' : 'lni-heart-filled'"
+										></i>
+									</a>
+								</div>
 								<!--<span class="badge bottom-badge badge-success">{{product.groupbuy_orders}}/{{product.groupbuy_max}} purchased</span>
 								-->
 								<span
@@ -473,6 +481,7 @@ export default {
 .top-search-form {
 	width: 100%;
 	height: 60px;
+	border-radius: 6px;
 }
 #searchbox {
 	position: absolute;
@@ -485,15 +494,18 @@ export default {
 	width: 100%;
 }
 .grid-search {
-	display: grid;
-	grid-template-columns: 6fr 1fr;
-	padding: 3%;
+    display: grid;
+    grid-template-columns: 11fr 1fr;
+    margin-top: 3%;
+    width: 100%;
 }
 .btn-search {
 	position: initial;
 	width: 100%;
 	padding-right: 10%;
-	background: lightblue;
+	background: #fff;
+	border-radius: 6px;
+
 }
 * {
 	-webkit-box-sizing: border-box;
@@ -596,10 +608,12 @@ export default {
 
 .watching-btn {
 	color: #a93226;
+	font-size: 1.25rem;
 }
 
 .notwatching-btn {
 	color: grey;
+	font-size: 1.25rem;
 }
 
 .owl-carousel .owl-item img {

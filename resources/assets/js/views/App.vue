@@ -177,6 +177,7 @@
 						</li>
 						<li v-show="show">
 							<router-link :to="{ name: 'notifications' }" class="navbar-brand">
+								<div class="notif">1</div>
 								<img src="https://img.icons8.com/windows/32/000000/appointment-reminders.png" />
 								Notifications
 							</router-link>

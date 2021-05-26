@@ -1,65 +1,152 @@
 <template>
 	<div class="page-content-wrapper">
-		<p>Double-click on item to open</p>
-		<table class="table table-responsive table-hover">
-			<thead>
-				<tr>
-					<td></td>
-					<td>Product</td>
-					<td>Status</td>
-					<td>Price</td>
-					<td>Description</td>
-					<td>Minimum orders</td>
-					<td>Maximum orders</td>
-					<td>Popularity</td>
-					<td>Closed Groupbuy</td>
-				</tr>
-			</thead>
-			<tbody>
-				<tr
-					class="tr-data"
-					v-for="(product,index) in products"
-					:key="index"
-					@dblclick="startEditing(product)"
-				>
-					<td>{{index+1}}</td>
-					<td>{{product.name}}</td>
-					<td v-if="product.status === 'p11'">Available</td>
-					<td v-else>Hidden</td>
-					<td>{{parseFloat(product.price).toFixed(2)}}</td>
-					<td>{{product.description}}</td>
-					<td>{{product.min}}</td>
-					<td>{{product.max}}</td>
-					<td>{{product.watchlists_count}}</td>
-					<td>{{product.groupbuys_closed_count}}</td>
-				</tr>
-			</tbody>
-		</table>
+		<p>Single-click on item to open</p>
+		<button class="btn btn-primary" @click="newProduct">Add New Product</button>
+
+		<mdb-input class="mt-0" v-model="search" label="Search by product name" />
+		<mdb-datatable-2
+			v-model="data"
+			:searching="{value: search, field: 'name'}"
+			striped
+			bordered
+			@selected="editingItem = $event"
+		/>
 		<modal @close="endEditing" :product="editingItem" v-show="editingItem != null"></modal>
 		<modal @close="addProduct" :product="addingProduct" v-show="addingProduct != null"></modal>
 		<br />
-		<button class="btn btn-primary" @click="newProduct">Add New Product</button>
 	</div>
 </template>
 
 <script>
 import Modal from "./ProductModal";
+import { mdbDatatable2, mdbIcon, mdbInput } from "mdbvue";
 
 export default {
 	data() {
 		return {
+			search: "",
+			data: {
+				rows: [],
+				columns: []
+			},
+
 			products: [],
 			editingItem: null,
 			addingProduct: null
 		};
 	},
-	components: { Modal },
+
+	components: {
+		Modal,
+		mdbDatatable2,
+		mdbIcon,
+		mdbInput
+	},
 	beforeMount() {
 		axios
 			.get("/api/adminproducts/")
 			.then(response => (this.products = response.data));
 	},
+
+	mounted() {
+		axios
+			.get(`/api/adminproducts/`)
+			.then(response => {
+				this.products = response.data;
+				let keys = [
+					"id",
+					"name",
+					"status",
+					"min",
+					"max",
+					"description",
+					"price",
+					"watchlists_count",
+					"groupbuys_closed_count"
+				];
+
+				let entries = this.filterData(this.products, keys);
+				//columns
+				this.data = {
+					columns: [
+						{
+							label: "",
+							field: "id",
+							sort: true
+						},
+						{
+							label: "Product",
+							field: "name",
+							sort: true
+						},
+						{
+							label: "Status",
+							field: "status",
+							sort: true,
+							format: value =>
+								value == "p11" ? "Available" : "Hidden"
+						},
+						{
+							label: "Price",
+							field: "price",
+							sort: false,
+							format: value => "$" + value
+						},
+						{
+							label: "Description",
+							field: "description",
+							sort: true
+						},
+						{
+							label: "Minimum Orders",
+							field: "min",
+							sort: true
+						},
+						{
+							label: "Maximum Orders",
+							field: "max",
+							sort: true
+						},
+						{
+							label: "Popularity",
+							field: "watchlists_count",
+							sort: true
+						},
+						{
+							label: "Closed Groupbuys",
+							field: "groupbuys_closed_count",
+							sort: true
+						}
+					],
+					// rows
+					rows: entries
+
+					// clickEvent: () => this.startEditing(id)
+				};
+			})
+			.catch(error => {
+				alert(error);
+			});
+	},
+
 	methods: {
+		filterData(dataArr, keys) {
+			let data = dataArr.map(entry => {
+				let filteredEntry = {};
+
+				keys.forEach(key => {
+					if (key in entry) {
+						filteredEntry[key] = entry[key];
+						// prod = entry[key];
+					}
+				});
+
+				return filteredEntry;
+			});
+
+			return data;
+		},
+
 		newProduct() {
 			this.addingProduct = {
 				name: null,
@@ -71,8 +158,10 @@ export default {
 				description: null
 			};
 		},
-		startEditing(product) {
-			this.editingItem = Object.assign({}, product);
+
+		startEditing(prod) {
+			console.log(prod);
+			this.editingItem = Object.assign({}, prod);
 		},
 		endEditing(editstatus) {
 			if (editstatus != true) {
@@ -167,8 +256,9 @@ export default {
 };
 </script>
 <style scoped>
+@import "mdb.min.css";
+
 tr.tr-data {
 	transition-duration: 100ms;
 }
- 
 </style>
