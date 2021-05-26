@@ -36,13 +36,15 @@
 						</div>
 						<div class="form-group">
 							<label for="password1">Description </label>
-							<textarea v-model="data.description" rows="4" placeholder="Please enter Product Details"></textarea>
+							<textarea v-model="data.description" class="form-control" rows="4" placeholder="Please enter Product Details"></textarea>
 						</div>
 						<div class="form-group">
-							<label for="password1">Image </label>
- 									<input type="file" id="file" @change="attachFile" />
+							<label class="col-3" for="password1">Image </label>
+ 							<div class="col-9">
+								 	<input type="file" id="file" @change="attachFile" />
 									<img :src="data.image" v-show="data.image != null" />
- 							</div>
+							 </div>
+ 						</div>
 					</div>
 					<div class="modal-footer border-top-0 d-flex justify-content-center">
 					<button type="submit" class="btn btn-primary" @click="uploadFile">Submit</button>
