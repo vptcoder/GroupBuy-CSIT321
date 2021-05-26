@@ -2,13 +2,13 @@
 	<div class="page-content-wrapper">
 		<p>Single-click on item to open</p>
 		<button class="btn btn-primary" @click="newProduct">Add New Product</button>
-
-		<mdb-input class="mt-0" v-model="search" label="Search by product name" />
+		 
+		<mdb-input class="mt-4" v-model="search" label="Search by product name" />
 		<mdb-datatable-2
-			v-model="data"
+			v-model="data"  
 			:searching="{value: search, field: 'name'}"
-			striped
-			bordered
+			
+			bordered hover
 			@selected="editingItem = $event"
 		/>
 		<modal @close="endEditing" :product="editingItem" v-show="editingItem != null"></modal>
@@ -89,7 +89,7 @@ export default {
 						{
 							label: "Price",
 							field: "price",
-							sort: false,
+							sort: true,
 							format: value => "$" + value
 						},
 						{
@@ -260,5 +260,13 @@ export default {
 
 tr.tr-data {
 	transition-duration: 100ms;
+}
+
+tr.tr-data:hover {
+	background-color: rgb(238, 185, 185);
+}
+
+table.table-hover tbody tr:hover {
+  background-color: red;
 }
 </style>
