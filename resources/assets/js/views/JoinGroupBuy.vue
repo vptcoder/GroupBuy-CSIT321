@@ -153,7 +153,7 @@ export default {
 			var shipping_city = this.user.shipping_city;
 			var shipping_postalcode = this.user.shipping_postalcode;
 
-			var validation = Math.floor(Number(quantity)) !== Infinity && String(Math.floor(Number(quantity))) === quantity && Math.floor(Number(quantity)) > 0;
+			var validation = Math.floor(Number(quantity)) !== Infinity  && Math.floor(Number(quantity)) > 0;
 			if (!validation){
 				alert("Please specify a valid order quantity!");
 				return;
