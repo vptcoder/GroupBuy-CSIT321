@@ -182,7 +182,7 @@
 								<span
 									class="progress-title"
 									style="font-size:14px; color:#8a817c;"
-								>{{product.watchlists.length}} sold</span>
+								>{{product.watchlists.length}} interested</span>
 							</router-link>
 						</div>
 					</div>
