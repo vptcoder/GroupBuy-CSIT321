@@ -481,6 +481,7 @@ export default {
 .top-search-form {
 	width: 100%;
 	height: 60px;
+	border-radius: 6px;
 }
 #searchbox {
 	position: absolute;
@@ -493,15 +494,18 @@ export default {
 	width: 100%;
 }
 .grid-search {
-	display: grid;
-	grid-template-columns: 6fr 1fr;
-	padding: 3%;
+    display: grid;
+    grid-template-columns: 11fr 1fr;
+    margin-top: 3%;
+    width: 100%;
 }
 .btn-search {
 	position: initial;
 	width: 100%;
 	padding-right: 10%;
-	background: lightblue;
+	background: #fff;
+	border-radius: 6px;
+
 }
 * {
 	-webkit-box-sizing: border-box;
