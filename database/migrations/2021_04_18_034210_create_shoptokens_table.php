@@ -15,10 +15,11 @@ class CreateShoptokensTable extends Migration
     {
         Schema::create('shoptokens', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('product_id');
+            $table->unsignedInteger('groupbuy_id')->nullable();
             $table->unsignedInteger('user_id');
             $table->timestamps();
             $table->softDeletes();
+            $table->unique(['groupbuy_id', 'user_id']);
         });
     }
 

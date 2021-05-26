@@ -87,6 +87,31 @@
 					</div>
 				</div>
 			</div>
+			<!-- Orders Data-->
+			<br />
+			<br />
+			<div class="row g-2">
+				<div class="col-7">
+					<h5>Reward Tokens</h5>
+				</div>
+				<div
+					class="card user-info-card container d-flex justify-content-between"
+					style="background-color:white; text-align:center;"
+				>
+					<div
+						class="user-info"
+						style="background-color:white; text-align:center; padding-top:5px; padding-bottom:5px;"
+					>
+						<strong v-if="tokenCount == 1">You have {{tokenCount}} token!</strong>
+						<strong v-else-if="tokenCount == 0">No token available :(</strong>
+						<strong v-else>You have {{tokenCount}} tokens!</strong>
+						<p v-if="tokenCount > 0">Spend on your favourite products to attract more interest!</p>
+						<p
+							v-else
+						>Every time you make a new purchase, a token will be awarded! These tokens can be used to raise the popularity of you favourite products!</p>
+					</div>
+				</div>
+			</div>
 
 			<!-- User Meta Data-->
 			<br />
@@ -182,6 +207,7 @@ export default {
 			orders: [],
 			name: null,
 			user_type: 0,
+			tokenCount: 0,
 			isLoggedIn: localStorage.getItem("bigStore.jwt") != null
 		};
 	},
@@ -195,6 +221,14 @@ export default {
 		axios
 			.get(`api/users/${this.user.id}/orders`)
 			.then(response => (this.orders = response.data));
+
+		axios.get(`api/tokens/avail/${this.user.id}`).then(response => {
+			let tokens = response.data;
+			this.tokenCount = 0;
+			if (!(Object.keys(tokens).length === 0)) {
+				this.tokenCount = tokens.length;
+			}
+		});
 	},
 	methods: {
 		logout() {

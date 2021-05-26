@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Shoptoken;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -17,7 +18,18 @@ class ShoptokenController extends Controller
     {
         Log::info('ShoptokenController::index');
 
-        return response()->json(Shoptoken::with(['user'])->get(),200);
+        return response()->json(Shoptoken::with(['user'])->get(), 200);
+    }
+
+    public function indexAvailable(User $user)
+    {
+        Log::info('ShoptokenController::index');
+        $shoptokens = $user->shoptokens()->whereNull('groupbuy_id')->get();
+        Log::info($shoptokens);
+        if($shoptokens->isEmpty()){
+            $shoptokens = null;
+        }
+        return response()->json($shoptokens);
     }
 
     /**

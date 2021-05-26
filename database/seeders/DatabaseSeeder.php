@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Groupbuy;
+use App\Models\Shoptoken;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -21,6 +22,7 @@ class DatabaseSeeder extends Seeder
             GroupbuysTableSeeder::class,
             OrdersTableSeeder::class,
             WatchlistsTableSeeder::class,
+            ShoptokensTableSeeder::class,
         ]);
     }
 }
