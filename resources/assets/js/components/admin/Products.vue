@@ -7,7 +7,7 @@
 
 		 <mdb-input class="mt-0" v-model="search" label="Search by product name" />
 		<mdb-datatable-2 v-model="data" :searching="{value: search, field: 'name'}"  striped 
-		bordered @selected="startEditing(prod)"
+		bordered @selected="startEditing(data.product)"
 
 				 
        />
@@ -65,7 +65,6 @@ export default {
 	data() {
 		return {
 		search: '',
-	 	prod: '',
 		data: {
           rows: [],
          columns: [] 
@@ -167,7 +166,7 @@ export default {
 			keys.forEach(key => {
 				if (key in entry) {
 				filteredEntry[key] = entry[key];
-				prod = entry[key];
+				// prod = entry[key];
  				}
 			});
 			
@@ -188,14 +187,7 @@ export default {
 				description: null
 			};
 		},
-		activate(index) {
-			let user = this.users[index];
-			let userid = user.id;
-			axios.post("/api/users/activate", { userid }).then(response => {
-				this.users[index].status = "u11";
-				this.$forceUpdate();
-			});
-		},
+		 
 		startEditing(prod) {
 			this.editingItem = Object.assign({}, prod);
 		},

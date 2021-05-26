@@ -36,7 +36,7 @@
 						</div>
 						<div class="form-group">
 							<label for="password1">Description </label>
-							<textarea v-model="data.description" class="form-control" rows="4" placeholder="Please enter Product Details"></textarea>
+							<textarea v-model="data.description" rows="4" placeholder="Please enter Product Details"></textarea>
 						</div>
 						<div class="form-group">
 							<label for="password1">Image </label>
