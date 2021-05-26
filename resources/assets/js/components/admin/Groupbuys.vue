@@ -7,19 +7,20 @@
  	 
 		<mdb-input class="mt-4" v-model="search" label="Search by product name" />
 		
- 		<mdb-datatable-2 class="@data.status"
+ 		<mdb-datatable-2
 			v-model="data"
 			:searching="{value: search, field: 'product_name'}"
  			hover
 			bordered
+			responsive focus
 			@selected="editingItem = $event"
 			 
 		/>
  
 		<br />
 	 	<modal @close="endEditing" :groupbuy="editingItem" v-show="editingItem != null"></modal>
-
-		<!-- <table class="table table-responsive ">
+<!-- 
+		<table class="table table-responsive ">
 			<thead>
 				<tr>
 					<td></td>
@@ -83,7 +84,7 @@
 			{{timestamp}}
 		</p>
 		<modal @close="endEditing" :groupbuy="editingItem" v-show="editingItem != null"></modal> -->
-	</div>
+	</div>  
 </template>
 
 <script>
@@ -180,8 +181,6 @@ export default {
 						{
 							label: "Current Orders",
 							field: "orders_count",
-							format: value =>
-							 value == "p11" ? "Available" : "Hidden",
 							sort: true
 						},
 						{
@@ -198,8 +197,7 @@ export default {
 					// rows
 					rows: entries
 
-					// clickEvent: () => this.startEditing(id)
-				};
+ 				};
 			})
 			.catch(error => {
 				alert(error);

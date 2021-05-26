@@ -1,5 +1,10 @@
 <template>
 	<div class="page-content-wrapper">
+		
+	<div class="mt-4 md-form">
+		<input  type="text" value="" placeholder="Search by product name" class="form-control">  
+	</div>
+ 
 		<table class="table table-responsive">
 			<thead>
 				<tr>
@@ -44,11 +49,18 @@
 </template>
 
 <script>
+import { mdbDatatable2, mdbInput } from "mdbvue";
+
 export default {
+	
 	data() {
 		return {
+			search: "",
 			orders: []
 		};
+	},
+	componenets: {
+		mdbInput, mdbDatatable2
 	},
 	beforeMount() {
 		axios

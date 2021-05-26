@@ -7,8 +7,9 @@
 		<mdb-datatable-2
 			v-model="data"  
 			:searching="{value: search, field: 'name'}"
-			
+			materialInputs
 			bordered hover
+			responsive focus
 			@selected="editingItem = $event"
 		/>
 		<modal @close="endEditing" :product="editingItem" v-show="editingItem != null"></modal>
