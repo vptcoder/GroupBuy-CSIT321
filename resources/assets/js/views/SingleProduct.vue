@@ -29,9 +29,9 @@
 							<hr style= "color:grey">
 							<p class="sale-price mb-0">${{parseFloat(product.price).toFixed(2)}}</p>
 							<div>
-								<!-- <label v-if="product.groupbuy_status === 'Processing' || product.groupbuy_status === 'Active' && product.groupbuy_id == null" style="color:red; ">{{product.groupbuy_max - product.groupbuy_orders}} slots left</label> -->
-								<!-- <label v-if="product.groupbuy_status === 'Pending'" style="color:red;">{{product.max}} slots left</label> -->
-								<label style="color:red;">{{product.groupbuy_max-product.groupbuy_orders_qty}} slots left</label>
+								<label v-if="product.groupbuy_status === 'Processing' || product.groupbuy_status === 'Active' && product.groupbuy_id == null" style="color:red; ">{{product.groupbuy_max - product.groupbuy_orders_qty}} slots left</label>
+								<label v-else-if="product.groupbuy_status === 'Pending'" style="color:red;">{{product.max}} slots left</label>
+								<label v-else style="color:red;">{{product.groupbuy_max-product.groupbuy_orders_qty}} slots left</label>
 							</div>
 							<div v-if="product.groupbuy_status == 'Active'">
 								<span style=" font-size:14px;">
