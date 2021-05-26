@@ -2,7 +2,7 @@
 	<div class="modal-mask">
 		<div class="modal-wrapper">
 		<div class="" id="form" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-dialog modal-dialog-centered" role="document" style="margin:4.5rem auto;">
 				<div class="modal-content">
 				<div class="modal-header border-bottom-0">
 					<h5 class="modal-title" id="exampleModalLabel">Add New Product</h5>
@@ -14,7 +14,7 @@
 					<div class="modal-body">
 						<div class="form-group">
 							<label for="email1">Name</label>
-							<input type="text" v-model="data.name" class="form-control" id="email1" aria-describedby="emailHelp" >
+							<input type="text" v-model="data.name" class="form-control" >
 							<!-- <small id="emailHelp" class="form-text text-muted">Your information is safe with us.</small> -->
 						</div>
 						<div class="form-group">
@@ -36,7 +36,7 @@
 						</div>
 						<div class="form-group">
 							<label for="password1">Description </label>
-							<textarea v-model="data.description" class="form-control" length="10" placeholder="Please enter Product Details"></textarea>
+							<textarea v-model="data.description" class="form-control" rows="7" placeholder="Please enter Product Details"></textarea>
 						</div>
 						<div class="form-group">
 							<label for="password1">Image </label>
@@ -45,7 +45,7 @@
  							</div>
 					</div>
 					<div class="modal-footer border-top-0 d-flex justify-content-center">
-					<button type="submit" class="btn btn-success" @click="uploadFile">Submit</button>
+					<button type="submit" class="btn btn-primary" @click="uploadFile">Submit</button>
 					</div>
 				</form>
 				</div>
@@ -221,9 +221,7 @@ h4 {
 	margin-top: 0;
 	color: #42b983;
 }
-.modal-body {
-	margin: 20px 0;
-}
+
 .modal-default-button {
 	float: right;
 }

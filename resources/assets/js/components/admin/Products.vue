@@ -1,12 +1,20 @@
 <template>
 
-	<div class="page-content-wrapper">
-		<p>Double-click on item to open</p>
-		<mdb-datatable-2 v-model="data"       striped
-      bordered
-      arrows
-      :display="3"/>
-		<table class="table table-responsive table-hover">
+	<div class="page-content-wrapper"> 
+ 
+		<p>Single-click on item to open</p>
+		<button class="btn btn-primary" @click="newProduct">Add New Product</button>
+
+		 <mdb-input class="mt-0" v-model="search" label="Search by product name" />
+		<mdb-datatable-2 v-model="data" :searching="{value: search, field: 'name'}" striped 
+		bordered @selected="startEditing(data.product)"
+
+				 
+       />
+
+				 
+       />
+ 		<!-- <table class="table table-responsive table-hover">
 			<thead>
 				<tr>
 					<td></td>
@@ -39,55 +47,60 @@
 					<td>{{product.groupbuys_closed_count}}</td>
 				</tr>
 			</tbody>
-		</table>
+		</table> -->
 		<modal @close="endEditing" :product="editingItem" v-show="editingItem != null"></modal>
 		<modal @close="addProduct" :product="addingProduct" v-show="addingProduct != null"></modal>
 		<br />
-		<button class="btn btn-primary" @click="newProduct">Add New Product</button>
-	</div>
+ 	</div>
 </template>
 
 <script>
 import Modal from "./ProductModal";
+ 
 
-import { mdbDatatable2,mdbIcon    } from 'mdbvue';
+import { mdbDatatable2, mdbIcon  ,mdbInput  } from 'mdbvue';
+
 
 export default {
 	data() {
 		return {
+		search: '',
+	 
 		data: {
           rows: [],
-          columns: []
+         columns: [] 
+           
 		},
+		
        
 			products: [],
 			editingItem: null,
 			addingProduct: null
 		};
-	},
+ 	},
  
 	components: { 
 		Modal,
-	mdbDatatable2, mdbIcon  
+	mdbDatatable2, mdbIcon , mdbInput
 	},
 	beforeMount() {
 		axios
 			.get("/api/adminproducts/")
 			.then(response => (this.products = response.data));
 	},
+	
 	mounted(){
     		axios.get(`/api/adminproducts/`).then(response => {
 			this.products = response.data;
-        let keys = ["name", "status", "min","max","description","price","watchlists_count","groupbuys_closed_count"];
+        let keys = ["id","name", "status", "min","max","description","price","watchlists_count","groupbuys_closed_count"];
 
         let entries = this.filterData(this.products, keys);
- 
 			//columns
 			this.data = {
 			columns: [
 			{
               label: '',
-              field: 'index',
+              field: 'id',
               sort: true
             },
             {
@@ -133,30 +146,33 @@ export default {
             }
           ],
 		// rows
-			rows: entries
+			rows: entries,
+
+            clickEvent: () => this.startEditing(id)
 			}
 		})
 			.catch(error => {
 				alert(error);
 			})
+			
+ 
 	},
 
 	methods: {
+		
 		filterData(dataArr, keys) {
 			let data = dataArr.map(entry => {
 			let filteredEntry = {};
+			
 			keys.forEach(key => {
 				if (key in entry) {
 				filteredEntry[key] = entry[key];
-					if(key === 'status'){
-						if (filteredEntry[key] == 'p11') {
-							filteredEntry[key] == 'Available';
-						}
-					}
-				}
+ 				}
 			});
+			
 			return filteredEntry;
 			});
+ 
 			return data;
 		},
 		
@@ -267,6 +283,8 @@ export default {
 };
 </script>
 <style scoped>
+  @import "mdb.min.css";  
+
 tr.tr-data {
 	transition-duration: 100ms;
 }
