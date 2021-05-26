@@ -132,7 +132,7 @@
 								<span
 									class="progress-title"
 									style="font-size:14px; color:#8a817c;"
-								>{{product.watchlists.length}} interested</span>
+								>{{product.watchlists.length + product.groupbuy_tokens.length}} interested</span>
 							</router-link>
 						</div>
 					</div>
@@ -157,7 +157,7 @@
 								<span
 									class="progress-title"
 									style="font-size:14px; color:#8a817c;"
-								>{{product.watchlists.length}} interested</span>
+								>{{product.watchlists.length + product.groupbuy_tokens.length}} interested</span>
 							</router-link>
 						</div>
 					</div>
@@ -182,7 +182,7 @@
 								<span
 									class="progress-title"
 									style="font-size:14px; color:#8a817c;"
-								>{{product.watchlists.length}} interested</span>
+								>{{product.watchlists.length + product.groupbuy_tokens.length}} interested</span>
 							</router-link>
 						</div>
 					</div>

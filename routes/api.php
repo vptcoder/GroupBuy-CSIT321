@@ -60,6 +60,7 @@ Route::resource(
 
 //ShoptokenController
 Route::get('tokens/avail/{user}', [ShoptokenController::class, 'indexAvailable']);
+Route::post('tokens/use', [ShoptokenController::class, 'useToken']);
 
 //GroupbuyController
 Route::get(

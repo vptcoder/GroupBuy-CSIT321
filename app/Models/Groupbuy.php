@@ -14,25 +14,32 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Groupbuy extends Model
 {
-    // use HasFactory;
-    use SoftDeletes;
+	// use HasFactory;
+	use SoftDeletes;
 
-    protected $fillable = [
-			'product_id'
-			, 'status' 
-			, 'date_start'
-			, 'date_end'
-			, 'min_required'
-			, 'max_available'
-			, 'started_by'
-			, 'date_success'
-    ];
+	protected $fillable = [
+		'product_id', 
+		'status', 
+		'date_start', 
+		'date_end', 
+		'min_required', 
+		'max_available', 
+		'started_by', 
+		'date_success'
+	];
 
-	public function product(){
-        return $this->belongsTo(Product::class, 'product_id');
-  }
+	public function product()
+	{
+		return $this->belongsTo(Product::class, 'product_id');
+	}
 
-	public function orders(){
-			return $this->hasMany(Order::class);
+	public function orders()
+	{
+		return $this->hasMany(Order::class);
+	}
+
+	public function shoptokens()
+	{
+		return $this->hasMany(Shoptoken::class);
 	}
 }
