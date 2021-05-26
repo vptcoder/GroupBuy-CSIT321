@@ -50,10 +50,9 @@
 								<div class="col-6">
 								
 										<div class="value-button" id="decrease" @click="decreaseValue()" value="Decrease Value"><i class="lni lni-circle-minus"></i></div>
-										<input type="number" required autofocus id="number" value="1" />
+										<input type="number" required autofocus id="number" v-model="quantity" />
 										<div class="value-button" id="increase" @click="increaseValue()" value="Increase Value"><i class="lni lni-circle-plus"></i></div>
 									
-									<!-- <input class="qty-text" type="text" v-model="quantity" required autofocus /> -->
 								</div>
 							</div>
 
@@ -128,18 +127,16 @@ export default {
  
 	methods: {
 		increaseValue() {
-			var value = parseInt(document.getElementById('number').value, 10);
+			var value = this.quantity;
 			value = isNaN(value) ? 0 : value;
 			value++;
-			document.getElementById('number').value = value;
 			return this.quantity = value;
 		},
 		decreaseValue() {
-			var value = parseInt(document.getElementById('number').value, 10);
+			var value = this.quantity;
 			value = isNaN(value) ? 0 : value;
-			value < 1 ? value = 1 : '';
+			value < 1 ? value = 1 : 0;
 			value--;
-			document.getElementById('number').value = value;
 			return this.quantity = value;
 		},
 		confirmOrder_Start() {
@@ -155,6 +152,12 @@ export default {
 			var shipping_streetaddress = this.user.shipping_streetaddress;
 			var shipping_city = this.user.shipping_city;
 			var shipping_postalcode = this.user.shipping_postalcode;
+
+			var validation = Math.floor(Number(quantity)) !== Infinity && String(Math.floor(Number(quantity))) === quantity && Math.floor(Number(quantity)) > 0;
+			if (!validation){
+				alert("Please specify a valid order quantity!");
+				return;
+			}
 
 			axios
 				.post(`/api/groupbuys/join`, {
