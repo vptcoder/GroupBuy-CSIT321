@@ -1,5 +1,8 @@
 <template>
 	<div class="page-content-wrapper">
+		<div class="mt-4 md-form">
+			<input  type="text" value="" placeholder="Search by user" class="form-control">  
+		</div>
 		<table class="table table-responsive ">
 			<thead>
 				<tr>

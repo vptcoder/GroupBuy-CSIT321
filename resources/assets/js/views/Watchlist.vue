@@ -46,15 +46,14 @@
 										<!-- <a class="wishlist-btn" href="#">
 											<i class="lni lni-heart"></i>
 										</a>-->
-										<a class="product-thumbnail d-block">
+										<a class="product-thumbnail d-block" style="text-align: center;">
 											<img class="mb-2" :src="g.product_image" :alt="g.product_name" />
 										</a>
 									</div>
 									<div class="product-description">
 										<a class="product-title d-block">{{g.product_name}}</a>
 										<p class="sale-price">
-											<i class="lni lni-dollar"></i>
-											${{parseFloat(g.product_price).toFixed(2)}}
+ 											${{parseFloat(g.product_price).toFixed(2)}}
 										</p>
 										<span class="badge bottom-badge badge-success">{{g.groupbuy_orders}} ordered</span>
 
@@ -100,10 +99,9 @@
 									<div class="product-description">
 										<a class="product-title d-block">{{product.name}}</a>
 										<p class="sale-price">
-											<i class="lni lni-dollar"></i>
 											${{parseFloat(product.price).toFixed(2)}}
 										</p>
-										<a class="btn btn-success btn-sm" href="#">
+										<a class="btn btn-primary" href="#">
 											<i class="me-1 lni lni-cart"></i>Join Now
 										</a>
 									</div>
@@ -260,6 +258,9 @@ export default {
 </script>
 
 <style scoped>
+.sale-price {
+	color:rgb(169, 50, 38)!important;
+}
 .watchlist-views {
 	justify-content: center;
 	margin-bottom: 1rem;

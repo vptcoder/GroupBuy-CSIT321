@@ -33,17 +33,17 @@
 				<div class="col-7">
 					<h5>Orders</h5>
 				</div>
-				<div class="col-4" style="padding:0px!important;text-align:right; float:right;">
+				<!-- <div class="col-4" style="padding:0px!important;text-align:right; float:right;">
 					<a
 						class="btn btn-info w-100"
 						href="edit-profile.html"
 						style="float:right!important; text-align:right; padding: .325rem .2rem!important;"
 					>View History</a>
-				</div>
+				</div> -->
 
-				<div class="col-1" style="padding-top:4px; float:left;align-content:left;">
+				<!-- <div class="col-1" style="padding-top:4px; float:left;align-content:left;">
 					<img src="https://img.icons8.com/windows/12/000000/forward.png" />
-				</div>
+				</div> -->
 			</div>
 			<div class="row g-2">
 				<div class="col-3">

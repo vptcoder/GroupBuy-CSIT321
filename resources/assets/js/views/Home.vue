@@ -33,9 +33,9 @@
 						<div class="col-4">
 							<div class="card catagory-card">
 								<div class="card-body">
-									<a class="text-danger" href="catagory.html">
-										<img src="https://img.icons8.com/windows/32/000000/sofa.png" />
-										<span>Furniture</span>
+									<a class="text-danger" @click.prevent="searchterm = ''; search();">
+										<!-- <img src="https://img.icons8.com/windows/32/000000/sofa.png" /> -->
+										<span>All</span>
 									</a>
 								</div>
 							</div>
@@ -55,7 +55,7 @@
 						<div class="col-4">
 							<div class="card catagory-card">
 								<div class="card-body">
-									<a class="text-warning" href="catagory.html">
+									<a class="text-warning" @click.prevent="searchterm = 'bat'; search();">
 										<!-- <i class = "lni lni-burger"></i>-->
 										<img src="https://img.icons8.com/windows/32/000000/basketball.png" />
 										<span>Sports</span>
@@ -67,7 +67,7 @@
 						<div class="col-4">
 							<div class="card catagory-card">
 								<div class="card-body">
-									<a class="text-success" href="catagory.html">
+									<a class="text-success" @click.prevent="searchterm = 'cap'; search();">
 										<img src="https://img.icons8.com/windows/32/000000/red-felt-hat.png" />
 										<span>Hats</span>
 									</a>
@@ -78,7 +78,7 @@
 						<div class="col-4">
 							<div class="card catagory-card">
 								<div class="card-body">
-									<a class="text-danger" href="catagory.html">
+									<a class="text-danger" @click.prevent="searchterm = 'cam'; search();">
 										<img src="https://img.icons8.com/windows/32/000000/smartphone-tablet.png" />
 										<span>Gadgets</span>
 									</a>
@@ -89,7 +89,7 @@
 						<div class="col-4">
 							<div class="card catagory-card">
 								<div class="card-body">
-									<a class="text-info" href="catagory.html">
+									<a class="text-info" @click.prevent="searchterm = 'men'; search();">
 										<img src="https://img.icons8.com/windows/32/000000/hanger.png" />
 										<span>Fashion</span>
 									</a>
@@ -142,7 +142,7 @@
 				<div class="row g-3">
 					<div
 						class="col-6 col-md-2 col-lg"
-						v-for="(product,index) in popularProducts.slice(2,5)"
+						v-for="(product,index) in popularProducts.slice(2,4)"
 						:key="index"
 					>
 						<div class="card top-product-card">
@@ -167,7 +167,7 @@
 				<div class="row g-3">
 					<div
 						class="col-6 col-md-2 col-lg"
-						v-for="(product,index) in popularProducts.slice(5,8)"
+						v-for="(product,index) in popularProducts.slice(4,6)"
 						:key="index"
 					>
 						<div class="card top-product-card">

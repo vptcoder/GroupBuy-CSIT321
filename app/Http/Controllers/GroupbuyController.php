@@ -168,6 +168,36 @@ class GroupbuyController extends Controller
 
         foreach ($groupbuys as $g) {
             $g->orders_count = $g->orders()->get()->sum('quantity');
+
+            //calculate action required
+            $g->nextStepAdmin = false;
+            $g->to_g12 = false;
+            $g->to_g13 = false;
+            $g->to_g21 = false;
+
+            $endTime = Carbon::parse($g->date_end);
+
+            Log::info($g->product_name);
+            Log::info($g->status);
+            if (
+                $g->status == 'g11' &&
+                $endTime < $currentTime && empty($g->date_success)
+            ) 
+            {
+                $g->to_g12 = true;
+            }
+
+            if(
+                $g->status == 'g12' &&
+                $g->orders()->where('orders.status', '=', 'o13')->get()->sum('quantity') >= $g->min_required
+            )
+            {
+                $g->to_g13 = true;
+            }
+
+            $g->nextStepAdmin = $g->to_g12 || $g->to_g13 || $g->to_g21;
+
+            // mask status
             $status = null;
             switch ($g->status) {
                 case 'g11':
@@ -184,19 +214,6 @@ class GroupbuyController extends Controller
                     break;
             }
             $g->status = $status;
-
-            $g->nextStepAdmin = false;
-            $g->to_g12 = false;
-            $g->to_g13 = false;
-            $g->to_g21 = false;
-
-            $endTime = Carbon::parse($g->date_end);
-
-            if ($endTime < $currentTime && empty($g->date_success)) {
-                $g->to_g12 = true;
-            }
-
-            $g->nextStepAdmin = $g->to_g12 || $g->to_g13 || $g->to_g21;
         }
 
         return response()->json($groupbuys, 200);

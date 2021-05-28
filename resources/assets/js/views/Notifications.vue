@@ -4,7 +4,7 @@
 			<!-- Section Heading-->
 			<div class="section-heading d-flex align-items-center pt-3 justify-content-between">
 				<h6>Notification(s)</h6>
-				<a class="notification-clear-all text-secondary" href="#">Clear All</a>
+				<!-- <a class="notification-clear-all text-secondary" href="#">Clear All</a> -->
 			</div>
 			<!-- Notifications Area-->
 			<div class="notification-area pb-2">
@@ -21,7 +21,7 @@
 							<i class="lni lni-alarm"></i>
 						</span>
 						<div class="noti-info">
-							<h5 class="mb-0">{{noti.title}}</h5>
+							<h5 class="mb-0" style="font-weight:400; ">{{noti.title}}</h5>
 							<h6 class="mb-0">{{noti.message}}</h6>
 							<small v-show="noti.link" class="mb-0">{{noti.link}}</small>
 							<span>12 min ago</span>

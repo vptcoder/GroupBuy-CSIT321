@@ -6899,6 +6899,9 @@ table.table a.btnmdb.btnmdb-light {
 	color: #000
 }
 
+table.table-hover tbody tr:hover {
+  background-color: coral;
+}
 .btnmdb-outline-light {
 	color: #e0e0e0 !important;
 	background-color: transparent !important;
@@ -8135,10 +8138,11 @@ body.scrollable {
 	box-sizing: content-box;
 	background-color: transparent;
 	border: none;
-	border-bottom: 1px solid #ced4da;
+	border-bottom: 1px solid #aaa;
 	border-radius: 0;
 	outline: none;
 	box-shadow: none;
+	font-weight: 400;
 	transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out
 }
 
@@ -8157,8 +8161,8 @@ body.scrollable {
 .md-form input[type="phone"]:not(.browser-default):focus:not([readonly]),
 .md-form input[type="search-md"]:focus:not([readonly]),
 .md-form textarea.md-textarea:focus:not([readonly]) {
-	border-bottom: 1px solid #4285f4;
-	box-shadow: 0 1px 0 0 #4285f4
+	border-bottom: 1px solid #57737a;
+	box-shadow: 0 1px 0 0 #57737a
 }
 
 .md-form input:not([type]):focus:not([readonly])+label,
@@ -9573,12 +9577,12 @@ footer.page-footer a {
 
 table th {
 	font-size: .9rem;
-	font-weight: 400
+	font-weight: 500
 }
 
 table td {
 	font-size: .9rem;
-	font-weight: 300
+	font-weight: 400
 }
 
 table.table thead th {
@@ -9608,7 +9612,7 @@ table.table.btnmdb-table td {
 }
 
 table.table-hover tbody tr:hover {
-	background-color: rgba(0, 0, 0, 0.075);
+	background-color: #FAF9EB;
 	transition: .5s
 }
 

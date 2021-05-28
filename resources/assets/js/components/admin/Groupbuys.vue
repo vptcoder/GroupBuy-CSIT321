@@ -1,6 +1,25 @@
 <template>
 	<div class="page-content-wrapper">
-		<p>Double-click on item to open</p>
+  		<p>
+			<i class="lni lni-timer"></i>
+			{{timestamp}}
+		</p>
+ 	 
+		<mdb-input class="mt-4" v-model="search" label="Search by product name" />
+		
+ 		<mdb-datatable-2
+			v-model="data"
+			:searching="{value: search, field: 'product_name'}"
+ 			hover
+			bordered
+			responsive focus
+			@selected="editingItem = $event"
+			 
+		/>
+ 
+		<br />
+	 	<modal @close="endEditing" :groupbuy="editingItem" v-show="editingItem != null"></modal>
+<!-- 
 		<table class="table table-responsive ">
 			<thead>
 				<tr>
@@ -23,8 +42,7 @@
 					:key="index"
 					@dblclick="startEditing(groupbuy)"
 				>
-					<!-- <td>{{index+1}}</td> -->
-					<td>
+ 					<td>
 						<h6 class="mb-0" v-html="groupbuy.id"></h6>
 					</td>
 					<td>
@@ -65,24 +83,34 @@
 			<i class="lni lni-timer"></i>
 			{{timestamp}}
 		</p>
-		<modal @close="endEditing" :groupbuy="editingItem" v-show="editingItem != null"></modal>
-	</div>
+		<modal @close="endEditing" :groupbuy="editingItem" v-show="editingItem != null"></modal> -->
+	</div>  
 </template>
 
 <script>
 import Modal from "./GroupbuyModal";
+import { mdbDatatable2, mdbIcon, mdbInput } from "mdbvue";
 
 export default {
 	data() {
 		return {
+			search: '',
 			groupbuys: [],
 			editingItem: null,
 			editingGroupbuy: null,
 			timestamp: "",
-			showModal: false
+			showModal: false,
+		    data: {
+				rows: [],
+				columns: []
+			},
 		};
 	},
-	components: { Modal },
+	components: {
+		 Modal,		mdbDatatable2,
+		mdbIcon,
+		mdbInput },
+
 	beforeMount() {
 		axios
 			.get("/api/admingroupbuys/")
@@ -91,7 +119,115 @@ export default {
 	created() {
 		setInterval(this.getNow, 1000);
 	},
+	mounted() {
+		axios
+			.get(`/api/admingroupbuys/`)
+			.then(response => {
+				this.groupbuys = response.data;
+				let keys = [
+					"id",
+					"product_name",
+					"status",
+					"date_start",
+					"date_end",
+					"min_required",
+					"max_available",
+					"orders_count",
+					"started_by",
+					"date_success",
+					"to_g12",
+					"to_g13",
+					"to_g21",
+					"nextStepAdmin",
+				];
+
+				let entries = this.filterData(this.groupbuys, keys);
+				//columns
+				this.data = {
+					columns: [
+						{
+							label: "",
+							field: "id",
+							sort: true
+						},
+						{
+							label: "Product  Name",
+							field: "product_name",
+							sort: true
+						},
+						{
+							label: "Status",
+							field: "status",
+							sort: true 
+						},
+						{
+							label: "Action",
+							field: "nextStepAdmin",
+							sort: true,
+							format: value =>
+								value == true ? "Yes" : ""
+						},					
+						{
+							label: "Start Date",
+							field: "date_start",
+							sort: true
+						},
+						{
+							label: "End Date",
+							field: "date_end",
+							sort: true
+						},
+						{
+							label: "Minimum Orders",
+							field: "min_required",
+							sort: true
+						},
+						{
+							label: "Stocks Available",
+							field: "max_available",
+							sort: true
+						},
+						{
+							label: "Current Orders",
+							field: "orders_count",
+							sort: true
+						},
+						{
+							label: "Started By",
+							field: "started_by",
+							sort: true
+						},
+						{
+							label: "Completed Date",
+							field: "date_success",
+							sort: true
+						},	
+					],
+					// rows
+					rows: entries
+
+ 				};
+			})
+			.catch(error => {
+				alert(error);
+			});
+	},
 	methods: {
+		filterData(dataArr, keys) {
+			let data = dataArr.map(entry => {
+				let filteredEntry = {};
+
+				keys.forEach(key => {
+					if (key in entry) {
+						filteredEntry[key] = entry[key];
+ 					}
+				});
+
+				return filteredEntry;
+			});
+
+			return data;
+		},
 		getNow: function() {
 			const today = new Date();
 			const date =
@@ -144,5 +280,7 @@ h6 {
 tr.tr-data {
 	transition-duration: 100ms;
 }
+ 
+ 
  
 </style>
