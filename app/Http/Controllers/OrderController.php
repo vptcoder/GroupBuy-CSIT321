@@ -19,7 +19,8 @@ class OrderController extends Controller
     {
         Log::info('OrderController::index');
 
-        $orders = Order::with(['product'])->get();
+        $orders = Order::with(['product'])
+        ->get();
         foreach ($orders as $o) {
             $o->statustext = null;
             switch ($o->status) {
@@ -48,6 +49,7 @@ class OrderController extends Controller
             $o->statustext = $status;
 
             $o->groupbuy_status = $o->groupbuy()->first()->status;
+            $o->username = $o->user()->first()->username;
         }
         return response()->json($orders, 200);
     }
