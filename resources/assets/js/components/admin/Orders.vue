@@ -34,10 +34,10 @@
 					<td>{{(order.quantity * order.product.price).toFixed(2)}}</td>
 					<td>{{order.address}}</td>
 					<td>{{order.is_delivered == 1? "Yes" : "No"}}</td>
-					<td v-if="order.status == 'o13'">
+					<td v-if="order.status == 'o13' & order.groupbuy_status == 'g13'">
 						<button class="btn btn-success" @click="ship(index)">Ship</button>
 					</td>
-					<td v-else-if="order.status == 'o14' & order.is_delivered == 0">
+					<td v-else-if="order.status == 'o14' & order.is_delivered == 0 & order.groupbuy_status == 'g13'">
 						<button class="btn btn-success" @click="deliver(index)">Deliver</button>
 					</td>
 					<td v-else>

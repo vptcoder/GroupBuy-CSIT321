@@ -46,6 +46,8 @@ class OrderController extends Controller
                     break;
             }
             $o->statustext = $status;
+
+            $o->groupbuy_status = $o->groupbuy()->first()->status;
         }
         return response()->json($orders, 200);
     }

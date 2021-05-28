@@ -17,13 +17,13 @@
 									<div class="form-group">
 										<label for="name">Status</label>
 										<br />
-										<input type="radio"   v-model="data.status" :disabled="!data.to_g11" value="Active" /> Active
+										<label class="lbl-radio"><input type="radio"   v-model="data.status" :disabled="!data.to_g11" value="Active" /> Active</label>
 										<br />
-										<input type="radio" v-model="data.status" :disabled="!data.to_g12" value="Pending payments" /> Pending Payments
+										<label class="lbl-radio" :class="data.to_g12 ? 'radio-enabled': ''"><input type="radio" v-model="data.status" :disabled="!data.to_g12" value="Pending payments" /> Pending Payments</label>
 										<br />
-										<input type="radio"  v-model="data.status" :disabled="!data.to_g13" value="Processing orders" /> Processing orders
+										<label class="lbl-radio" :class="data.to_g13 ? 'radio-enabled': ''"><input type="radio"  v-model="data.status" :disabled="!data.to_g13" value="Processing orders" /> Processing orders</label>
 										<br />
-										<input type="radio"   v-model="data.status" :disabled="!data.to_g21" value="Closed" /> Closed
+										<label class="lbl-radio" :class="data.to_g21 ? 'radio-enabled': ''"><input type="radio"   v-model="data.status" :disabled="!data.to_g21" value="Closed" /> Closed</label>
 									</div>
 							</div>
 							<div class="modal-footer border-top-0 d-flex justify-content-center">
@@ -88,7 +88,18 @@ button.close {
 label {
 	margin-top: 20px;
 	margin-bottom: 5px;
-	font-weight:500;
+	font-weight: 500;
+}
+
+.lbl-radio {
+	margin-top: initial;
+	margin-bottom: initial;
+	font-weight: initial;
+}
+
+.radio-enabled {
+	color: darkgreen;
+	font-weight: 500;
 }
 .container {
   padding: 2rem 0rem;

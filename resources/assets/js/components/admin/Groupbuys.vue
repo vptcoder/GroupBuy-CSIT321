@@ -134,7 +134,11 @@ export default {
 					"max_available",
 					"orders_count",
 					"started_by",
-					"date_success"
+					"date_success",
+					"to_g12",
+					"to_g13",
+					"to_g21",
+					"nextStepAdmin",
 				];
 
 				let entries = this.filterData(this.groupbuys, keys);
@@ -155,9 +159,14 @@ export default {
 							label: "Status",
 							field: "status",
 							sort: true 
-							// format: value =>
-							// 	value == "p11" ? "Available" : "Hidden"
 						},
+						{
+							label: "Action",
+							field: "nextStepAdmin",
+							sort: true,
+							format: value =>
+								value == true ? "Yes" : ""
+						},					
 						{
 							label: "Start Date",
 							field: "date_start",
@@ -192,7 +201,7 @@ export default {
 							label: "Completed Date",
 							field: "date_success",
 							sort: true
-						},						
+						},	
 					],
 					// rows
 					rows: entries
