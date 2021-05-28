@@ -153,6 +153,7 @@ class GroupbuyController extends Controller
 
         $groupbuys =
             Groupbuy::join('products', 'products.id', 'groupbuys.product_id')
+            ->join('users', 'users.id', '=', 'groupbuys.started_by')
             ->select(
                 'groupbuys.id',
                 'products.name as product_name',
@@ -161,7 +162,7 @@ class GroupbuyController extends Controller
                 'groupbuys.date_end',
                 'groupbuys.min_required',
                 'groupbuys.max_available',
-                'groupbuys.started_by',
+                'users.username as started_by',
                 'groupbuys.date_success'
             )
             ->get();
