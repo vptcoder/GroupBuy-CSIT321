@@ -13,6 +13,7 @@
 					<td>Status</td>
 					<td>Quantity</td>
 					<td>Cost</td>
+					<td>Buyer Name</td>
 					<td>Delivery Address</td>
 					<td>is Delivered?</td>
 					<td>Action</td>
@@ -32,7 +33,8 @@
 					<td v-else>Status Error!</td>
 					<td>{{order.quantity}}</td>
 					<td>{{(order.quantity * order.product.price).toFixed(2)}}</td>
-					<td>{{order.address}}</td>
+					<td>{{order.username}}</td>
+					<td>{{order.shipping_streetaddress}}, {{order.shipping_city}} {{order.shipping_postalcode}}</td>
 					<td>{{order.is_delivered == 1? "Yes" : "No"}}</td>
 					<td v-if="order.status == 'o13' & order.groupbuy_status == 'g13'">
 						<button class="btn btn-success" @click="ship(index)">Ship</button>

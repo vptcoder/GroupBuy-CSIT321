@@ -8,6 +8,7 @@
 				<tr>
 					<td></td>
 					<td>Name</td>
+					<td>Role</td>
 					<td>Email</td>
 					<td>Joined</td>
 					<td>Total Orders</td>
@@ -17,7 +18,9 @@
 			<tbody>
 				<tr v-for="(user,index) in users" :key="index">
 					<td>{{index+1}}</td>
-					<td>{{user.name}}</td>
+					<td>{{user.username}}</td>
+					<td v-if="user.is_admin == 1">Admin</td>
+					<td v-else>User</td>
 					<td>{{user.email}}</td>
 					<td>{{user.joined}}</td>
 					<td>{{user.orders.length}}</td>

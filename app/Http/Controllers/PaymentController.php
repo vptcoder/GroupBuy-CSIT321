@@ -24,7 +24,7 @@ class PaymentController extends Controller
 		$payments = Payment::join('users', 'users.id', '=', 'payments.user_id')
 			->select(
 				'payments.*',
-				'users.name as user_name'
+				'users.username as user_name'
 			)
 			->orderBy('payments.id', 'desc')
 			->get();
