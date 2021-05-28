@@ -142,7 +142,7 @@
 				<div class="row g-3">
 					<div
 						class="col-6 col-md-2 col-lg"
-						v-for="(product,index) in popularProducts.slice(2,5)"
+						v-for="(product,index) in popularProducts.slice(2,4)"
 						:key="index"
 					>
 						<div class="card top-product-card">
@@ -167,7 +167,7 @@
 				<div class="row g-3">
 					<div
 						class="col-6 col-md-2 col-lg"
-						v-for="(product,index) in popularProducts.slice(5,8)"
+						v-for="(product,index) in popularProducts.slice(4,6)"
 						:key="index"
 					>
 						<div class="card top-product-card">
