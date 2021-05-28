@@ -3505,7 +3505,7 @@ li.suha-dropdown-menu {
           -ms-flex: 0 0 30px;
               flex: 0 0 30px;
       max-width: 30px;
-      background: #100DD1;
+      background: #bbb;
       background: -webkit-gradient(linear, right top, left top, from(#100DD1), to(#0d3bd1));
       background: linear-gradient(to left, #100DD1, #0d3bd1);
       color: #ffffff;
@@ -3519,7 +3519,7 @@ li.suha-dropdown-menu {
         position: absolute;
         width: 10px;
         height: 10px;
-        background-color: #ffaf00;
+        background-color: red;
         content: "";
         top: -2px;
         right: -2px;
