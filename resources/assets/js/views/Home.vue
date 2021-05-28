@@ -33,10 +33,9 @@
 						<div class="col-4">
 							<div class="card catagory-card">
 								<div class="card-body">
-									<a class="text-danger" @click.prevent="searchterm = ''; search();">
-										<!-- <img src="https://img.icons8.com/windows/32/000000/sofa.png" /> -->
-										<span>All</span>
-									</a>
+										<a class="text-danger" @click.prevent="searchterm = ''; search();">
+											<img src="https://img.icons8.com/fluent-systems-regular/32/000000/four-squares.png"/>											<span>All</span>
+										</a>
 								</div>
 							</div>
 						</div>
@@ -44,9 +43,9 @@
 						<div class="col-4">
 							<div class="card catagory-card">
 								<div class="card-body">
-									<a href="catagory.html">
-										<img src="https://img.icons8.com/windows/32/000000/dining-room.png" />
-										<span>Food</span>
+									<a class="text-warning" @click.prevent="searchterm = 'star'; search();">
+											<img src="https://img.icons8.com/windows/32/000000/bot.png"/>											
+											<span>Figurines</span>
 									</a>
 								</div>
 							</div>
@@ -60,14 +59,15 @@
 										<img src="https://img.icons8.com/windows/32/000000/basketball.png" />
 										<span>Sports</span>
 									</a>
-								</div>
+								</div>	
 							</div>
 						</div>
 						<!-- Single Catagory Card-->
 						<div class="col-4">
 							<div class="card catagory-card">
 								<div class="card-body">
-									<a class="text-success" @click.prevent="searchterm = 'cap'; search();">
+									<a cla
+									ss="text-success" @click.prevent="searchterm = 'cap'; search();">
 										<img src="https://img.icons8.com/windows/32/000000/red-felt-hat.png" />
 										<span>Hats</span>
 									</a>
@@ -477,6 +477,7 @@ export default {
 </script>
 
 <style scoped>
+ 
 /* external css: flickity.css */
 .top-search-form {
 	width: 100%;
