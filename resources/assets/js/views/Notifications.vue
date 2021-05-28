@@ -4,7 +4,7 @@
 			<!-- Section Heading-->
 			<div class="section-heading d-flex align-items-center pt-3 justify-content-between">
 				<h6>Notification(s)</h6>
-				<a class="notification-clear-all text-secondary" href="#">Clear All</a>
+				<!-- <a class="notification-clear-all text-secondary" href="#">Clear All</a> -->
 			</div>
 			<!-- Notifications Area-->
 			<div class="notification-area pb-2">
